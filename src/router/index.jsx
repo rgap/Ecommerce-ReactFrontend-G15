@@ -5,9 +5,8 @@ import { MainLayout } from "../layouts";
 export default function AppRouter() {
   return (
     <BrowserRouter>
-      {/*  element={<MainLayout />} */}
       <Routes>
-        <Route element={<MainLayout />}>
+        <Route element={<MainLayout/>}>
           <Route path="/" element={<Home />} />
         </Route>
       </Routes>
