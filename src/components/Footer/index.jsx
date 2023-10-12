@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Footer() {
     
   return (
@@ -24,7 +22,7 @@ export default function Footer() {
             <span
               className="absolute inset-y-0 right-8 md:right-3 flex items-center pointer-events-none cursor-pointer"
               ><img
-                class="w-5"
+                className="w-5"
                 src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/3b80d3e79d23c548200611e147b287de1d22a5ce/icons/arrow-forward.svg"
                 alt=""
             /></span>
