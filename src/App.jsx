@@ -1,11 +1,8 @@
 import React from 'react'
-import { Footer,Header } from "./components";
+import AppRouter from "./router";
 
 export default function App() {
   return (
-    <>
-    <Header/>
-    <Footer/>
-    </>
+      <AppRouter/>
   )
 }
