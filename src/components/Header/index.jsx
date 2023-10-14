@@ -1,5 +1,3 @@
-
-
 export default function Header() {
   return (
     <header>
@@ -18,19 +16,14 @@ export default function Header() {
             alt=""
           />
         </div>
-        <div className="nav-center">
-          <ul className="flex gap-4 md:text-lg md:gap-x-12">
-            <li className="cursor-pointer">
-              <a href=""> Home </a>
-            </li>
-            <li className="cursor-pointer">
-              <a href=""> Productos</a>
-            </li>
-            <li className="cursor-pointer">
-              <a href=""> Descuentos</a>
-            </li>
+        <div class="nav-center">
+          <ul class="flex gap-4 md:text-lg md:gap-x-12">
+            <li class="cursor-pointer"><a class="nav-center-link" href="" data-link-alt="Home"> <span> Home </span> </a></li>
+            <li class="cursor-pointer"><a class="nav-center-link" href="" data-link-alt="Productos">  <span> Productos </span> </a></li>
+            <li class="cursor-pointer"><a class="nav-center-link" href="" data-link-alt="Descuentos"> <span> Descuentos </span></a></li>
           </ul>
         </div>
+
 
         <div className="nav-right flex px-4 gap-7">
           <img
@@ -48,5 +41,3 @@ export default function Header() {
     </header>
   );
 }
-
-

@@ -41,3 +41,36 @@ footer{
     flex-direction: column;
     align-items: center;
 }
+
+.nav-center-link {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+.nav-center-link span {
+    color: #404040;
+    display: block;
+}
+.nav-center-link:hover span {
+    transform: translateY(-100%);
+    transition: 1s;
+}
+.nav-center-link::before {
+    position: absolute;
+    content:attr(data-link-alt);
+    top: 100%;
+    opacity: 0;
+    transition: 1s;
+    color: #3B6978 ;
+    font-weight: bolder;
+}
+
+.nav-center-link:hover::before {
+    top: 0;
+    opacity: 1;
+    text-decoration: underline;
+}
