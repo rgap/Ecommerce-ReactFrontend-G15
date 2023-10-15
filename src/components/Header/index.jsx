@@ -16,14 +16,28 @@ export default function Header() {
             alt=""
           />
         </div>
-        <div class="nav-center">
-          <ul class="flex gap-4 md:text-lg md:gap-x-12">
-            <li class="cursor-pointer"><a class="nav-center-link" href="" data-link-alt="Home"> <span> Home </span> </a></li>
-            <li class="cursor-pointer"><a class="nav-center-link" href="" data-link-alt="Productos">  <span> Productos </span> </a></li>
-            <li class="cursor-pointer"><a class="nav-center-link" href="" data-link-alt="Descuentos"> <span> Descuentos </span></a></li>
+        <div className="nav-center">
+          <ul className="flex gap-4 md:text-lg md:gap-x-12">
+            <li className="cursor-pointer">
+              <a className="nav-center-link" href="" data-link-alt="Home">
+                {" "}
+                <span> Home </span>{" "}
+              </a>
+            </li>
+            <li className="cursor-pointer">
+              <a className="nav-center-link" href="" data-link-alt="Productos">
+                {" "}
+                <span> Productos </span>{" "}
+              </a>
+            </li>
+            <li className="cursor-pointer">
+              <a className="nav-center-link" href="" data-link-alt="Descuentos">
+                {" "}
+                <span> Descuentos </span>
+              </a>
+            </li>
           </ul>
         </div>
-
 
         <div className="nav-right flex px-4 gap-7">
           <img
