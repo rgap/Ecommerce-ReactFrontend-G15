@@ -19,13 +19,13 @@ export default function Header() {
         <div className="nav-center">
           <ul className="flex gap-4 md:text-lg md:gap-x-12">
             <li className="cursor-pointer">
-              <a className="nav-center-link" href="" data-link-alt="Home">
+              <a className="nav-center-link" href="./" data-link-alt="Home">
                 {" "}
                 <span> Home </span>{" "}
               </a>
             </li>
             <li className="cursor-pointer">
-              <a className="nav-center-link" href="" data-link-alt="Productos">
+              <a className="nav-center-link" href="./productos" data-link-alt="Productos">
                 {" "}
                 <span> Productos </span>{" "}
               </a>
