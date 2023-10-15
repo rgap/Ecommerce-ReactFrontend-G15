@@ -9,11 +9,11 @@ export default function ProductCard ({productImage,productTitle,productText,prod
             />
             <div>
               <div className="font-bold leading-6">{productTitle}</div>
+              <div className="flex justify-between">
               <div className="leading-6">{productText}</div>
-              <div>
-                <div className="font-semibold leading-6">{productPrice}</div>
+                <div className="font-bold text-right">{productPrice}</div>
               </div>
-              <div className="inline-flex justify-start items-end gap-2">
+              <div className="flex justify-start gap-2 mt-2">
                 <div
                   className="w-[24px] h-[24px] relative bg-blue-400 rounded-[24px]"
                 ></div>
