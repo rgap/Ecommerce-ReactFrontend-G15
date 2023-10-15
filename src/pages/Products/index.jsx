@@ -1,3 +1,5 @@
+import { ProductCard } from "../../components";
+
 export default function Products() {
   return (
     <>
@@ -12,238 +14,106 @@ export default function Products() {
       <main class="mt-20 w-full max-lg:mt-10">
         <section class="flex justify-around mb-20 max-lg:block max-lg:mb-10">
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verde-claro-nike-m-nobg.jpg"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Urban Green</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/78</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-green-800 rounded-full"></div>
-                <div class="w-5 h-5 bg-green-300 rounded-full"></div>
-                <div class="w-5 h-5 bg-lime-500 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verde-claro-nike-m-nobg.jpg"}
+            productTitle={"Polo Verde Nike"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verde-claro-nike-m-nobg.jpg"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Style Green</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/78</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-green-800 rounded-full"></div>
-                <div class="w-5 h-5 bg-green-300 rounded-full"></div>
-                <div class="w-5 h-5 bg-lime-500 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-turqueza-quiksilver.jpg"}
+            productTitle={"Polo Turqueza Quiksilver"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verde-claro-nike-m-nobg.jpg"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Sweet Green</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/78</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-green-800 rounded-full"></div>
-                <div class="w-5 h-5 bg-green-300 rounded-full"></div>
-                <div class="w-5 h-5 bg-lime-500 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-%20amarillo-billabong-logo.jpg"}
+            productTitle={"Polo Amarillo Billabong"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
         </section>
         <section class="flex justify-around mb-20 max-lg:block max-lg:mb-10">
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-turqueza.png"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Urban Turquoise</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/80</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-cyan-800 rounded-full"></div>
-                <div class="w-5 h-5 bg-cyan-200 rounded-full"></div>
-                <div class="w-5 h-5 bg-cyan-400 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-marron-ripcurl-floreado.jpg"}
+            productTitle={"Polo Marron Rip Curl"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-turqueza.png"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Style Turquoise</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/80</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-cyan-800 rounded-full"></div>
-                <div class="w-5 h-5 bg-cyan-200 rounded-full"></div>
-                <div class="w-5 h-5 bg-cyan-400 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-azul-claro-nike-m.jpg"}
+            productTitle={"Polo Azul Nike"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-turqueza.png"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Sweet Turquoise</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/80</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-cyan-800 rounded-full"></div>
-                <div class="w-5 h-5 bg-cyan-200 rounded-full"></div>
-                <div class="w-5 h-5 bg-cyan-400 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verde-claro-quiksilver.jpg"}
+            productTitle={"Polo Verde Quiksilver"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
         </section>
         <section class="flex justify-around mb-20 max-lg:block max-lg:mb-10">
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-%20amarillo-billabong-logo.jpg"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Urban Yellow</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/58</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-yellow-500 rounded-full"></div>
-                <div class="w-5 h-5 bg-yellow-400 rounded-full"></div>
-                <div class="w-5 h-5 bg-yellow-200 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-azul-claro-ripcurl.jpg"}
+            productTitle={"Polo Azul Rip Curl"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-%20amarillo-billabong-logo.jpg"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Style Yellow</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/58</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-yellow-500 rounded-full"></div>
-                <div class="w-5 h-5 bg-yellow-400 rounded-full"></div>
-                <div class="w-5 h-5 bg-yellow-200 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-guinda-ripcurl.jpg"}
+            productTitle={"Polo Guinda Rip Curl"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-%20amarillo-billabong-logo.jpg"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Sweet Yellow</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/58</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-yellow-500 rounded-full"></div>
-                <div class="w-5 h-5 bg-yellow-400 rounded-full"></div>
-                <div class="w-5 h-5 bg-yellow-200 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-negro-volcom.jpg"}
+            productTitle={"Polo Negro Volcom"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
         </section>
         <section class="flex justify-around mb-36 max-lg:block max-lg:mb-16">
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-marron-ripcurl-floreado.jpg"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Urban Brown</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/75</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-amber-900 rounded-full"></div>
-                <div class="w-5 h-5 bg-amber-800 rounded-full"></div>
-                <div class="w-5 h-5 bg-yellow-950 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-rojo-quiksilver.jpg"}
+            productTitle={"Polo Rojo Quiksilver"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-marron-ripcurl-floreado.jpg"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Style Brown</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/75</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-amber-900 rounded-full"></div>
-                <div class="w-5 h-5 bg-amber-800 rounded-full"></div>
-                <div class="w-5 h-5 bg-yellow-950 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-morado-adidas.jpg"}
+            productTitle={"Polo Morado Adidas"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
           <div class="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-marron-ripcurl-floreado.jpg"
-              alt=""
-              class="w-[357px] h-[350px] bg-center bg-contain bg-no-repeat"
-            />
-            <div class="mt-2">
-              <h3 class="font-bold">Polo Sweet Brown</h3>
-              <div class="flex justify-between">
-                <p>Algodon peinado 20 a 1</p>
-                <p class="font-bold text-right">S/75</p>
-              </div>
-              <div class="flex justify-start gap-2 mt-2">
-                <div class="w-5 h-5 bg-amber-900 rounded-full"></div>
-                <div class="w-5 h-5 bg-amber-800 rounded-full"></div>
-                <div class="w-5 h-5 bg-yellow-950 rounded-full"></div>
-              </div>
-            </div>
+          <ProductCard 
+            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-gris-nike.jpg"}
+            productTitle={"Polo Gris Nike"}
+            productText={"Algodon Pima 100% Peruano"} 
+            productColors={""}
+            productPrice={"S/49.99"}/>
           </div>
         </section>
         <div class="mb-14">
