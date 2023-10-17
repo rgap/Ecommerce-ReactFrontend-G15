@@ -3,7 +3,7 @@ export default function Register() {
     <main className="bg-white flex-grow flex items-center justify-center">
       <section className="flex flex-col items-center justify-center">
         <form className="w-[393px] h-[534px] flex flex-col items-center bg-white p-6 rounded h-fit">
-          <div className="text-cente text-[32px] font-semibold capitalize my-5">
+          <div className="text-center text-[32px] font-semibold capitalize my-5">
             Crear cuenta
           </div>
 
