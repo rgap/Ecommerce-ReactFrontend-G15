@@ -4,6 +4,7 @@ export default function Register() {
     window.location.href = "/?showModal=true";
   }
   return (
+
     <main className="bg-white h-full flex justify-center items-center p-5">
       <div className="bg-white p-6 w-full max-w-[420px] mix-w-[380px]">
         <h1 className="font-semibold mb-5 text-center capitalize text-3xl">
