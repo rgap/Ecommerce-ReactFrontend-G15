@@ -7,19 +7,19 @@ export default function Footer() {
             Unete y obten un 15% en tu primera compra.
           </p>
           <form action="#" method="post" className="flex flex-col space-y-4">
-            <label htmlFor="email"></label>
+            <label htmlFor="email-subscription"></label>
             <div className="relative">
               <input
                 className="p-2 pr-6 w-full lg:w-full border pl-2"
                 type="email"
-                id="email"
-                name="email"
+                id="email-subscription"
+                name="email-subscription"
                 placeholder="Tu correo electronico."
               />
               <span className="absolute inset-y-0 right-8 md:right-3 flex items-center pointer-events-none cursor-pointer">
                 <img
                   className="w-5"
-                  src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/3b80d3e79d23c548200611e147b287de1d22a5ce/icons/arrow-forward.svg"
+                  src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/arrow-forward.svg"
                   alt=""
                 />
               </span>
@@ -59,7 +59,7 @@ export default function Footer() {
             <a href="#">
               <img
                 className="w-6 h-6"
-                src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/3b80d3e79d23c548200611e147b287de1d22a5ce/icons/facebook-logo.svg"
+                src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/facebook-logo.svg"
                 alt="Facebook"
               />
             </a>
@@ -68,7 +68,7 @@ export default function Footer() {
             <a href="#">
               <img
                 className="w-6 h-6"
-                src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/3b80d3e79d23c548200611e147b287de1d22a5ce/icons/instagram-logo.svg"
+                src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/instagram-logo.svg"
                 alt="Whatsapp"
               />
             </a>
@@ -78,7 +78,7 @@ export default function Footer() {
       <div className="ml-6 md:ml-20 max-sm:text-xs md:text-sm gap-1.5 mt-8 color-text-white flex justify-start items-center">
         <img
           className="w-[16px]"
-          src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/3b80d3e79d23c548200611e147b287de1d22a5ce/icons/copyright.svg"
+          src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/copyright.svg"
           alt=""
         />
         <p className="">2023 Beautipol. Todos los derechos reservados.</p>

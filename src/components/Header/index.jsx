@@ -19,20 +19,21 @@ export default function Header() {
         <div className="nav-center">
           <ul className="flex gap-4 md:text-lg md:gap-x-12">
             <li className="cursor-pointer">
-              <a className="nav-center-link" href="" data-link-alt="Home">
-                {" "}
-                <span> Home </span>{" "}
+              <a className="nav-center-link" href="/" data-link-alt="Home">
+                <span> Home </span>
               </a>
             </li>
             <li className="cursor-pointer">
-              <a className="nav-center-link" href="" data-link-alt="Productos">
-                {" "}
-                <span> Productos </span>{" "}
+              <a
+                className="nav-center-link"
+                href="/products"
+                data-link-alt="Productos"
+              >
+                <span> Productos </span>
               </a>
             </li>
             <li className="cursor-pointer">
               <a className="nav-center-link" href="" data-link-alt="Descuentos">
-                {" "}
                 <span> Descuentos </span>
               </a>
             </li>
@@ -40,16 +41,20 @@ export default function Header() {
         </div>
 
         <div className="nav-right flex px-4 gap-7">
-          <img
-            className="w-5 cursor-pointer"
-            src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/3b80d3e79d23c548200611e147b287de1d22a5ce/icons/login.svg"
-            alt=""
-          />
-          <img
-            className="w-5 cursor-pointer"
-            src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/3b80d3e79d23c548200611e147b287de1d22a5ce/icons/shopping-cart.svg"
-            alt=""
-          />
+          <a href="profile">
+            <img
+              className="w-5 cursor-pointer transform hover:scale-[1.3] transition-transform duration-[0.25s]"
+              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/login.svg"
+              alt=""
+            />
+          </a>
+          <a href="/">
+            <img
+              className="w-5 cursor-pointer transform hover:scale-[1.3] transition-transform duration-[0.25s]"
+              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/shopping-cart.svg"
+              alt=""
+            />
+          </a>
         </div>
       </nav>
     </header>
