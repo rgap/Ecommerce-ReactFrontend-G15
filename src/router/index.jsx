@@ -1,11 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-<<<<<<< HEAD
-import { MainLayout } from "../layouts";
-import { Cart, Home, Products, ProductsDetails, Profile, Register } from "../pages";
-=======
 import { CartLayout, MainLayout } from "../layouts";
 import { Cart, Home, Login, Products, ProductsDetails, Profile, Register } from "../pages";
->>>>>>> main
 
 export default function AppRouter() {
   return (
@@ -13,7 +8,7 @@ export default function AppRouter() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/productos" element={<Products />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/productsdetails" element={<ProductsDetails />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
