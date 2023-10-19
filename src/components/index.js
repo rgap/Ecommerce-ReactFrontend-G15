@@ -1,4 +1,6 @@
 export { default as EditableField } from "./EditableField";
 export { default as Footer } from "./Footer";
 export { default as Header } from "./Header";
+export { default as HeaderWhite } from "./HeaderWhite"
 export { default as ProductCard } from "./ProductCard";
+export { default as ProductShoppingCart} from "./ProductShoppingCart";
