@@ -31,4 +31,3 @@ export default function ProductCard ({productImage,productTitle,productText,prod
         </div>
     )
 }
-
