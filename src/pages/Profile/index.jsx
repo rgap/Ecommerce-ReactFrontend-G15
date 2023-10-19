@@ -3,6 +3,7 @@ import { useState } from "react";
 import { EditableField } from "../../components";
 
 export default function Profile() {
+  
   const [isEditing, setIsEditing] = useState(false);
 
   const changeToLabels = (event) => {
