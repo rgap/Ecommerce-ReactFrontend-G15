@@ -1,11 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-<<<<<<< HEAD
-import { MainLayout } from "../layouts";
-import { Cart, Home, Products, ProductsDetails, Profile, Register } from "../pages";
-=======
 import { CartLayout, MainLayout } from "../layouts";
 import { Cart, Home, Login, Products, ProductsDetails, Profile, Register } from "../pages";
->>>>>>> main
 
 export default function AppRouter() {
   return (
