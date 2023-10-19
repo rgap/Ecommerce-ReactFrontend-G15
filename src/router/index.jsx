@@ -8,7 +8,7 @@ export default function AppRouter() {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/productos" element={<Products />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/productsdetails" element={<ProductsDetails />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
