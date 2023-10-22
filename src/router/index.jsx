@@ -15,7 +15,7 @@ export default function AppRouter() {
           <Route path="/login" element={<Login />} />
         </Route>
         
-        /* Layout sin header y footer */
+        /* Layout sin   footer */
         <Route element={<CartLayout />}>
           <Route path="/cart" element={<Cart />} />
         </Route>
