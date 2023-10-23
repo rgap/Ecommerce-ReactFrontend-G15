@@ -1,6 +1,7 @@
 import QuantityButton from "../QuantityButton";
 
 export default function ProductShoppingCart({
+  productId,  
   productImage,
   productTitle,
   productSize,
@@ -19,7 +20,7 @@ export default function ProductShoppingCart({
 
       <div className="w-full flex justify-center">
         <div className="flex flex-col capitalize leading-7 gap-2">
-          <p className="font-semibold">{productTitle}</p>
+          <p className="font-semibold">{productTitle} <span> {productId} </span> </p>
           <p> Talla: {productSize} </p>
           <p> Color: {productColor} </p>
           <p className="md:hidden font-semibold break-words">

@@ -1,11 +1,12 @@
 import { useSelector } from "react-redux";
-import { selectCounter } from "../../slices/counterSlice";
+import { selectCounter, selectProductos } from "../../slices/counterSlice";
 import { Button, ProductShoppingCart, QuantityButton } from "../../components";
 
 //MOCKAPI LEER
 export default function Cart() {
   // TODO: hacer que esto se cargue desde mockapi y eso lo actualize en el counterSlice
   const counter = useSelector(selectCounter);
+  const newState = useSelector(selectProductos);
   const price = 49.9;
 
   return (
@@ -41,6 +42,7 @@ export default function Cart() {
           <div className="max-md:ml-5 grid grid-col gap-5 md:grid-cols-[350px_90px_90px_90px] lg:grid-cols-[400px_100px_100px_100px] xl:grid-cols-[450px_200px_200px_200px] ">
             
             <ProductShoppingCart
+              productId={1}
               productImage={
                 "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verde-claro-nike-m-nobg.jpg"
               }
@@ -52,11 +54,13 @@ export default function Cart() {
             />
             <div className="max-md:hidden text-lg capitalize"> S/49.90 </div>
             <div className="max-md:hidden">
-              <QuantityButton productQuantity={1} />
+              <QuantityButton productId={1} productQuantity={1} />
+              <div>  {JSON.stringify(newState)} </div>
             </div>
             <div className="max-md:hidden text-lg capitalize">S/.{price * counter}</div>
 
             <ProductShoppingCart
+              productId={2}
               productImage={
                 "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-guinda-ripcurl.jpg"
               }
@@ -68,11 +72,12 @@ export default function Cart() {
             />
             <div className="max-md:hidden text-lg capitalize">S/49.90 </div>
             <div className="max-md:hidden">
-              <QuantityButton productQuantity={1} />
+              <QuantityButton productId={2}  productQuantity={1} />
             </div>
             <div className="max-md:hidden text-lg capitalize">S/49.90</div>
 
             <ProductShoppingCart
+              productId={3}
               productImage={
                 "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-negro-volcom.jpg"
               }
@@ -84,7 +89,7 @@ export default function Cart() {
             />
             <div className="max-md:hidden text-lg capitalize">S/ 49.90 </div>
             <div className="max-md:hidden">
-              <QuantityButton productQuantity={1} />
+              <QuantityButton productId={3}  productQuantity={1} />
             </div>
             <div className="max-md:hidden text-lg capitalize">S/49.90</div>
           </div>
