@@ -1,42 +1,89 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function Login() {
-  function navigateToIndex(event) {
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  function redirect(event) {
     event.preventDefault();
-    window.location.href = "/";
+    navigate("/");
+  }
+
+  function redirectResetPassword(event) {
+    event.preventDefault();
+    navigate("/reset-password");
+  }
+
+  function redirectRegister(event) {
+    event.preventDefault();
+    navigate("/register");
+  }
+
+  function togglePasswordVisibility() {
+    setShowPassword(!showPassword);
   }
 
   return (
     <main className="bg-white h-full flex justify-center items-center p-5">
-      <div className="bg-white p-6 w-full max-w-[420px] mix-w-[380px]">
+      <div className="bg-white p-6 w-full max-w-[420px] md:min-w-[380px]">
+        <span className="mb-14 flex items-center cursor-pointer">
+          <img
+            className="w-5"
+            src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/arrow_back.svg"
+            alt=""
+          />
+          <a className="ml-5 text-[--color-main-text]" onClick={redirect}>
+            Volver a la página de inicio
+          </a>
+        </span>
+
         <h1 className="font-semibold mb-5 text-center capitalize text-3xl">
           Ingresa Con Tu Cuenta
         </h1>
 
-        <form onSubmit={navigateToIndex}>
+        <form>
           <input
             type="email"
             id="email"
             name="email"
             placeholder="Correo electrónico"
             className="w-full p-2 mb-3 border border-[--color-form-border] placeholder:text-sm"
-            autoComplete="username"
+            autoComplete="email"
           />
 
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Contraseña"
-            className="w-full p-2 mb-3 border border-[--color-form-border] placeholder:text-sm"
-            autoComplete="current-password"
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              placeholder="Contraseña"
+              className="w-full p-2 mb-3 border border-[--color-form-border] placeholder:text-sm"
+              autoComplete="current-password"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-2 top-[22px] transform -translate-y-1/2"
+            >
+              {showPassword ? (
+                <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/eye-open.svg" />
+              ) : (
+                <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/eye-closed.svg" />
+              )}
+            </button>
+          </div>
 
           <div className="h-10 mb-2">
-            <a href="#" className="text-base capitalize">
+            <a onClick={redirectResetPassword} className="text-base capitalize">
               ¿Olvidaste tu contraseña?
             </a>
           </div>
 
-          <button className="w-full flex mb-6 mt-2 items-center justify-center px-4 py-4 bg-[var(--color-bg-header-footer)] hover:bg-[var(--color-button-text-hero)] text-white text-sm capitalize leading-normal transition-transform duration-100">
+          <button
+            className="w-full flex mb-6 mt-2 items-center justify-center px-4 py-4 bg-[--color-bg-header-footer] hover:bg-[--color-button-text-hero] text-white text-sm capitalize leading-normal transition-transform duration-100"
+            onClick={redirect}
+          >
             Ingresar
           </button>
 
@@ -51,7 +98,7 @@ export default function Login() {
 
           <div className="text-center">
             <span className="text-neutral-950 text-base">¿Eres nuevo? </span>
-            <a href="#" className="text-base underline">
+            <a onClick={redirectRegister} className="text-base underline">
               Crea una cuenta
             </a>
           </div>
