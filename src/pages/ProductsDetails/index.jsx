@@ -1,6 +1,7 @@
 import { ProductCard } from "../../components";
 
 export default function ProductsDetails() {
+  
   return (
     <>
       <main className="w-ful">
@@ -142,7 +143,10 @@ export default function ProductsDetails() {
             productTitle={"Polo Rojo Billabong"}
             productText={"Algodon peinado 20 a 1"} 
             productColors={""}
-            productPrice={"S/49.99"}/>
+            productPrice={"S/49.99"}
+            productColor1={"bg-red-800"}
+            productColor2={"bg-red-700"}
+            productColor3={"bg-red-600"}/>
             </div>
             <div className="w-[357px] max-lg:m-auto max-lg:mt-10">
             <ProductCard 
@@ -150,7 +154,10 @@ export default function ProductsDetails() {
             productTitle={"Polo Amarillo Nike"}
             productText={"Algodon peinado 20 a 1"} 
             productColors={""}
-            productPrice={"S/49.99"}/>
+            productPrice={"S/49.99"}
+            productColor1={"bg-yellow-400"}
+            productColor2={"bg-yellow-300"}
+            productColor3={"bg-yellow-200"}/>
             </div>
             <div className="w-[357px] max-lg:m-auto max-lg:mt-10">
             <ProductCard 
@@ -158,7 +165,10 @@ export default function ProductsDetails() {
             productTitle={"Polo Negro Billabong"}
             productText={"Algodon peinado 20 a 1"} 
             productColors={""}
-            productPrice={"S/49.99"}/>
+            productPrice={"S/49.99"}
+            productColor1={"bg-stone-950"}
+            productColor2={"bg-stone-900"}
+            productColor3={"bg-stone-800"}/>
             </div>
           </div>
         </section>

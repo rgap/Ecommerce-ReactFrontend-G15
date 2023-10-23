@@ -1,4 +1,4 @@
-export default function ProductCard ({productImage,productTitle,productText,productPrice,productColors}){
+export default function ProductCard ({productImage,productTitle,productText,productPrice,productColor1,productColor2,productColor3}){
 
     return(
         <div>
@@ -17,13 +17,13 @@ export default function ProductCard ({productImage,productTitle,productText,prod
               </div>
               <div className="flex justify-start gap-2 mt-2">
                 <div
-                  className="w-[24px] h-[24px] relative bg-blue-400 rounded-[24px]"
+                  className={`w-[24px] h-[24px] relative ${productColor1} rounded-[24px]`}
                 ></div>
                 <div
-                  className="w-[24px] h-[24px] relative bg-red-400 rounded-[24px]"
+                  className={`w-[24px] h-[24px] relative ${productColor2} rounded-[24px]`}
                 ></div>
                 <div
-                  className="w-[24px] h-[24px] relative bg-green-400 rounded-[24px]"
+                  className={`w-[24px] h-[24px] relative ${productColor3} rounded-[24px]`}
                 ></div>
               </div>
              

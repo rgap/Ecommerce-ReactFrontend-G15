@@ -73,6 +73,9 @@ export default function Home() {
                 productText={"Algodon Pima 100% Peruano"}
                 productColors={""}
                 productPrice={"S/49.99"}
+                productColor1={"bg-blue-900"}
+                productColor2={"bg-blue-800"}
+                productColor3={"bg-blue-700"}
               />
               <ProductCard
                 productImage={
@@ -82,6 +85,9 @@ export default function Home() {
                 productText={"Algodon Pima 100% Peruano"}
                 productColors={""}
                 productPrice={"S/49.99"}
+                productColor1={"bg-green-700"}
+                productColor2={"bg-green-500"}
+                productColor3={"bg-lime-600"}
               />
               <ProductCard
                 productImage={
@@ -91,6 +97,9 @@ export default function Home() {
                 productText={"Algodon Pima 100% Peruano"}
                 productColors={""}
                 productPrice={"S/49.99"}
+                productColor1={"bg-zinc-950"}
+                productColor2={"bg-zinc-800"}
+                productColor3={"bg-zinc-700"}
               />
             </div>
           </div>
