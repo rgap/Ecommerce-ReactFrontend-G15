@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { create } from "../../services";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -8,6 +9,14 @@ export default function Register() {
 
   function redirect(event) {
     event.preventDefault();
+    navigate("/");
+  }
+
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+    // validateIfValuesHasEmpty();
+    // const user = await create(values, "users");
+    // dispatch(saveUser(user));
     navigate("/");
   }
 
@@ -38,7 +47,7 @@ export default function Register() {
           Crear Cuenta
         </h1>
 
-        <form onSubmit={redirect}>
+        <form onSubmit={handleFormSubmit}>
           <input
             type="text"
             id="name"
