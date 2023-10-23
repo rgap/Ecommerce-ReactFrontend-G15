@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CartLayout, MainLayout } from "../layouts";
-import { Cart, Home, Login, Products, ProductsDetails, Profile, Register } from "../pages";
+import { Cart, CartInfo, Home, Login, Products, ProductsDetails, Profile, Register } from "../pages";
 
 export default function AppRouter() {
   return (
@@ -18,6 +18,7 @@ export default function AppRouter() {
         /* Layout sin   footer */
         <Route element={<CartLayout />}>
           <Route path="/cart" element={<Cart />} />
+          <Route path="/cart/info" element={<CartInfo/>} />
         </Route>
 
       </Routes>
