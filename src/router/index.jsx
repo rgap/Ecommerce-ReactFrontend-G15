@@ -1,6 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { CartLayout, MainLayout } from "../layouts";
-import { Cart, Home, Login, Products, ProductsDetails, Profile, Register } from "../pages";
+import {
+  Cart,
+  Home,
+  Login,
+  Products,
+  ProductsDetails,
+  Profile,
+  Register,
+  ResetPassword,
+} from "../pages";
 
 export default function AppRouter() {
   return (
@@ -13,13 +22,13 @@ export default function AppRouter() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Route>
-        
-        /* Layout sin   footer */
+
+        {/* Layout sin   footer */}
         <Route element={<CartLayout />}>
           <Route path="/cart" element={<Cart />} />
         </Route>
-
       </Routes>
     </BrowserRouter>
   );
