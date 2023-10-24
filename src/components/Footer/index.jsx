@@ -14,7 +14,7 @@ export default function Footer() {
                 type="email"
                 id="email-subscription"
                 name="email-subscription"
-                placeholder="Tu correo electronico."
+                placeholder="Correo electrónico"
               />
               <span className="absolute inset-y-0 right-8 md:right-3 flex items-center pointer-events-none cursor-pointer">
                 <img
