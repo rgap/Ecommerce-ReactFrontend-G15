@@ -51,21 +51,21 @@ export default function Profile() {
   return (
     <main className="bg-white flex justify-center items-center p-5 h-fit">
       <div className="bg-white p-6 w-screen md:w-fit max-w-[550px] md:min-w-[380px]">
-        <span className="mb-7 flex items-center cursor-pointer">
+        <a className="mb-7 flex items-center cursor-pointer" onClick={redirect}>
           <img
             className="w-5"
             src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/arrow_back.svg"
             alt=""
           />
-          <a className="ml-5 text-[--color-main-text]" onClick={redirect}>
+          <span className="ml-5 text-[--color-main-text]">
             Volver a la página de inicio
-          </a>
-        </span>
+          </span>
+        </a>
 
         <h1 className="font-semibold mb-5 text-center capitalize text-3xl">
           Mi Cuenta
         </h1>
-        <form className="mb-6 min-w-auto md:min-w-[510px]">
+        <form className="mb-6 min-w-auto md:min-w-[510px]" autoComplete="off">
           <div className="flex justify-between place-items-baseline">
             <h2 className="text-base mb-4 font-semibold">
               Mis Datos Personales
@@ -138,7 +138,7 @@ export default function Profile() {
           </div>
         </form>
 
-        <form className="mb-6">
+        <form className="mb-6" autoComplete="off">
           <div className="flex justify-between place-items-baseline">
             <h2 className="text-base mb-4 font-semibold">Método de Pago</h2>
             <button

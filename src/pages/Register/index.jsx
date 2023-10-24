@@ -1,91 +1,147 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { create } from "../../services";
+import { TextField } from "../../components";
+import { create, read } from "../../services";
+import { inputs } from "./form";
 
 export default function Register() {
-  const [showPassword, setShowPassword] = useState(false);
-
   const navigate = useNavigate();
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-  function redirect(event) {
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  function redirect(route) {
+    return (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
+
+  const handleInputChange = (event) => {
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const validateForm = () => {
+    const errorsEmpty = {};
+
+    const validations = {
+      name: (value) => {
+        if (!value.trim()) {
+          return `No puede ser solo espacios en blanco`;
+        } else if (value.trim().length < 3) {
+          return `El nombre debe tener al menos 3 caracteres`;
+        }
+      },
+      email: (value) => {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!emailRegex.test(value)) {
+          return `Formato de correo invalido`;
+        }
+      },
+      password: (value) => {
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        if (!passwordRegex.test(value)) {
+          return `Debe tener al menos 8 caracteres, una letra y un número`;
+        }
+      },
+    };
+
+    inputs.forEach((input) => {
+      const value = values[input.name];
+
+      if (value === "") {
+        errorsEmpty[input.name] = `Este campo no puede estar vacio`;
+      } else if (validations[input.name]) {
+        const errorMessage = validations[input.name](value);
+        if (errorMessage) {
+          errorsEmpty[input.name] = errorMessage;
+        }
+      }
+    });
+
+    setErrors(errorsEmpty);
+    // Return true if there are no errors, otherwise return false
+    return Object.keys(errorsEmpty).length === 0;
+  };
+
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    navigate("/");
-  }
+    const debug = true;
 
-  async function handleFormSubmit(event) {
-    event.preventDefault();
-    // validateIfValuesHasEmpty();
-    // const user = await create(values, "users");
-    // dispatch(saveUser(user));
-    navigate("/");
-  }
-
-  function redirectLogin(event) {
-    event.preventDefault();
-    navigate("/login");
-  }
-
-  function togglePasswordVisibility() {
-    setShowPassword(!showPassword);
-  }
+    if (debug) {
+      await create(values, "users");
+      navigate("/?showModal=true");
+    }
+    // Only proceed with creating if the form is valid
+    else if (validateForm()) {
+      // Fetch all users
+      const users = await read("users");
+      // Check if email already exists
+      const emailExists = users.some((user) => user.email === values.email);
+      if (emailExists) {
+        // Update the errors state to show an email exists error
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          email: "Ya existe un usuario con ese correo",
+        }));
+      } else {
+        await create(values, "users");
+        navigate("/?showModal=true");
+      }
+    }
+  };
 
   return (
     <main className="bg-white h-full flex justify-center items-center p-5">
       <div className="bg-white p-6 w-full max-w-[420px] md:min-w-[380px]">
-        <span className="mb-14 flex items-center cursor-pointer">
+        <a
+          className="mb-14 flex items-center cursor-pointer"
+          onClick={redirect("/")}
+        >
           <img
             className="w-5"
             src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/arrow_back.svg"
             alt=""
           />
-          <a className="ml-5 text-[--color-main-text]" onClick={redirect}>
+          <span className="ml-5 text-[--color-main-text]">
             Volver a la página de inicio
-          </a>
-        </span>
+          </span>
+        </a>
 
         <h1 className="font-semibold mb-5 text-center capitalize text-3xl">
           Crear Cuenta
         </h1>
 
-        <form onSubmit={handleFormSubmit}>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Nombre Completo"
-            className="w-full p-2 mb-3 border border-[--color-form-border] placeholder:text-sm"
-          />
-
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Correo electrónico"
-            className="w-full p-2 mb-3 border border-[--color-form-border] placeholder:text-sm"
-            autoComplete="email"
-          />
-
-          <div className="relative">
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              placeholder="Contraseña"
-              className="w-full p-2 mb-3 border border-[--color-form-border] placeholder:text-sm"
-              autoComplete="current-password"
-            />
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute right-2 top-[22px] transform -translate-y-1/2"
-            >
-              {showPassword ? (
-                <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/eye-open.svg" />
-              ) : (
-                <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/eye-closed.svg" />
-              )}
-            </button>
-          </div>
+        <form
+          className="mb-5 flex flex-col gap-3"
+          onSubmit={handleFormSubmit}
+          autoComplete="off"
+        >
+          {inputs.map((input) => (
+            <div key={input.name}>
+              <TextField
+                type={input.type ?? "text"}
+                name={input.name}
+                placeholder={input.placeholder}
+                value={values[input.name]}
+                onChange={handleInputChange}
+              />
+              <span className="text-red-500 mt-1 text-xs">
+                {errors[input.name]}
+              </span>
+            </div>
+          ))}
 
           <button className="w-full flex mb-6 mt-2 items-center justify-center px-4 py-4 bg-[--color-bg-header-footer] hover:bg-[--color-button-text-hero] text-white text-sm capitalize leading-normal transition-transform duration-100">
             Registrarse
@@ -94,7 +150,7 @@ export default function Register() {
           <div className="h-10 flex justify-center items-center mb-2">
             <p className="text-sm capitalize">ya tienes una cuenta?</p>
             <a
-              onClick={redirectLogin}
+              onClick={redirect("/login")}
               className="pl-4 text-center text-sm capitalize"
             >
               Ingresar

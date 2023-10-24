@@ -36,16 +36,19 @@ export default function ResetPassword() {
             : "md:min-w-[380px]"
         }`}
       >
-        <span className="mb-14 flex items-center cursor-pointer">
+        <a
+          className="mb-14 flex items-center cursor-pointer"
+          onClick={redirect}
+        >
           <img
             className="w-5"
             src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/arrow_back.svg"
             alt=""
           />
-          <a className="ml-5 text-[--color-main-text]" onClick={redirect}>
+          <span className="ml-5 text-[--color-main-text]">
             Volver a iniciar sesión
-          </a>
-        </span>
+          </span>
+        </a>
 
         <h1 className="font-semibold mb-5 text-center capitalize text-3xl">
           Cambio de Contraseña
@@ -65,7 +68,7 @@ export default function ResetPassword() {
             </a>
           </div>
         ) : isLinkClicked ? (
-          <form>
+          <form autoComplete="off">
             <div className="text-center mb-5">
               <span className="text-neutral-950 text-base">
                 Ingresa tu nueva contraseña
