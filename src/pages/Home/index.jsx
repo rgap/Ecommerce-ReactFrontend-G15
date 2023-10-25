@@ -1,7 +1,10 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components";
 
 export default function Home() {
+  const navigate = useNavigate();
+
   useEffect(() => {
     contentLoadedFunction();
   }, []); // Empty dependency array ensures this runs once when the component mounts
@@ -34,6 +37,13 @@ export default function Home() {
     window.history.replaceState({}, document.title, cleanURL);
   }
 
+  function redirect(route) {
+    return (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
+
   return (
     <>
       <section className="hero">
@@ -51,7 +61,10 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <button className="flex items-center justify-center w-[184px] px-4 py-5 bg-[--color-bg-header-footer] hover:bg-[--color-button-text-hero] text-white text-[16px] font-normal capitalize leading-normal transition-transform duration-100 hover:scale-110">
+            <button
+              onClick={redirect("/products")}
+              className="flex items-center justify-center w-[184px] px-4 py-5 bg-[--color-bg-header-footer] hover:bg-[--color-cart-text-button-comp-hover] text-white text-[16px] font-normal capitalize leading-normal transition-transform duration-100 hover:scale-110"
+            >
               Ver Productos
             </button>
           </div>
