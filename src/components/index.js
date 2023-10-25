@@ -14,3 +14,5 @@ export { default as ProductCard } from "./ProductCard";
 export { default as ProductShoppingCart } from "./ProductShoppingCart";
 
 export { default as QuantityButton } from "./QuantityButton";
+
+export { default as GoogleLoginButton } from "./GoogleLoginButton";
