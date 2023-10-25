@@ -1,19 +1,24 @@
-export default function index({ isEditing, label, value, type = "text", id }) {
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+
+export default function EditableField({
+  initialValue,
+  isEditing,
+  type = "text",
+}) {
+  const [value, setValue] = useState(initialValue);
+
   return (
     <>
-      <label className="font-semibold">{label}:</label>
       {isEditing ? (
         <input
           type={type}
-          className="border border-[--color-form-border] placeholder:text-sm p-2 w-full min-w-[260px]"
-          defaultValue={value}
-          id={id}
-          disabled={id === "country"}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className="border border-[--color-form-border] placeholder:text-sm w-full text-center md:text-start"
         />
       ) : (
-        <label className="block input-value" data-type={type}>
-          {value}
-        </label>
+        <span>{value}</span>
       )}
     </>
   );
