@@ -1,4 +1,17 @@
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 export default function Header() {
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user.data);
+
+  function redirect(route) {
+    return (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
+
   return (
     <header>
       <div className="header-bar py-2 flex items-center justify-center">
@@ -11,18 +24,14 @@ export default function Header() {
       <nav className="max-sm:p-1.5 flex justify-between items-center md:px-4">
         <div className="nav-left md:px-3.5">
           <img
-            className="h-[70px] max-sm:hidden"
+            className="h-[70px] max-sm:hidden cursor-pointer"
             src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/logo/beautipol-textlogo.png"
             alt=""
+            onClick={redirect("/")}
           />
         </div>
         <div className="nav-center">
           <ul className="flex gap-4 md:text-lg md:gap-x-12">
-            <li className="cursor-pointer">
-              <a className="nav-center-link" href="/" data-link-alt="Home">
-                <span> Home </span>
-              </a>
-            </li>
             <li className="cursor-pointer">
               <a
                 className="nav-center-link"
@@ -42,11 +51,15 @@ export default function Header() {
 
         <div className="nav-right flex px-4 gap-7">
           <a href="profile">
-            <img
-              className="w-5 cursor-pointer transform hover:scale-[1.3] transition-transform duration-[0.25s]"
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/login.svg"
-              alt=""
-            />
+            {user ? (
+              <img
+                className="w-5 cursor-pointer transform hover:scale-[1.3] transition-transform duration-[0.25s]"
+                src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/login.svg"
+                alt=""
+              />
+            ) : (
+              <span onClick={redirect("login")}>Iniciar Sesión</span>
+            )}
           </a>
           <a href="/">
             <img
