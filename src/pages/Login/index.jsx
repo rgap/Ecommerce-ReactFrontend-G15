@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { TextField } from "../../components";
-import { read } from "../../services";
+import { GoogleLoginButton, TextField } from "../../components";
+import { create, read } from "../../services";
+import { saveUser } from "../../slices/userSlice";
 import { inputs } from "./form";
 
 export default function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [values, setValues] = useState({
@@ -52,12 +55,12 @@ export default function Login() {
     if (validateForm()) {
       // Fetch all users
       const users = await read("users");
-
       // Find the user with the matching email
       const user = users.find((user) => user.email === values.email);
-
       // Check if email exists and password matches
       if (user && user.password === values.password) {
+        // login success
+        dispatch(saveUser(user));
         navigate("/");
       } else {
         setErrors({
@@ -69,8 +72,26 @@ export default function Login() {
     }
   };
 
+  const handleUserLoginOrRegister = async (userData) => {
+    // Fetch all users
+    const users = await read("users");
+    // Check if email already exists
+    const foundUser = users.find((user) => user.email === userData.email);
+    if (foundUser) {
+      console.log("foundUser", foundUser);
+      // Login success
+      dispatch(saveUser(foundUser));
+      navigate("/");
+    } else {
+      // Register
+      const user = await create(userData, "users");
+      dispatch(saveUser(user));
+      navigate("/?showModal=true");
+    }
+  };
+
   return (
-    <main className="bg-white h-full flex justify-center items-center p-5">
+    <main className="bg-white flex justify-center items-center p-5">
       <div className="bg-white p-6 w-full max-w-[420px] md:min-w-[380px]">
         <a
           className="mb-14 flex items-center cursor-pointer"
@@ -119,17 +140,13 @@ export default function Login() {
             </a>
           </div>
 
-          <button className="w-full flex mb-6 mt-2 items-center justify-center px-4 py-4 bg-[--color-bg-header-footer] hover:bg-[--color-button-text-hero] text-white text-sm capitalize leading-normal transition-transform duration-100">
+          <button className="w-full flex mb-6 mt-2 items-center justify-center px-4 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100">
             Ingresar
           </button>
 
           <div className="flex flex-col items-center justify-center text-xs mb-6 text-center gap-6">
             <p>o entra con tu cuenta gmail</p>
-            <img
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/google.svg"
-              className="cursor-pointer"
-              alt="Google login"
-            />
+            <GoogleLoginButton onUserLogin={handleUserLoginOrRegister} />
           </div>
 
           <div className="text-center">

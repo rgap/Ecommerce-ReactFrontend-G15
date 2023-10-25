@@ -25,13 +25,11 @@ body {
   --color-main-text: #121212;
   --color-alternative-text: #404040;
   --color-link-text: #748c70;
-  --color-button-text-hero: #b27652;
-
 
   /* Shopping Cart Component */
-  --color-cart-text-button-comp:#49656f;
-  --color-hr:#DFDFDF;
-
+  --color-cart-text-button-comp: #49656f;
+  --color-cart-text-button-comp-hover: #b27652;
+  --color-hr: #dfdfdf;
 
   /* Quantity Button Component */
   --color-quantity-button: #d1d9cf;
@@ -138,6 +136,3 @@ input[disabled] {
   width: 20px;
   height: 20px;
 }
-
-
-
