@@ -85,7 +85,7 @@ export default function Register() {
 
     if (debug) {
       const user = await create(values, "users");
-      dispatch(saveUser(user));
+      dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");
     }
     // Only proceed with creating if the form is valid
@@ -93,7 +93,9 @@ export default function Register() {
       // Fetch all users
       const users = await read("users");
       // Check if email already exists
-      const emailExists = users.some((user) => user.email === values.email);
+      const emailExists = users.some(
+        (user) => user.email.toLowerCase() === values.email.toLowerCase()
+      );
       if (emailExists) {
         // Update the errors state to show an email exists error
         setErrors((prevErrors) => ({
@@ -102,25 +104,25 @@ export default function Register() {
         }));
       } else {
         const user = await create(values, "users");
-        dispatch(saveUser(user));
+        dispatch(saveUser({ email: user.email }));
         navigate("/?showModal=true");
       }
     }
   };
 
-  const handleUserLogin = async (userData) => {
+  const handleGoogleLogin = async (userGoogleData) => {
     // Fetch all users
     const users = await read("users");
     // Check if email already exists
-    const foundUser = users.find((user) => user.email === userData.email);
+    const foundUser = users.find((user) => user.email === userGoogleData.email);
     if (foundUser) {
       // Login
-      dispatch(saveUser(foundUser));
+      dispatch(saveUser({ email: foundUser.email }));
       navigate("/");
     } else {
       // Register
-      const user = await create(userData, "users");
-      dispatch(saveUser(user));
+      const user = await create(userGoogleData, "users");
+      dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");
     }
   };
@@ -179,7 +181,7 @@ export default function Register() {
           </div>
           <div className="flex flex-col items-center justify-center text-xs mb-6 text-center gap-6">
             <p>o entra con tu cuenta gmail</p>
-            <GoogleLoginButton onUserLogin={handleUserLogin} />
+            <GoogleLoginButton onUserLogin={handleGoogleLogin} />
           </div>
 
           <div className="text-center">
