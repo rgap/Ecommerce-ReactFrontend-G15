@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { read } from "../../services";
 
 export default function Cart() {
-
   const counter = useSelector(selectCounter);
   const newState = useSelector(selectProductos);
 
@@ -22,6 +21,14 @@ export default function Cart() {
 
   return (
     <div className="bg-white">
+      
+      <div className="px-2 pt-2 pb-2 md:px-10 md:pt-2 md:pb-5">
+        <img
+          className="h-[50px] md:h-[70px]"
+          src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/logo/beautipol-textlogo.png"
+          alt=""
+        />
+      </div>
 
       <section className="mb-10 flex justify-between items-center md:px-10">
         <div className="p-4 flex justify-content items-center gap-1">
@@ -40,9 +47,7 @@ export default function Cart() {
       </section>
 
       <div className="flex justify-center box-border">
-
         <div className="flex flex-col">
-
           <div className="mb-2 text-xl font-semibold grid md:gap-5 md:grid-cols-[350px_90px_90px_90px] lg:grid-cols-[400px_100px_100px_100px] xl:grid-cols-[450px_200px_200px_200px] ">
             <div className="max-md:text-center"> Resumen de Compra</div>
             <div className="max-md:hidden ">Precio</div>
@@ -53,7 +58,6 @@ export default function Cart() {
           <hr className="mb-5 h-0.5 bg-[--color-hr]" />
 
           <div className="max-md:ml-5 grid grid-col gap-5 md:grid-cols-[350px_90px_90px_90px] lg:grid-cols-[400px_100px_100px_100px] xl:grid-cols-[450px_200px_200px_200px] ">
-            
             {products.map((product) => (
               <>
                 <ProductShoppingCart
@@ -66,7 +70,7 @@ export default function Cart() {
                   productQuantity={product.quantity}
                 />
                 <div className="max-md:hidden text-lg capitalize">
-                S/.  {product.price}
+                  S/. {product.price}
                 </div>
                 <div className="max-md:hidden">
                   <QuantityButton
@@ -80,9 +84,10 @@ export default function Cart() {
                 </div>
               </>
             ))}
-            
+
             <div className="cart-total mt-5 mr-3">
-              <p className="font-semibold text-right md:text-lg">SUBTOTAL: S/250.00 PEN
+              <p className="font-semibold text-right md:text-lg">
+                SUBTOTAL: S/250.00 PEN
               </p>
               <p className=" text-sm text-right mt-0.5 italic break-words">
                 (*)Los impuestos y gastos de envío se calculan en la pantalla de
@@ -105,4 +110,3 @@ export default function Cart() {
     </div>
   );
 }
-
