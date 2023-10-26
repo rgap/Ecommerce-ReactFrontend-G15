@@ -36,16 +36,19 @@ export default function ResetPassword() {
             : "md:min-w-[380px]"
         }`}
       >
-        <span className="mb-14 flex items-center cursor-pointer">
+        <a
+          className="mb-14 flex items-center cursor-pointer"
+          onClick={redirect}
+        >
           <img
             className="w-5"
             src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/arrow_back.svg"
             alt=""
           />
-          <a className="ml-5 text-[--color-main-text]" onClick={redirect}>
+          <span className="ml-5 text-[--color-main-text]">
             Volver a iniciar sesión
-          </a>
-        </span>
+          </span>
+        </a>
 
         <h1 className="font-semibold mb-5 text-center capitalize text-3xl">
           Cambio de Contraseña
@@ -65,7 +68,7 @@ export default function ResetPassword() {
             </a>
           </div>
         ) : isLinkClicked ? (
-          <form>
+          <form autoComplete="off">
             <div className="text-center mb-5">
               <span className="text-neutral-950 text-base">
                 Ingresa tu nueva contraseña
@@ -116,7 +119,7 @@ export default function ResetPassword() {
             </div>
 
             <button
-              className="w-full flex mb-6 mt-2 items-center justify-center px-4 py-4 bg-[--color-bg-header-footer] hover:bg-[--color-button-text-hero] text-white text-sm capitalize leading-normal transition-transform duration-100"
+              className="w-full flex mb-6 mt-2 items-center justify-center px-4 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
               onClick={redirect}
             >
               Cambiar Contraseña
@@ -136,7 +139,7 @@ export default function ResetPassword() {
               placeholder="Correo electrónico"
               className="w-full p-2 mb-3 border border-[--color-form-border] placeholder:text-sm"
             />
-            <button className="w-full flex mb-6 mt-2 items-center justify-center px-4 py-4 bg-[--color-bg-header-footer] hover:bg-[--color-button-text-hero] text-white text-sm capitalize leading-normal transition-transform duration-100">
+            <button className="w-full flex mb-6 mt-2 items-center justify-center px-4 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100">
               Iniciar Cambio de Contraseña
             </button>
           </form>

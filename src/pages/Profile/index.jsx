@@ -1,11 +1,21 @@
 /* eslint-disable react/prop-types */
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logOutUser } from "../../slices/userSlice";
 
 export default function Profile() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function redirect(event) {
-    event.preventDefault();
+  function redirect(route) {
+    return (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
+
+  function logOut() {
+    dispatch(logOutUser());
     navigate("/");
   }
 
@@ -51,28 +61,31 @@ export default function Profile() {
   return (
     <main className="bg-white flex justify-center items-center p-5 h-fit">
       <div className="bg-white p-6 w-screen md:w-fit max-w-[550px] md:min-w-[380px]">
-        <span className="mb-7 flex items-center cursor-pointer">
+        <a
+          className="mb-7 flex items-center cursor-pointer"
+          onClick={redirect("/")}
+        >
           <img
             className="w-5"
             src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/arrow_back.svg"
             alt=""
           />
-          <a className="ml-5 text-[--color-main-text]" onClick={redirect}>
+          <span className="ml-5 text-[--color-main-text]">
             Volver a la página de inicio
-          </a>
-        </span>
+          </span>
+        </a>
 
         <h1 className="font-semibold mb-5 text-center capitalize text-3xl">
           Mi Cuenta
         </h1>
-        <form className="mb-6 min-w-auto md:min-w-[510px]">
+        <form className="mb-6 min-w-auto md:min-w-[510px]" autoComplete="off">
           <div className="flex justify-between place-items-baseline">
             <h2 className="text-base mb-4 font-semibold">
               Mis Datos Personales
             </h2>
             <button
               id="button-change-personal"
-              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-bg-header-footer] hover:bg-[--color-button-text-hero] text-white text-sm capitalize leading-normal transition-transform duration-100"
+              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
               onClick={(event) => {
                 event.preventDefault();
                 changeToInputs("personal");
@@ -82,7 +95,7 @@ export default function Profile() {
             </button>
             <button
               id="button-save-personal"
-              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-button-text-hero] text-white text-sm capitalize leading-normal transition-transform duration-100 hidden"
+              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100 hidden"
               onClick={(event) => {
                 event.preventDefault();
                 changeToLabels("personal");
@@ -117,11 +130,6 @@ export default function Profile() {
               Cercado
             </label>
 
-            <label className="font-semibold">Casa o Apt.</label>
-            <label className="block input-value" data-type="text">
-              -
-            </label>
-
             <label className="font-semibold">Ciudad</label>
             <label className="block input-value" data-type="text">
               Arequipa
@@ -138,12 +146,12 @@ export default function Profile() {
           </div>
         </form>
 
-        <form className="mb-6">
+        <form className="mb-6" autoComplete="off">
           <div className="flex justify-between place-items-baseline">
             <h2 className="text-base mb-4 font-semibold">Método de Pago</h2>
             <button
               id="button-change-payment"
-              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-bg-header-footer] hover:bg-[--color-button-text-hero] text-white text-sm capitalize leading-normal transition-transform duration-100"
+              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
               onClick={(event) => {
                 event.preventDefault();
                 changeToInputs("payment");
@@ -153,7 +161,7 @@ export default function Profile() {
             </button>
             <button
               id="button-save-payment"
-              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-button-text-hero] text-white text-sm capitalize leading-normal transition-transform duration-100 hidden"
+              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100 hidden"
               onClick={(event) => {
                 event.preventDefault();
                 changeToLabels("payment");
@@ -188,6 +196,14 @@ export default function Profile() {
             </div>
           </div>
         </form>
+        <div className="flex justify-center">
+          <button
+            className="mb-6 mt-8 items-center px-7 py-4 bg-[--color-cart-text-button-comp] text-white text-sm capitalize leading-normal transition-transform duration-100"
+            onClick={logOut}
+          >
+            Cerrar Sesión
+          </button>
+        </div>
       </div>
     </main>
   );
