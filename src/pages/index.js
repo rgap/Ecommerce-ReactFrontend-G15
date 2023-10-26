@@ -1,5 +1,6 @@
 export { default as Cart } from "./Cart";
-export { default as CartInfo} from "./CartInfo"
+export { default as CartInfo } from "./CartInfo";
+export { default as CartShipping } from "./CartShipping";
 export { default as Home } from "./Home";
 export { default as Login } from "./Login";
 export { default as Products } from "./Products";

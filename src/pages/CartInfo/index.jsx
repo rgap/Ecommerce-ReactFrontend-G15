@@ -51,7 +51,15 @@ export default function CartInfo() {
   return (
     <>
       <div className="lg:flex">
-        <section className="cart-info-left lg:w-[60%] ml-10 bg-white">
+        <section className="cart-info-left lg:w-[60%] ml-10">
+          <div className="mt-5">
+            <img
+              className="h-[50px] md:h-[70px]"
+              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/logo/beautipol-textlogo.png"
+              alt=""
+            />
+          </div>
+
           <div className="flex justify-center">
             <div className="md:flex place-items-baseline w-[300px] md:w-[400px] xl:w-[600px] justify-between ">
               <div className="text-lg break-words"> Contacto </div>
@@ -143,15 +151,14 @@ export default function CartInfo() {
         </section>
 
         <section className="max-lg:hidden cart-info-right lg:w-[40%] h-screen bg-[--color-bg] flex flex-col justify-start items-center">
-         
           <div className="w-full flex justify-center">
             <span className="text-xl font-bold mt-10 mb-10">
               Carrito de Compras
             </span>
           </div>
 
-          <div className="xl:w-[400px]">
-          {products.map((product) => (
+          <div className="lg:w-[350px] xl:w-[450px]">
+            {products.map((product) => (
               <ProductShoppingCart
                 productId={product.id}
                 productImage={product.url}
@@ -163,10 +170,12 @@ export default function CartInfo() {
               />
             ))}
           </div>
-            
+
           <div className="mt-5 flex flex-col w-full">
             <div className="flex justify-end gap-5 mx-5">
-              <p className="mb-2 text-lg leading-8">Subtotal: <span> S/. 149.90 </span> </p>
+              <p className="mb-2 text-lg leading-8">
+                Subtotal: <span> S/. 149.90 </span>{" "}
+              </p>
             </div>
             <p className="mx-2 text-right text-xs">
               (*) El importe total que pagará sera calculado en la seccion
