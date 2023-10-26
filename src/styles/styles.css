@@ -10,7 +10,7 @@
 }
 
 body {
-  background-color: var(--color-bg);
+  background-color: white;
   font-family: "Montserrat", monospace;
   font-size: 1rem; /*16px*/
   color: var(--color-main-text);
@@ -30,6 +30,7 @@ body {
   --color-cart-text-button-comp: #49656f;
   --color-cart-text-button-comp-hover: #b27652;
   --color-hr: #dfdfdf;
+  --color-cart-bg-gray:#D1D9CF;
 
   /* Quantity Button Component */
   --color-quantity-button: #d1d9cf;
