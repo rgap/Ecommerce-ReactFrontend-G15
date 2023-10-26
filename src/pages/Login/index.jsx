@@ -56,36 +56,38 @@ export default function Login() {
       // Fetch all users
       const users = await read("users");
       // Find the user with the matching email
-      const user = users.find((user) => user.email === values.email);
+      const user = users.find(
+        (user) => user.email.toLowerCase() === values.email.toLowerCase()
+      );
       // Check if email exists and password matches
       if (user && user.password === values.password) {
         // login success
-        dispatch(saveUser(user));
+        dispatch(saveUser({ email: user.email }));
         navigate("/");
       } else {
         setErrors({
           ...errors,
-          email: "Invalid email or password",
-          password: "Invalid email or password",
+          email: "Correo y/o password incorrecto",
+          password: "Correo y/o password incorrecto",
         });
       }
     }
   };
 
-  const handleUserLoginOrRegister = async (userData) => {
+  const handleGoogleLoginOrRegister = async (userGoogleData) => {
     // Fetch all users
     const users = await read("users");
     // Check if email already exists
-    const foundUser = users.find((user) => user.email === userData.email);
+    const foundUser = users.find((user) => user.email === userGoogleData.email);
     if (foundUser) {
       console.log("foundUser", foundUser);
       // Login success
-      dispatch(saveUser(foundUser));
+      dispatch(saveUser({ email: foundUser.email }));
       navigate("/");
     } else {
       // Register
-      const user = await create(userData, "users");
-      dispatch(saveUser(user));
+      const user = await create(userGoogleData, "users");
+      dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");
     }
   };
@@ -146,7 +148,7 @@ export default function Login() {
 
           <div className="flex flex-col items-center justify-center text-xs mb-6 text-center gap-6">
             <p>o entra con tu cuenta gmail</p>
-            <GoogleLoginButton onUserLogin={handleUserLoginOrRegister} />
+            <GoogleLoginButton onUserLogin={handleGoogleLoginOrRegister} />
           </div>
 
           <div className="text-center">

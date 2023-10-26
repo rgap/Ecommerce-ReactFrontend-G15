@@ -7,6 +7,7 @@ export default function Home() {
 
   useEffect(() => {
     contentLoadedFunction();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array ensures this runs once when the component mounts
 
   function contentLoadedFunction() {
