@@ -5,7 +5,7 @@ export default function Products() {
     <>
       <div className="py-8 pl-24 max-sm:pl-9 max-lg:pl-12">
         <p>
-          <a>Inicio</a> / <a>Productos</a>
+          <a href="/" alt="">Inicio</a> / <a href="/products" alt="">Productos</a>
         </p>
       </div>
       <div className="hero">

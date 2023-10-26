@@ -4,12 +4,12 @@ import { ProductCard } from "../../components";
 export default function ProductsDetails() {
   return (
     <>
-      <main className="w-ful">
         <div className="py-8 pl-20 max-sm:pl-9 max-lg:pl-12">
           <p>
-            <a>Inicio</a> / <a>Productos</a> / <a>Detalle de Producto</a>
+            <a href="/" alt="">Inicio</a> / <a href="/products" alt="">Productos</a> / <a href="/productsdetails" alt="">Detalle de Producto</a>
           </p>
         </div>
+        <main className="w-ful">
         <section className="flex justify-around items-start max-lg:justify-normal max-lg:gap-8 max-sm:flex-col max-sm:items-center max-sm:justify-around max-sm:gap-8">
           <div className="flex justify-between gap-5">
             <div className="w-[150px] h-[350px] overflow-y-auto max-lg:w-[100px] max-lg:pl-5 max-lg:h-[300px] max-sm:w-[80px] max-sm:h-[250px]">
