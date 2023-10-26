@@ -3,22 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const counterSlice = createSlice({
   name: "counter",
   initialState: {
-    value: 1,
+    value:0,
     productos: [],
   },
-
   reducers: {
-    initialize: (state) => {
-      state.value = 0;
-    },
-
     increment: (state, action) => {
-      const productId = action.payload;
+      const {productId,productQuantity} = action.payload;
       const productIndex = state.productos.findIndex(
         (producto) => producto.id === productId
       );
 
       if (productIndex >= 0) {
+
         const newState2 = state.productos.map((item) => {
           if (item.id === productId) {
             return {
@@ -29,7 +25,6 @@ export const counterSlice = createSlice({
           return item;
         });
 
-        console.log({ newState2 });
         return {
           ...state,
           productos: [...newState2],
@@ -40,7 +35,7 @@ export const counterSlice = createSlice({
         ...state.productos,
         {
           id: productId, // product
-          cantidad: 1,
+          cantidad: productQuantity + 1,
         },
       ];
 
@@ -55,10 +50,7 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { initialize, increment, decrement } = counterSlice.actions;
-
+export const {increment, decrement } = counterSlice.actions;
 export const selectCounter = (state) => state.counter.value;
-
 export const selectProductos = (state) => state.counter.productos;
-
 export default counterSlice.reducer;

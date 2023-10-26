@@ -10,17 +10,16 @@ export default function ProductShoppingCart({
   productQuantity,
 }) {
   return (
-    <div className="flex">
+    <div className="flex w-full mb-2">
       <img
-        /*className=" w-[120px] h-[140px] md:w-[140px] md:h-[150px] cursor-pointer hover:scale-90 "*/
-        className=" w-[100px] h-[115px] cursor-pointer hover:scale-90  "
+        className="w-[100px] h-[115px] cursor-pointer hover:scale-90  "
         src={productImage}
         title={productTitle}
       />
 
       <div className="w-full flex justify-center">
         <div className="flex flex-col capitalize leading-7 gap-2">
-          <p className="font-semibold">{productTitle} <span> {productId} </span> </p>
+          <p className="font-semibold">{productTitle} <span className="hidden" > {productId} </span> </p>
           <p> Talla: {productSize} </p>
           <p> Color: {productColor} </p>
           <p className="md:hidden font-semibold break-words">
