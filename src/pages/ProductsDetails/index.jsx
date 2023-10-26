@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { ProductCard } from "../../components";
 
 export default function ProductsDetails() {
-  
   return (
     <>
       <main className="w-ful">

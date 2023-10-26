@@ -1,10 +1,9 @@
 export default function ProductCard ({productImage,productTitle,productText,productPrice,productColor1,productColor2,productColor3}){
-
     return(
         <div>
           <a href="./productsdetails">
           <img
-              className="w-full h-[370px] object-contain"
+              className="w-full h-[370px] object-contain transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
               src={productImage}
               alt={productTitle}
             />
