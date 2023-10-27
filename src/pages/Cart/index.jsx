@@ -5,10 +5,15 @@ import { useEffect, useState } from "react";
 import { read } from "../../services";
 
 export default function Cart() {
-  const counter = useSelector(selectCounter);
+
   const newState = useSelector(selectProductos);
 
   const [products, setProducts] = useState([]);
+
+  let subtotal = 0;
+  for (const product of products) {
+    subtotal += product.total;
+  }
 
   const getShoppingCart = async () => {
     const response = await read("shoppingcart");
@@ -17,7 +22,7 @@ export default function Cart() {
 
   useEffect(() => {
     getShoppingCart();
-  }, []);
+  }, [products]);
 
   return (
     <div className="bg-white">
@@ -80,14 +85,14 @@ export default function Cart() {
                   <div> {JSON.stringify(newState)} </div>
                 </div>
                 <div className="max-md:hidden text-lg capitalize">
-                  S/.{product.total}
+                  S/.{product.total} 
                 </div>
               </>
             ))}
 
             <div className="cart-total mt-5 mr-3">
               <p className="font-semibold text-right md:text-lg">
-                SUBTOTAL: S/250.00 PEN
+                SUBTOTAL: S/. {subtotal} PEN 
               </p>
               <p className=" text-sm text-right mt-0.5 italic break-words">
                 (*)Los impuestos y gastos de envío se calculan en la pantalla de
