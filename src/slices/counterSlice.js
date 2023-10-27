@@ -7,8 +7,9 @@ export const counterSlice = createSlice({
     productos: [],
   },
   reducers: {
+
     increment: (state, action) => {
-      const {productId,productQuantity} = action.payload;
+      const productId = action.payload;
       const productIndex = state.productos.findIndex(
         (producto) => producto.id === productId
       );
@@ -35,7 +36,7 @@ export const counterSlice = createSlice({
         ...state.productos,
         {
           id: productId, // product
-          cantidad: productQuantity + 1,
+          cantidad: 4 + 1,
         },
       ];
 
