@@ -1,9 +1,49 @@
 /* eslint-disable react/prop-types */
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { read } from "../../services";
 import { logOutUser } from "../../slices/userSlice";
 
 export default function Profile() {
+  const globalUser = useSelector((state) => state.user.data);
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    password: "",
+    cartProductIDs: "",
+    cartProductQuantities: "",
+    phoneNumber: "",
+    address: "",
+    city: "",
+    region: "",
+    country: "",
+    cardNumber: "",
+    expirationDate: "",
+    cvc: "",
+  });
+  const [cardNumberDisplayed, setCardNumberDisplayed] = useState("•••");
+  const [expirationDateDisplayed, setExpirationDateDisplayed] = useState("•••");
+  const [cvcDisplayed, setCvcDisplayed] = useState("•••");
+
+  async function setFormValues() {
+    const users = await read("users");
+    // Find the user with the specified email
+    const foundUser = users.find((user) => user.email === globalUser.email);
+    // Create a new object for updated values
+    const updatedValues = {};
+    // Iterate over the keys of the current values
+    Object.keys(values).forEach((key) => {
+      updatedValues[key] = foundUser[key];
+    });
+    setValues(updatedValues);
+  }
+
+  useEffect(() => {
+    setFormValues();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,6 +78,10 @@ export default function Profile() {
 
     changeBtn.style.display = "none";
     saveBtn.style.display = "block";
+
+    setCardNumberDisplayed(values.cardNumber);
+    setExpirationDateDisplayed(values.expirationDate);
+    setCvcDisplayed(values.cvc);
   }
 
   function changeToLabels(containerId) {
@@ -56,6 +100,10 @@ export default function Profile() {
 
     saveBtn.style.display = "none";
     changeBtn.style.display = "block";
+
+    setCardNumberDisplayed("•••");
+    setExpirationDateDisplayed("•••");
+    setCvcDisplayed("•••");
   }
 
   return (
@@ -112,36 +160,36 @@ export default function Profile() {
           >
             <label className="font-semibold">Correo Electrónico</label>
             <label className="block input-value" data-type="email">
-              beautipol.alpha.1@gmail.com
+              {values.email}
             </label>
 
             <label className="font-semibold">Nombre Completo</label>
             <label className="block input-value" data-type="text">
-              Alpha Tester 1
+              {values.name}
             </label>
 
             <label className="font-semibold">Teléfono</label>
             <label className="block input-value" data-type="tel">
-              +51 999 999 999
+              {values.phoneNumber}
             </label>
 
             <label className="font-semibold">Dirección</label>
             <label className="block input-value" data-type="text">
-              Cercado
+              {values.address}
             </label>
 
             <label className="font-semibold">Ciudad</label>
             <label className="block input-value" data-type="text">
-              Arequipa
+              {values.city}
             </label>
 
             <label className="font-semibold">Región</label>
             <label className="block input-value" data-type="text">
-              Arequipa
+              {values.region}
             </label>
             <label className="font-semibold">País</label>
             <label id="country" className="block input-value" data-type="text">
-              Perú
+              {values.country}
             </label>
           </div>
         </form>
@@ -178,20 +226,23 @@ export default function Profile() {
           >
             <div className="text-center flex flex-col gap-4">
               <label className="font-semibold">Tarjeta</label>
-              <label className="block input-value" data-type="email">
-                Visa ••• 3011
+              <label className="block input-value" data-type="text">
+                {/* Visa ••• 3011 */}
+                {cardNumberDisplayed}
               </label>
             </div>
             <div className="text-center flex flex-col gap-4">
               <label className="font-semibold">Expiración</label>
               <label className="block input-value" data-type="text">
-                12/23
+                {/* 12/23 */}
+                {expirationDateDisplayed}
               </label>
             </div>
             <div className="text-center flex flex-col gap-4">
               <label className="font-semibold">CVC</label>
-              <label className="block input-value" data-type="tel">
-                •••
+              <label className="block input-value" data-type="text">
+                {/* ••• */}
+                {cvcDisplayed}
               </label>
             </div>
           </div>

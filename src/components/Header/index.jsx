@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.data);
+  const globalUser = useSelector((state) => state.user.data);
 
   function redirect(route) {
     return (event) => {
@@ -51,7 +51,7 @@ export default function Header() {
 
         <div className="nav-right flex px-4 gap-7">
           <a href="profile">
-            {user ? (
+            {globalUser ? (
               <img
                 className="w-5 cursor-pointer transform hover:scale-[1.3] transition-transform duration-[0.25s]"
                 src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/login.svg"

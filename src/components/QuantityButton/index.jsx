@@ -1,19 +1,17 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { decrement, increment, selectCounter } from "../../slices/counterSlice";
+import { decrement, increment, selectCounter, selectProductos } from "../../slices/counterSlice";
 
-export default function QuantityButton({ productId, productQuantity }) {
-  // const [counter, setCounter] = useState(productQuantity);
-  // const sumCounter = () => {
-  //   // setCounter(counter + 1)
 
-  // }
-  // const restCounter = () => {
-  //     if (counter >= 1) setCounter(counter - 1);
-  // }
+export default function QuantityButton({productId,productQuantity}) {
 
   const counter = useSelector(selectCounter);
+  
+  const products = useSelector(selectProductos);
+  
   const dispatch = useDispatch();
+
+
 
   return (
     <div className="flex gap-3.5 w-[70px] h-[28px] md:w-[80px] md:h-[36px] ">
@@ -23,7 +21,8 @@ export default function QuantityButton({ productId, productQuantity }) {
         src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/d33fda00e112d0b57173f61dd0898f1d1f1f8b14/icons/minimize.svg"
         alt=""
       />
-      <span className="text-lg self-baseline "> {counter} </span>
+   
+      <span className="text-lg self-baseline "> {productQuantity} </span> 
 
       <img
         onClick={() => dispatch(increment(productId))}
