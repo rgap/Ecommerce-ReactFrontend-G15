@@ -51,7 +51,7 @@ function Products() {
             productPrice={"S/49.99"}
             productColor1={"bg-yellow-600"}
             productColor2={"bg-yellow-400"}
-            productColor3={"bg-yellow-300	"}/>
+            productColor3={"bg-yellow-300"}/>
           </div>
         </section>
         <section className="flex justify-around mb-20 max-lg:block max-lg:mb-10">
@@ -234,7 +234,7 @@ function Products() {
      <section className="flex justify-around mb-20 max-lg:block max-lg:mb-10">
        <div className="w-[357px] max-lg:m-auto max-lg:mt-10">
        <ProductCard 
-         productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-gris.nike.jpg"}
+         productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-melange-nike.jpg"}
          productTitle={"Polo Melange Nike"}
          productText={"Algodon peinado 20 a 1"} 
          productColors={""}
@@ -304,7 +304,7 @@ function Products() {
      </div>
         )}
         <div className="mb-14">
-          <div className="w-40 h-10 border border-black shadow-md m-auto text-center p-1">
+          <div className="w-40 h-10 border border-black shadow-md m-auto text-center p-1 transition ease-in-out delay-150 bg-[#3b6978] text-[white] hover:-translate-y-1 hover:scale-110 hover:bg-[#748c70] duration-200">
             <button onClick={toggleReadMoreLess}>
               {isShowMore ? "Cargar menos" : "Cargar más"}
             </button>
