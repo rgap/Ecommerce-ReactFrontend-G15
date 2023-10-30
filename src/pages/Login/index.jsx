@@ -34,7 +34,7 @@ export default function Login() {
   };
 
   const validateForm = () => {
-    const errorsEmpty = {};
+    const errors = {};
 
     const validations = {
       email: (value) => {
@@ -48,18 +48,18 @@ export default function Login() {
     inputs.forEach((input) => {
       const value = values[input.name];
       if (value === "") {
-        errorsEmpty[input.name] = `Este campo no puede estar vacio`;
+        errors[input.name] = `Este campo no puede estar vacio`;
       } else if (validations[input.name]) {
         const errorMessage = validations[input.name](value);
         if (errorMessage) {
-          errorsEmpty[input.name] = errorMessage;
+          errors[input.name] = errorMessage;
         }
       }
     });
 
-    setErrors(errorsEmpty);
+    setErrors(errors);
     // Return true if there are no errors, otherwise return false
-    return Object.keys(errorsEmpty).length === 0;
+    return Object.keys(errors).length === 0;
   };
 
   const handleFormSubmit = async (event) => {
