@@ -81,7 +81,7 @@ export default function Register() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const debug = true;
+    const debug = false;
 
     if (debug) {
       const user = await create(values, "users");
