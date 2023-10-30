@@ -36,10 +36,24 @@ export default function Login() {
   const validateForm = () => {
     const errorsEmpty = {};
 
+    const validations = {
+      email: (value) => {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        if (!emailRegex.test(value)) {
+          return `Formato de correo invalido`;
+        }
+      },
+    };
+
     inputs.forEach((input) => {
       const value = values[input.name];
       if (value === "") {
         errorsEmpty[input.name] = `Este campo no puede estar vacio`;
+      } else if (validations[input.name]) {
+        const errorMessage = validations[input.name](value);
+        if (errorMessage) {
+          errorsEmpty[input.name] = errorMessage;
+        }
       }
     });
 
@@ -67,8 +81,8 @@ export default function Login() {
       } else {
         setErrors({
           ...errors,
-          email: "Correo y/o password incorrecto",
-          password: "Correo y/o password incorrecto",
+          email: "Correo y / o password incorrecto",
+          password: "Correo y / o password incorrecto",
         });
       }
     }
@@ -136,7 +150,7 @@ export default function Login() {
           <div className="h-10 mb-2">
             <a
               onClick={redirect("/reset-password")}
-              className="text-base capitalize"
+              className="text-base capitalize cursor-pointer"
             >
               ¿Olvidaste tu contraseña?
             </a>
@@ -153,7 +167,10 @@ export default function Login() {
 
           <div className="text-center">
             <span className="text-neutral-950 text-base">¿Eres nuevo? </span>
-            <a onClick={redirect("/register")} className="text-base underline">
+            <a
+              onClick={redirect("/register")}
+              className="text-base underline cursor-pointer"
+            >
               Crea una cuenta
             </a>
           </div>

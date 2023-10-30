@@ -33,10 +33,10 @@ export default function AppRouter() {
         </Route>
 
         {/* Layout sin header/footer */}
-        <Route element={<CartLayout/>}>
-          <Route path="/cart" element={<Cart/>} />
-          <Route path="/cart/info" element={<CartInfo/>} />
-          <Route path="/cart/info/shipping" element={<CartShipping/>}/>
+        <Route element={<CartLayout />}>
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart/info" element={<CartInfo />} />
+          <Route path="/cart/info/shipping" element={<CartShipping />} />
         </Route>
       </Routes>
     </BrowserRouter>
