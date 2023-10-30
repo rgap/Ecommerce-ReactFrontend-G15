@@ -4,7 +4,8 @@ const EditableField = ({
   type,
   value,
   onChange,
-  className,
+  inputClassName,
+  labelClassName,
   error,
 }) => {
   const errorClass = error ? "border-red-500" : "";
@@ -15,14 +16,12 @@ const EditableField = ({
         type={type}
         value={value}
         onChange={onChange}
-        className={`${className} ${errorClass}`}
+        className={`${inputClassName} ${errorClass}`}
       />
     );
   }
 
-  return (
-    <label className="block input-value text-center  my-px">{value}</label>
-  );
+  return <label className={`${labelClassName}`}>{value}</label>;
 };
 
 export default EditableField;

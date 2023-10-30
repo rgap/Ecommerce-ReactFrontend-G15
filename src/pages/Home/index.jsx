@@ -47,7 +47,7 @@ export default function Home() {
 
   return (
     <>
-      <section className="hero">
+      <section className="hero bg-[--color-bg]">
         <div className="bord bg-[url('https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polos-colgados-verdes-hero.jpg')] h-[600px] bg-center bg-cover relative bg-no-repeat">
           <div className="flex justify-center items-center flex-col h-full gap-14">
             <div className="bg-white bg-opacity-50 p-6 space-y-4">
@@ -72,7 +72,7 @@ export default function Home() {
         </div>
       </section>
 
-      <main className="px-10">
+      <main className="px-10 bg-[--color-bg] pb-8">
         <section className="flex justify-center">
           <div className="max-w-[1200px]">
             <div className="my-10 font-semibold text-3xl">
@@ -188,7 +188,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-fit m-auto mb-8 relative max-w-[1200px]">
+        <section className="w-fit m-auto relative max-w-[1200px]">
           <div className="flex justify-center">
             <div className="overflow-hidden">
               <img

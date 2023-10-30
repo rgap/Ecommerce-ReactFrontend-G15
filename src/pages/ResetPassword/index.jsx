@@ -126,7 +126,7 @@ export default function ResetPassword() {
             </button>
           </form>
         ) : (
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleFormSubmit} autoComplete="off">
             <div className="text-center mb-5">
               <span className="text-neutral-950 text-base">
                 Ingresa tu correo electrónico para cambiar tu contraseña

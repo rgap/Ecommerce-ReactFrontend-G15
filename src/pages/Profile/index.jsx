@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { EditableField } from "../../components";
-import { read } from "../../services";
+import { read, update } from "../../services";
 import { logOutUser } from "../../slices/userSlice";
 import { inputsAccount, inputsPayment } from "./form";
 
@@ -12,6 +12,7 @@ export default function Profile() {
   const navigate = useNavigate();
 
   const globalUser = useSelector((state) => state.user.data);
+  const [userID, setUserID] = useState("");
 
   const [originalPersonalData, setOriginalPersonalData] = useState({});
   const [originalPaymentData, setOriginalPaymentData] = useState({});
@@ -119,7 +120,8 @@ export default function Profile() {
             type={field.type}
             value={displayValue}
             onChange={handleInputChange(formName, field.name)}
-            className="border border-[--color-form-border] placeholder:text-sm w-full text-center md:text-start max-w-[400px] m-auto"
+            inputClassName="border border-[--color-form-border] placeholder:text-sm w-full text-center md:text-start max-w-[400px] m-auto"
+            labelClassName="block input-value text-center my-px"
             error={formErrors[field.name]}
           />
           {formErrors[field.name] && (
@@ -137,6 +139,7 @@ export default function Profile() {
     );
 
     if (foundUser) {
+      setUserID(foundUser.id);
       setPersonalData((prev) => ({ ...prev, ...filterKeys(foundUser, prev) }));
       setPaymentData((prev) => ({ ...prev, ...filterKeys(foundUser, prev) }));
     }
@@ -154,12 +157,12 @@ export default function Profile() {
 
   useEffect(() => {
     initializeFormData();
-    console.log("personalData", personalData);
-    console.log("paymentData", paymentData);
+    // console.log("personalData", personalData);
+    // console.log("paymentData", paymentData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handlePersonalFormSubmit = (event) => {
+  const handlePersonalFormSubmit = async (event) => {
     event.preventDefault();
     // Check if there have been changes
     const isDataChanged = Object.keys(personalData).some(
@@ -167,8 +170,9 @@ export default function Profile() {
     );
 
     if (isEditablePersonal && isDataChanged && !hasErrors(personalErrors)) {
-      console.log("Submitting Personal Data:", personalData);
+      // console.log("Submitting Personal Data:", personalData);
       // Add your submission logic here
+      await update(userID, { ...personalData }, "users");
     } else {
       setOriginalPersonalData({ ...personalData }); // Save current data
     }
@@ -191,7 +195,7 @@ export default function Profile() {
     setIsEditablePersonal(!isEditablePersonal);
   };
 
-  const handlePaymentFormSubmit = (event) => {
+  const handlePaymentFormSubmit = async (event) => {
     event.preventDefault();
     // Check if there have been changes
     const isDataChanged = Object.keys(paymentData).some(
@@ -199,8 +203,8 @@ export default function Profile() {
     );
 
     if (isEditablePayment && isDataChanged && !hasErrors(personalErrors)) {
-      console.log("Submitting Payment Data:", paymentData);
-      // Add your submission logic here
+      // console.log("Submitting Payment Data:", paymentData);
+      await update(userID, { ...paymentData }, "users");
     } else {
       setOriginalPaymentData({ ...paymentData }); // Save current data
     }
@@ -229,8 +233,6 @@ export default function Profile() {
     dispatch(logOutUser());
     navigate("/");
   }
-
-  // Update functionality
 
   return (
     <main className="bg-white flex justify-center items-center p-5 h-fit">

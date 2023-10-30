@@ -13,7 +13,7 @@ export default function Header() {
   }
 
   return (
-    <header>
+    <header className="bg-[--color-bg]">
       <div className="header-bar py-2 flex items-center justify-center">
         <p className="text-sm">
           Delivery <span className="font-semibold">gratis</span> por compras a
@@ -31,7 +31,7 @@ export default function Header() {
           />
         </div>
         <div className="nav-center">
-          <ul className="flex gap-4 md:text-lg md:gap-x-12">
+          <ul className="flex gap-16 md:text-lg md:gap-x-12">
             <li className="cursor-pointer">
               <a
                 className="nav-center-link"
