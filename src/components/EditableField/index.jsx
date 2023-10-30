@@ -1,25 +1,28 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+const EditableField = ({
+  isEditable,
+  type,
+  value,
+  onChange,
+  className,
+  error,
+}) => {
+  const errorClass = error ? "border-red-500" : "";
 
-export default function EditableField({
-  initialValue,
-  isEditing,
-  type = "text",
-}) {
-  const [value, setValue] = useState(initialValue);
+  if (isEditable) {
+    return (
+      <input
+        type={type}
+        value={value}
+        onChange={onChange}
+        className={`${className} ${errorClass}`}
+      />
+    );
+  }
 
   return (
-    <>
-      {isEditing ? (
-        <input
-          type={type}
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          className="border border-[--color-form-border] placeholder:text-sm w-full text-center md:text-start"
-        />
-      ) : (
-        <span>{value}</span>
-      )}
-    </>
+    <label className="block input-value text-center  my-px">{value}</label>
   );
-}
+};
+
+export default EditableField;
