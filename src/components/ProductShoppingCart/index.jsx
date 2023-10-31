@@ -1,6 +1,6 @@
 import QuantityButton from "../QuantityButton";
-import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { deleteFromCart } from "../../slices/cartSlice";
 
 export default function ProductShoppingCart({

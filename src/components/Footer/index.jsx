@@ -63,9 +63,9 @@ export default function Footer() {
             <p className="font-bold md:text-xl pb-2">Sobre Nosotros</p>
             <p />
             <ul className="md:text-lg md:font-normal">
-              <li className="leading-10 cursor-pointer">Nuestra Historia</li>
-              <li className="leading-10 cursor-pointer">Contactanos</li>
-              <li className="leading-10 cursor-pointer">
+              <li className="leading-10 hover:underline cursor-pointer">Nuestra Historia</li>
+              <li className="leading-10 hover:underline cursor-pointer">Contactanos</li>
+              <li className="leading-10 hover:underline cursor-pointer">
                 Politica de Privacidad
               </li>
             </ul>
@@ -73,9 +73,9 @@ export default function Footer() {
           <div>
             <p className="font-bold md:text-xl pb-2">Ayuda y Soporte</p>
             <ul className="md:text-lg md:font-normal">
-              <li className="leading-10 cursor-pointer">Ordenes y Envios</li>
-              <li className="leading-10 cursor-pointer">Devoluciones</li>
-              <li className="leading-10 cursor-pointer">FAQs</li>
+              <li className="leading-10 hover:underline cursor-pointer">Ordenes y Envios</li>
+              <li className="leading-10 hover:underline cursor-pointer">Devoluciones</li>
+              <li className="leading-10 hover:underline cursor-pointer">FAQs</li>
             </ul>
           </div>
         </div>

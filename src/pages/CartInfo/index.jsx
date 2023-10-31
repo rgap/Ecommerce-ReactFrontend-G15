@@ -8,29 +8,26 @@ import { counterProductos } from "../../slices/cartSlice";
 import { useCartInfoForm } from "../../hooks/useCartInfoForm";
 
 export default function CartInfo() {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const globalUser = useSelector((state) => state.user.data);
   const globalCart = useSelector(counterProductos);
-  
+
   const [products, setProducts] = useState([]);
-  const [values, setValues] = useState(
-    {
-      nombre:"",
-      direccion:"",
-      ciudad:"",
-      region:"",
-      telefono:"",
-    }
-  );
+  const [values, setValues] = useState({
+    nombre: "",
+    direccion: "",
+    ciudad: "",
+    region: "",
+    telefono: "",
+  });
   const [errors, setErrors] = useState({
-    nombre:"",
-    direccion:"",
-    ciudad:"",
-    region:"",
-    telefono:"",
+    nombre: "",
+    direccion: "",
+    ciudad: "",
+    region: "",
+    telefono: "",
   });
 
   function redirect(route) {
@@ -84,11 +81,8 @@ export default function CartInfo() {
                     className="hover:cursor-pointer"
                   />
                 </div>
-                <p className="text-lg  text-center"> o </p>
-                <p className="text-lg break-words">
-                  {" "}
-                  !Registrate con nosotros!{" "}
-                </p>
+                <p className="text-lg text-center"> o </p>
+                <p className="text-lg break-words">!Registrate con nosotros!</p>
                 <div className="border flex w-[120px] h-[40px] justify-center items-center gap-1 flex-shrink-0 ">
                   <Button
                     ruta="/register"
@@ -106,10 +100,7 @@ export default function CartInfo() {
             <p className="text-lg capitalize leading-8 break-words mb-3">
               Direccion de Envio
             </p>
-            <form
-             
-              className="w-[300px] md:w-[400px] xl:w-[500px] mb-10"
-            >
+            <form className="w-[300px] md:w-[400px] xl:w-[500px] mb-10">
               {inputs.map((input) => (
                 <div className="mb-4" key={input.name}>
                   <CartInputForm
@@ -168,6 +159,7 @@ export default function CartInfo() {
                 productPrice={product.price}
                 productQuantity={product.quantity}
                 product={product}
+                visible={True} //mostrara boton para agregar y quitar y precio.
               />
             ))}
           </div>
