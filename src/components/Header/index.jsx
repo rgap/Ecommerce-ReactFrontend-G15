@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { counterProductos } from "../../slices/cartSlice";
 
 export default function Header() {
   const navigate = useNavigate();
   const globalUser = useSelector((state) => state.user.data);
+  const globalCart = useSelector(counterProductos)
 
   function redirect(route) {
     return (event) => {
@@ -61,12 +63,14 @@ export default function Header() {
               <span onClick={redirect("login")}>Iniciar Sesión</span>
             )}
           </a>
-          <a href="/">
-            <img
+          <a href="cart">
+            {globalCart ? (<img
+              onClick={"/cart-info"}
               className="w-5 cursor-pointer transform hover:scale-[1.3] transition-transform duration-[0.25s]"
               src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/shopping-cart.svg"
               alt=""
-            />
+            />) : (<> </>)
+          }
           </a>
         </div>
       </nav>
