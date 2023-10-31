@@ -1,32 +1,36 @@
-import { useSelector } from "react-redux";
 import { Button, ProductShoppingCart, QuantityButton } from "../../components";
-import { selectCounter, selectProductos } from "../../slices/counterSlice";
-import { useEffect, useState } from "react";
+import { counterProductos } from "../../slices/cartSlice";
 import { read } from "../../services";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Cart() {
+  const mobilsize = window.innerWidth <= 768;
 
-  const newState = useSelector(selectProductos);
+  const [products, setProducts] = useState([]); //lectura MOCKAPI
 
-  const [products, setProducts] = useState([]);
+  const cart = useSelector(counterProductos);
 
-  let subtotal = 0;
-  for (const product of products) {
-    subtotal += product.total;
-  }
+  // <div> {JSON.stringify(cart)} </div>
+
+  const total = cart.reduce((accumulator, product) => {
+    const qty = product.quantity;
+    const price = product.price;
+    const subtotal = qty * price;
+    return accumulator + subtotal;
+  }, 0);
 
   const getShoppingCart = async () => {
-    const response = await read("shoppingcart");
+    const response = await read("shoppingcart"); //read MockApi
     setProducts(response);
   };
 
   useEffect(() => {
     getShoppingCart();
-  }, [products]);
+  }, []);
 
   return (
     <div className="bg-white">
-      
       <div className="px-2 pt-2 pb-2 md:px-10 md:pt-2 md:pb-5">
         <img
           className="h-[50px] md:h-[70px]"
@@ -62,8 +66,8 @@ export default function Cart() {
 
           <hr className="mb-5 h-0.5 bg-[--color-hr]" />
 
-          <div className="max-md:ml-5 grid grid-col gap-5 md:grid-cols-[350px_90px_90px_90px] lg:grid-cols-[400px_100px_100px_100px] xl:grid-cols-[450px_200px_200px_200px] ">
-            {products.map((product) => (
+          <div className="max-md:justify-center grid grid-cols-[340px] md:gap-5 md:grid-cols-[350px_90px_90px_90px] lg:grid-cols-[400px_100px_100px_100px] xl:grid-cols-[450px_200px_200px_200px] ">
+            {cart.map((product) => (
               <>
                 <ProductShoppingCart
                   productId={product.id}
@@ -74,40 +78,39 @@ export default function Cart() {
                   productPrice={product.price}
                   productQuantity={product.quantity}
                 />
-                <div className="max-md:hidden text-lg capitalize">
-                  S/. {product.price}
-                </div>
-                <div className="max-md:hidden">
-                  <QuantityButton
-                    productId={product.id}
-                    productQuantity={product.quantity}
-                  />
-                  <div> {JSON.stringify(newState)} </div>
-                </div>
-                <div className="max-md:hidden text-lg capitalize">
-                  S/.{product.total} 
+
+                <div className="max-md:hidden text-lg">S/. {product.price}</div>
+                <QuantityButton
+                  productId={product.id}
+                  productQuantity={product.quantity}
+                  product={product}
+                  className={mobilsize ? "hidden" : ""}
+                />
+                <div className="max-md:hidden text-lg">
+                  S/. {product.price * product.quantity}
                 </div>
               </>
             ))}
+          </div>
 
-            <div className="cart-total mt-5 mr-3">
-              <p className="font-semibold text-right md:text-lg">
-                SUBTOTAL: S/. {subtotal} PEN 
-              </p>
-              <p className=" text-sm text-right mt-0.5 italic break-words">
-                (*)Los impuestos y gastos de envío se calculan en la pantalla de
-                pago.
-              </p>
-            </div>
-            <div className="flex justify-end mt-3">
-              <div className="border flex w-[185px] h-[50px] justify-center items-center gap-1 flex-shrink-0 ">
-                <Button
-                  text="Pagar Pedido"
-                  type="submit"
-                  variant="primary"
-                  className=""
-                />
-              </div>
+          <div className="mt-5 mr-3">
+            <p className="font-semibold text-right md:text-md">
+              SUBTOTAL: S/. {total} PEN
+            </p>
+            <p className="text-xs text-right mt-0.5 break-words">
+              (*) Los impuestos y gastos de envío se calculan en la pantalla de
+              pago.
+            </p>
+          </div>
+
+          <div className="flex justify-end mt-3 mr-3">
+            <div className="border flex w-[185px] h-[50px] justify-center items-center gap-1 flex-shrink-0 ">
+              <Button
+                text="Pagar Pedido"
+                type="submit"
+                variant="primary"
+                className="hover:cursor-pointer"
+              />
             </div>
           </div>
         </div>

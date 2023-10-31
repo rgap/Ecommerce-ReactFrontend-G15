@@ -4,12 +4,8 @@ export const inputs = [
     name: "pais",
   },
   {
-    placeholder: "Nombre",
+    placeholder: "Nombre Completos",
     name: "nombre",
-  },
-  {
-    placeholder: "Apellidos",
-    name: "apellidos",
   },
   {
     placeholder: "Direccion",
