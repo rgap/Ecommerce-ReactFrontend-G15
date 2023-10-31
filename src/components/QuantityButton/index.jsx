@@ -14,7 +14,7 @@ export default function QuantityButton({productId,productQuantity,product,classN
   };
 
   return (
-    <div className={`flex gap-2 md:gap-3.5 w-[70px] h-[28px] md:w-[80px] md:h-[36px] ${className}`}>
+    <div className={`${className} flex gap-2 md:gap-3.5 w-[70px] h-[28px] md:w-[80px] md:h-[36px]`}>
       <img
         onClick={() => handleRemoveFromCart(productId)}
         className="cursor-pointer w-5 h-5 md:w-7 md:h-7 bg-[--color-quantity-button] hover:scale-90 hover:text-black"

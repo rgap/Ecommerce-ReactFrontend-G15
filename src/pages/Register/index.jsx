@@ -7,6 +7,7 @@ import { saveUser } from "../../slices/userSlice";
 import { inputs } from "./form";
 
 export default function Register() {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
