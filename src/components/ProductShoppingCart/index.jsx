@@ -12,6 +12,7 @@ export default function ProductShoppingCart({
   productPrice,
   productQuantity,
   product,
+  visible,
 }) {
   const [isMobile, setIsMobile] = useState(false);
   const dispatch = useDispatch();
