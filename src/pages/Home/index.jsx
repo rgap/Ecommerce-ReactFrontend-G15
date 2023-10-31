@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components";
+import { productsArray } from "./mockProducts";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -79,42 +80,9 @@ export default function Home() {
               <span> Los más vendidos </span>
             </div>
             <div className="my-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <ProductCard
-                productImage={
-                  "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-azul-claro-nike-m.jpg"
-                }
-                productTitle={"Polo Azul Nike"}
-                productText={"Algodon Pima 100% Peruano"}
-                productColors={""}
-                productPrice={"S/49.99"}
-                productColor1={"bg-blue-900"}
-                productColor2={"bg-blue-800"}
-                productColor3={"bg-blue-700"}
-              />
-              <ProductCard
-                productImage={
-                  "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verde-claro-nike-m-nobg.jpg"
-                }
-                productTitle={"Polo Verde Nike"}
-                productText={"Algodon Pima 100% Peruano"}
-                productColors={""}
-                productPrice={"S/49.99"}
-                productColor1={"bg-green-700"}
-                productColor2={"bg-green-500"}
-                productColor3={"bg-lime-600"}
-              />
-              <ProductCard
-                productImage={
-                  "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-negro-ripcurl-m.jpg"
-                }
-                productTitle={"Polo Negro Ripcurl"}
-                productText={"Algodon Pima 100% Peruano"}
-                productColors={""}
-                productPrice={"S/49.99"}
-                productColor1={"bg-zinc-950"}
-                productColor2={"bg-zinc-800"}
-                productColor3={"bg-zinc-700"}
-              />
+              {productsArray.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
             </div>
           </div>
         </section>

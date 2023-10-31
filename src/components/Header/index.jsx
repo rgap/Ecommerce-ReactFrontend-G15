@@ -31,7 +31,7 @@ export default function Header() {
           />
         </div>
         <div className="nav-center">
-          <ul className="flex gap-16 md:text-lg md:gap-x-12">
+          <ul className="flex gap-6 md:text-lg md:gap-x-12">
             <li className="cursor-pointer">
               <a
                 className="nav-center-link"
