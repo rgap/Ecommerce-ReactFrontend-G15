@@ -42,6 +42,7 @@ export const counterSlice = createSlice({
     },
 
     removeFromCart: (state, action) => {
+     
       const productid = action.payload; //recibe id de producto
 
       const newState = state.map((item) => {
@@ -60,9 +61,20 @@ export const counterSlice = createSlice({
       localStorage.setItem("cart", JSON.stringify(newStateFiltered));
       return newStateFiltered;
     },
+
+    deleteFromCart: (state,action) => {
+      const productid = action.payload; //recibe id de producto
+     
+      const newState = state.filter((item) => item.id !== productid);
+     
+      localStorage.setItem("cart", JSON.stringify(newState));
+      return newState;
+
+    },
   },
+  
 });
 
-export const { addToCart, removeFromCart } = counterSlice.actions;
+export const { addToCart, removeFromCart, deleteFromCart } = counterSlice.actions;
 export const counterProductos = (state) => state.cart;
 export default counterSlice.reducer;

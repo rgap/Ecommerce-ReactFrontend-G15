@@ -11,6 +11,7 @@ import {
 import { read, update } from "../../services";
 
 export default function CartInfo() {
+  
   const [products, setProducts] = useState([]);
 
   const getShoppingCart = async () => {

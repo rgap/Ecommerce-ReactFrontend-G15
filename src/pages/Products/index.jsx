@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ProductCard } from "../../components";
 
 function Products() {
+  
     const [isShowMore, setIsShowMore] = useState(false);
 
     const toggleReadMoreLess = () => {

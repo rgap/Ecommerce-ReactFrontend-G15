@@ -1,19 +1,37 @@
 import QuantityButton from "../QuantityButton";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { deleteFromCart } from "../../slices/cartSlice";
 
 export default function ProductShoppingCart({
-  productId,  
+  productId,
   productImage,
   productTitle,
   productSize,
   productColor,
   productPrice,
   productQuantity,
+  product,
 }) {
+  const [isMobile, setIsMobile] = useState(false);
+  const dispatch = useDispatch();
+  const handleDeleteFromCart = (productId) => {
+    dispatch(deleteFromCart(productId));
+  };
 
-  const mobilsize = window.innerWidth <= 768;
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkIsMobile(); // Verifica el tamaño de la ventana cuando se carga la página.
+    window.addEventListener("resize", checkIsMobile);
+    return () => {
+      window.removeEventListener("resize", checkIsMobile);
+    };
+  }, []);
 
   return (
-    <div className="flex w-full mb-2" key={productId} >
+    <div className="flex w-full mb-2" key={productId}>
       <img
         className="w-[100px] h-[115px] cursor-pointer hover:scale-90  "
         src={productImage}
@@ -22,16 +40,26 @@ export default function ProductShoppingCart({
 
       <div className="w-full flex justify-center">
         <div className="flex flex-col capitalize leading-7 gap-2">
-          <p className="font-semibold"> {productTitle} <span className="hidden" > {productId} </span> </p>
-          <p> Talla: {productSize} </p>
-          <p> Color: {productColor} </p>
-          <p className="md:hidden"> Precio: S/.{productPrice} </p>
-          <QuantityButton className={ mobilsize ? "" : "hidden"} productQuantity={productQuantity} />
+          <p className="font-semibold ">{productTitle} </p>
+          <span className="hidden"> {productId} </span>
+          <p className="text-sm"> Talla: {productSize} </p>
+          <p className="text-sm"> Color: {productColor} </p>
+          <p className="md:hidden text-sm "> Precio: S/.{productPrice} </p>
+          {isMobile ? (
+            <QuantityButton
+              productId={productId}
+              productQuantity={productQuantity}
+              product={product}
+            />
+          ) : (
+            <> </>
+          )}
         </div>
       </div>
 
       <div className="w-full flex flex-col place-items-center">
         <img
+          onClick={() => handleDeleteFromCart(productId)}
           className="h-6 w-6 hover:scale-125 hover:cursor-pointer border-2 "
           src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/d33fda00e112d0b57173f61dd0898f1d1f1f8b14/icons/close.svg"
           alt=""

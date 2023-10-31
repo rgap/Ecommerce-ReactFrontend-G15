@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
+
 export default function Button({
   text,
   type = "button",
   className,
   variant = "primary",
+  ruta,
 }) 
 {
   const colors = {
@@ -13,8 +16,17 @@ export default function Button({
     warning: "",
     dark: "",
   };
+  const navigate = useNavigate();
+  function redirect(route) {
+    return (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
+
   return (
       <button
+        onClick={redirect(ruta)}
         type={type}
         className={`w-full h-full cursor-pointer text-white text-sm capitalize hover:${colors["hover"]}  ${colors[variant]} ${className}`}> 
         {text}
