@@ -16,7 +16,7 @@ export default function TextField({
 
   return (
     <>
-      {name != "password" ? (
+      {type != "password" ? (
         <input
           type={type}
           value={value}

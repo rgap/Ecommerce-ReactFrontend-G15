@@ -11,9 +11,9 @@ export async function read(url) {
 }
 
 export async function update(id, body, url) {
-  return await makeHttpRequest({ body, id, method: "PUT", url });
+  return await makeHttpRequest({ url, id, body, method: "PUT" });
 }
 
 export async function destroy(id, url) {
-  return await makeHttpRequest({ id, url, method: "DELETE" });
+  return await makeHttpRequest({ url, id, method: "DELETE" });
 }
