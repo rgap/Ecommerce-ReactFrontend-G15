@@ -1,6 +1,6 @@
 export default function CartInputForm({
     value,
-    onChange,
+    handleInputChange,
     placeholder,
     className,
     type = "text",
@@ -12,7 +12,7 @@ export default function CartInputForm({
         name={name}
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChange={handleInputChange}
         className={` ${className} `}
       />
     );

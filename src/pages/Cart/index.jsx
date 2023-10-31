@@ -9,9 +9,9 @@ export default function Cart() {
 
   const navigate = useNavigate();
   const [products, setProducts] = useState([]); //lectura MOCKAPI
-  const cart = useSelector(counterProductos); //counterProductos slice para carrito de compras
+  const globalcart = useSelector(counterProductos); //counterProductos slice para carrito de compras
 
-  const total = cart.reduce((accumulator, product) => {
+  const total = globalcart.reduce((accumulator, product) => {
     const qty = product.quantity;
     const price = product.price;
     const subtotal = qty * price;
@@ -22,13 +22,6 @@ export default function Cart() {
     const response = await read("shoppingcart"); //read MockApi
     setProducts(response);
   };
-
-  function redirect(route) {
-    return (event) => {
-      event.preventDefault();
-      navigate(route);
-    };
-  }
 
   useEffect(() => {
     getShoppingCart();
@@ -72,7 +65,7 @@ export default function Cart() {
           <hr className="mb-2 h-0.5 bg-[--color-hr]" />
 
           <div className="max-md:justify-center grid grid-cols-[340px] md:gap-5 md:grid-cols-[350px_90px_90px_90px] lg:grid-cols-[400px_100px_100px_100px] xl:grid-cols-[450px_200px_200px_200px] ">
-            {cart.map((product) => (
+            {globalcart.map((product) => (
               <>
                 <ProductShoppingCart
                   productId={product.id}
