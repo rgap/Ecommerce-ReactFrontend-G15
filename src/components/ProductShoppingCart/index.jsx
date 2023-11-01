@@ -14,8 +14,10 @@ export default function ProductShoppingCart({
   product,
   visible,
 }) {
-  const [isMobile, setIsMobile] = useState(false);
   const dispatch = useDispatch();
+
+  const [isMobile, setIsMobile] = useState(false);
+
   const handleDeleteFromCart = (productId) => {
     dispatch(deleteFromCart(productId));
   };
@@ -24,7 +26,7 @@ export default function ProductShoppingCart({
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    checkIsMobile(); // Verifica el tamaño de la ventana cuando se carga la página.
+    checkIsMobile(); // Verifica  tamaño de la ventana cuando se carga pagina
     window.addEventListener("resize", checkIsMobile);
     return () => {
       window.removeEventListener("resize", checkIsMobile);
@@ -41,19 +43,22 @@ export default function ProductShoppingCart({
 
       <div className="w-full flex justify-center">
         <div className="flex flex-col capitalize leading-7 gap-2">
-          <p className="font-semibold ">{productTitle} </p>
           <span className="hidden"> {productId} </span>
+          <p className="font-semibold "> {productTitle} </p>
           <p className="text-sm"> Talla: {productSize} </p>
           <p className="text-sm"> Color: {productColor} </p>
-          <p className="md:hidden text-sm "> Precio: S/.{productPrice} </p>
-          {isMobile ? (
-            <QuantityButton
-              productId={productId}
-              productQuantity={productQuantity}
-              product={product}
-            />
+
+          {isMobile || visible ? (
+            <>
+              <p className="text-sm "> Precio: S/.{productPrice} </p>
+              <QuantityButton
+                productId={productId}
+                productQuantity={productQuantity}
+                product={product}
+              />
+            </>
           ) : (
-            <> </>
+            ""
           )}
         </div>
       </div>
