@@ -6,8 +6,8 @@ export async function create(body, url) {
   return await makeHttpRequest({ url, body, method: "POST" });
 }
 
-export async function read(url) {
-  return await makeHttpRequest({ url });
+export async function read(url, id = "") {
+  return await makeHttpRequest({ url, id });
 }
 
 export async function update(id, body, url) {
