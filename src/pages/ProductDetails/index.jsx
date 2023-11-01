@@ -62,6 +62,9 @@ export default function ProductDetails() {
   };
 
   const handleAddToCart = () => {
+    // const currentPriceNumber = currentPrice.replace("S/.", "").trim();
+    // console.log("currentPrice", currentPrice);
+    // console.log("currentPriceNumber", currentPriceNumber);
     // Logic to add the product to the cart
     dispatch(
       addToCart({
@@ -140,6 +143,13 @@ export default function ProductDetails() {
     );
   };
 
+  function formatPrice() {
+    return new Intl.NumberFormat("es-PE", {
+      style: "currency",
+      currency: "PEN",
+    }).format(currentPrice || product.price);
+  }
+
   return (
     <>
       <ToastContainer position="top-left" />
@@ -164,7 +174,7 @@ export default function ProductDetails() {
               <strong>Instrucciones:</strong> {product.productCare}
             </div>
             <div className="mb-4 p-4 bg-gray-100 rounded-md">
-              <strong>Precio:</strong> {currentPrice || product.price}
+              <strong>Precio:</strong> {formatPrice()}
             </div>
 
             <div className="flex lg:flex-row md:flex-col flex-col  items-center mb-4 mt-8 justify-between gap-6 lg:gap-0">
