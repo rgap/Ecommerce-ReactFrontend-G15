@@ -1,9 +1,10 @@
 import { Button,ProductShoppingCart } from "../../components";
 import { read } from "../../services";
 import { useEffect,useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CartShipping() {
-
+  const navigate = useNavigate();
     const [products, setProducts] = useState([]);
 
     const getShoppingCart = async () => {
@@ -99,7 +100,7 @@ export default function CartShipping() {
           </div>
 
           <div className="flex w-[190px] h-[40px] justify-center items-center  flex-shrink-0">
-            <Button text="Continuar con Envio" type="button" className="" />
+            <Button text="Continuar con Envio" type="button" className="" onClick={navigate("/cart-payment")}/>
           </div>
         </div>
       </div>

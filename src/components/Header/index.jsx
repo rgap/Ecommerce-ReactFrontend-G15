@@ -66,7 +66,7 @@ export default function Header() {
           <a href="cart">
             {globalCart ? (
               <img
-                onClick={redirect("/cart-info")}
+                onClick={redirect("/cart")}
                 className="w-5 cursor-pointer transform hover:scale-[1.3] transition-transform duration-[0.25s]"
                 src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/shopping-cart.svg"
                 alt=""
