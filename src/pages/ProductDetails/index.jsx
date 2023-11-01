@@ -63,19 +63,15 @@ export default function ProductDetails() {
 
   const handleAddToCart = () => {
     // Logic to add the product to the cart
-    // productId
-    // product.title
-    // currentPrice
-    // selectedSize
-    // selectedColor
-
     dispatch(
       addToCart({
+        color: selectedColor,
         id: productId,
-        title: product.title,
-        currentPrice,
-        selectedSize,
-        selectedColor,
+        name: product.title,
+        price: currentPrice,
+        quantity: 1,
+        size: selectedSize,
+        url: product.image,
       })
     );
 
