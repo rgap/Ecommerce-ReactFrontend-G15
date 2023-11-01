@@ -2,7 +2,7 @@ export const inputs = [
   {
     placeholder: "Correo Electrónico",
     name: "email",
-    type: "email",
+    type: "text",
   },
   {
     placeholder: "Contraseña",

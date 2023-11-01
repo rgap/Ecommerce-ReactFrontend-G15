@@ -7,6 +7,7 @@ import { saveUser } from "../../slices/userSlice";
 import { inputs } from "./form";
 
 export default function Register() {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -81,7 +82,7 @@ export default function Register() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    const debug = true;
+    const debug = false;
 
     if (debug) {
       const user = await create(values, "users");
