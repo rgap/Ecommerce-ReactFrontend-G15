@@ -1,13 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components";
-import { productsArray } from "./mockProducts";
+import { read } from "../../services";
+// import { productsArray } from "./mockProducts";
 
 export default function Home() {
   const navigate = useNavigate();
+  const [productsArray, setProductsArray] = useState([]);
 
   useEffect(() => {
     contentLoadedFunction();
+    initializeProductsArray();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array ensures this runs once when the component mounts
 
@@ -46,6 +49,26 @@ export default function Home() {
     };
   }
 
+  function getRandomElements(arr, count) {
+    let result = [];
+    let indices = new Set();
+
+    while (result.length < count) {
+      let randomIndex = Math.floor(Math.random() * arr.length);
+      if (!indices.has(randomIndex)) {
+        indices.add(randomIndex);
+        result.push(arr[randomIndex]);
+      }
+    }
+
+    return result;
+  }
+
+  async function initializeProductsArray() {
+    const productsArray = await read("products");
+    setProductsArray(productsArray);
+  }
+
   return (
     <>
       <section className="hero bg-[--color-bg]">
@@ -80,9 +103,12 @@ export default function Home() {
               <span> Los más vendidos </span>
             </div>
             <div className="my-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-              {productsArray.map((product) => (
+              {productsArray.slice(0, 3).map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
+              {/* {getRandomElements(productsArray, 3).map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))} */}
             </div>
           </div>
         </section>

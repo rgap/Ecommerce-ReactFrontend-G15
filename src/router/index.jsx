@@ -39,9 +39,9 @@ export default function AppRouter() {
 
         {/* Layout sin header/footer */}
         <Route element={<CartLayout />}>
-          <Route path="/cart" element={<Cart/>} />
-          <Route path="/cart-info" element={<CartInfo/>} />
-          <Route path="/cart-shipping" element={<CartShipping/>} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart-info" element={<CartInfo />} />
+          <Route path="/cart-shipping" element={<CartShipping />} />
         </Route>
       </Routes>
     </BrowserRouter>
