@@ -3,15 +3,15 @@ import { counterProductos } from "../../slices/cartSlice";
 import { read } from "../../services";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 export default function Cart() {
 
   const navigate = useNavigate();
   const [products, setProducts] = useState([]); //lectura MOCKAPI
-  const globalcart = useSelector(counterProductos); //counterProductos slice para carrito de compras
+  const globalCart = useSelector(counterProductos); //counterProductos slice para carrito de compras
 
-  const total = globalcart.reduce((accumulator, product) => {
+  const total = globalCart.reduce((accumulator, product) => {
     const qty = product.quantity;
     const price = product.price;
     const subtotal = qty * price;
@@ -22,6 +22,13 @@ export default function Cart() {
     const response = await read("shoppingcart"); //read MockApi
     setProducts(response);
   };
+
+  function redirect(route) {
+    return (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
 
   useEffect(() => {
     getShoppingCart();
@@ -39,15 +46,19 @@ export default function Cart() {
 
       <section className="mb-10 flex justify-between items-center md:px-10">
         <div className="p-4 flex justify-content items-center gap-1">
-          <div className="text-center text-[--color-cart-text-button-comp] md:text-lg font-normal  capitalize leading-6 cursor-pointer hover:underline">
+          <div
+          onClick={redirect("/")}
+          className="text-center text-[--color-cart-text-button-comp] md:text-lg font-normal  capitalize leading-6 cursor-pointer hover:underline">
             volver
           </div>
         </div>
 
-        <p className="text-2xl md:text-[32px] font-semibold">Tu Carrito</p>
+        <p className="text-xl md:text-[30px] font-semibold ">Tu Carrito</p>
 
         <div className="p-4 flex justify-content items-center gap-1">
-          <div className="text-center text-[--color-cart-text-button-comp] md:text-lg font-normal capitalize leading-6 cursor-pointer hover:underline">
+          <div 
+          onClick={redirect("/cart-info")}
+          className="text-center text-[--color-cart-text-button-comp] md:text-lg font-normal capitalize leading-6 cursor-pointer hover:underline">
             continuar
           </div>
         </div>
@@ -65,7 +76,7 @@ export default function Cart() {
           <hr className="mb-2 h-0.5 bg-[--color-hr]" />
 
           <div className="max-md:justify-center grid grid-cols-[340px] md:gap-5 md:grid-cols-[350px_90px_90px_90px] lg:grid-cols-[400px_100px_100px_100px] xl:grid-cols-[450px_200px_200px_200px] ">
-            {globalcart.map((product) => (
+            {globalCart.map((product) => (
               <>
                 <ProductShoppingCart
                   productId={product.id}
@@ -110,7 +121,6 @@ export default function Cart() {
                 text="Pagar Pedido"
                 type="submit"
                 variant="primary"
-                className="hover:cursor-pointer"
               />
             </div>
           </div>

@@ -2,19 +2,27 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useInRouterContext, useNavigate } from "react-router-dom";
 import { Button, CartInputForm, ProductShoppingCart } from "../../components";
-import { useCartInfoForm } from "../../hooks/useCartInfoForm";
-import { read, update } from "../../services";
+import { read } from "../../services";
 import { counterProductos } from "../../slices/cartSlice";
-import { inputs } from "./form";
+import { useFormik } from "formik";
 
 export default function CartInfo() {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const globalUser = useSelector((state) => state.user.data);
   const globalCart = useSelector(counterProductos);
 
+  const total = globalCart.reduce((accumulator, product) => {
+    const qty = product.quantity;
+    const price = product.price;
+    const subtotal = qty * price;
+    return accumulator + subtotal;
+  }, 0);
+
   const [products, setProducts] = useState([]);
+
   const [values, setValues] = useState({
     nombre: "",
     direccion: "",
@@ -29,6 +37,19 @@ export default function CartInfo() {
     region: "",
     telefono: "",
   });
+
+  const formik = useFormik({
+    initialValues:{
+      nombre:"",
+      direccion:"",
+      direccion2:"",
+      ciudad:"",
+      region:"",
+      telefono:"",
+    }
+  })
+ 
+  console.log(formik)
 
   function redirect(route) {
     return (event) => {
@@ -100,14 +121,21 @@ export default function CartInfo() {
             <p className="text-lg capitalize leading-8 break-words mb-3">
               Direccion de Envio
             </p>
-            <form className="w-[300px] md:w-[400px] xl:w-[500px] mb-10">
+            <form autoComplete="off" className="w-[300px] md:w-[400px] xl:w-[500px] mb-10">
+              <div className="w-full p-2 border border-gray-700 outline-none">
+              <input id="nombre" type="text" placeholder="Nombres Completos" />
+              </div>
+             
+
               {inputs.map((input) => (
                 <div className="mb-4" key={input.name}>
                   <CartInputForm
-                    placeholder={input.placeholder}
-                    value={input.value}
                     name={input.name}
-                    onChange={handleInputChange}
+        
+                    value={formik.values.nombre}
+                    placeholder={input.placeholder}
+                    onChange={formik.handleChange}
+       
                     type={input.type ?? "text"}
                     className="w-full p-2 border border-gray-700 outline-none"
                   />
@@ -116,9 +144,7 @@ export default function CartInfo() {
                   </span>
                 </div>
               ))}
-              <div className="w-[200px] h-[40px]">
-                <Button text="Continuar con Envio" type="button" />
-              </div>
+              
             </form>
           </div>
 
@@ -136,6 +162,11 @@ export default function CartInfo() {
                 >
                   Regresar
                 </span>
+              </div>
+              <div className="flex justify-end">
+                <div className="w-[200px] h-[40px]">
+                  <Button text="Continuar con Envio" type="submit" />
+                </div>
               </div>
             </div>
           </div>
@@ -167,7 +198,7 @@ export default function CartInfo() {
           <div className="mt-5 flex flex-col w-full">
             <div className="flex justify-end gap-5 mx-5">
               <p className="mb-2 text-lg leading-8">
-                Subtotal: <span> S/. 149.90 </span>{" "}
+                Subtotal: <span> S/. {total} </span>
               </p>
             </div>
             <p className="mx-2 text-right text-xs">
