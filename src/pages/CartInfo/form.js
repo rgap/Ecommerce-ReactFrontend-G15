@@ -1,27 +1,27 @@
-export const inputs = [
+export const inputsCartInfo = [
   {
     placeholder: "Nombres Completos",
     name: "nombre",
+    type: "text"
   },
   {
-    placeholder: "Direccion linea 1",
-    name: "direccion",
-  },
-  {
-    placeholder: "Direccion linea 2",
-    name: "direccion2",
+    placeholder: "Dirección",
+    name: "address",
+    type: "text"
   },
   {
     placeholder: "Ciudad",
-    name: "ciudad",
+    name: "city",
+    type: "text"
   },
   {
     placeholder: "Region",
     name: "region",
+    type: "text"
   },
   {
-    placeholder: "Telefono",
-    name: "telefono",
-    type: "tel",
+    placeholder: "Teléfono",
+    name: "phoneNumber",
+    type: "text"
   },
 ];
