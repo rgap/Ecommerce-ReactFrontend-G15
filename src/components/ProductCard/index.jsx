@@ -49,7 +49,10 @@ export default function ProductCard({ product, hideColors }) {
   };
 
   // Extract the price for medium size of the first available color
-  const mediumPrice = product.prices?.m?.[product.colors[0]] || product.price;
+  const mediumPrice = new Intl.NumberFormat("es-PE", {
+    style: "currency",
+    currency: "PEN",
+  }).format(product.prices?.m?.[product.colors[0]] || product.price);
 
   return (
     <div
