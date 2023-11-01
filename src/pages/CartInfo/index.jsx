@@ -1,11 +1,11 @@
-import { inputs } from "./form";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useInRouterContext, useNavigate } from "react-router-dom";
 import { Button, CartInputForm, ProductShoppingCart } from "../../components";
+import { useCartInfoForm } from "../../hooks/useCartInfoForm";
 import { read, update } from "../../services";
 import { counterProductos } from "../../slices/cartSlice";
-import { useCartInfoForm } from "../../hooks/useCartInfoForm";
+import { inputs } from "./form";
 
 export default function CartInfo() {
   const dispatch = useDispatch();
@@ -159,7 +159,7 @@ export default function CartInfo() {
                 productPrice={product.price}
                 productQuantity={product.quantity}
                 product={product}
-                visible={True} //mostrara boton para agregar y quitar y precio.
+                visible={true}
               />
             ))}
           </div>
