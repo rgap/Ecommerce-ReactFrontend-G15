@@ -37,28 +37,6 @@ export default function CartShipping() {
       </div>
 
       <div className="mx-10 xl:mx-20 my-20 ">
-        <div className="contacto-shipping">
-          <div className="md:flex place-items-baseline mb-4 justify-between">
-            <div className="text-lg capitalize leading-8 break-words">
-              Contacto
-            </div>
-            <button type="button" className="cursor-pointer text-sm">
-              Cambiar
-            </button>
-          </div>
-
-          <hr className="h-1" />
-
-          <div className="md:flex place-items-baseline mb-3 justify-between">
-            <div className="text-lg capitalize leading-8 break-words">
-              Enviar a
-            </div>
-            <button type="button" className="cursor-pointer text-sm">
-              Cambiar
-            </button>
-          </div>
-        </div>
-
         <div className="grid-shipping">
           <p className="text-xl font-bold capitalize leading-8 break-words mb-5 mt-14">
             Opciones de Entrega
@@ -68,11 +46,11 @@ export default function CartShipping() {
           <div className="grid grid-cols-[35px_1fr_1fr] xl:grid-cols-[50px_1fr_1fr] gap-y-3">
             <input type="radio" />
             <div className="font-bold text-lg text-[#868686]">
-              Express Courier Lima{" "}
+              Express Courier Lima
             </div>
             <div className="font-bold text-lg text-[#606060]"> S/25.00 </div>
             <div> </div>
-            <p className="font-semibold text-sm">2 a 3 dias Habiles</p>
+            <p className="font-semibold text-sm"> 2 a 3 dias Habiles</p>
             <div></div>
             <input type="radio" />
             <div className="font-bold text-lg text-[#868686]">
@@ -80,7 +58,7 @@ export default function CartShipping() {
             </div>
             <div className="font-bold text-lg text-[#606060]">S/12.00</div>
             <div> </div>
-            <div className="font-semibold text-sm">4 a 5 dias Habiles</div>
+            <div className="font-semibold text-sm"> 5 a 5 dias Habiles</div>
             <div></div>
           </div>
         </div>
@@ -130,7 +108,13 @@ export default function CartShipping() {
 <div className="mt-5 flex flex-col w-full">
   <div className="flex justify-end gap-5 mx-5">
     <p className="mb-2 text-lg leading-8">
-      Subtotal: <span> S/. 149.90 </span>{" "}
+      Subtotal: <span> S/. 149.90 </span>
+    </p>
+    <p>
+      Envio: 
+    </p>
+    <p>
+      Total:
     </p>
     
   </div>
