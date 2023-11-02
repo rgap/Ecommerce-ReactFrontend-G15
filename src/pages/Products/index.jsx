@@ -67,7 +67,7 @@ function Products() {
           )}
 
           {productsToShow > 15 && (
-              <button className="mb-6 mt-8 items-center px-7 py-4 bg-[--color-cart-text-button-comp] text-white text-sm capitalize leading-normal transition-transform duration-100" 
+              <button className="mb-6 mt-8 items-center px-20 py-6 bg-[--color-cart-text-button-comp] text-white text-sm capitalize leading-normal transition-transform duration-100" 
               onClick={loadLessProducts}>Cargar Menos</button>
           )}
         </div>
