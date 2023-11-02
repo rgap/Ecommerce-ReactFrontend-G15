@@ -70,7 +70,7 @@ export default function ProductCard({ product, hideColors }) {
         <div className="flex flex-col justify-between text-center gap-3">
           {/* Left Section: Title and Short Description */}
           <div>
-            <h2 className="font-bold text-xl text-gray-800">{product.title}</h2>
+            <h1 className="font-bold text-xl text-gray-800">{product.title}</h1>
           </div>
           <div>
             <p className="text-sm text-gray-600">{product.shortDescription}</p>
