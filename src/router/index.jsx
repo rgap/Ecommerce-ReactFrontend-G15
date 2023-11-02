@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CartLayout, MainLayout, ProfileLayout } from "../layouts";
+import { CartLayout, MainLayout, NoFooterLayout, ProfileLayout } from "../layouts";
 
 import {
   Cart,
@@ -7,11 +7,12 @@ import {
   CartShipping,
   Home,
   Login,
+  Offers,
   ProductDetails,
   Products,
   Profile,
   Register,
-  ResetPassword,
+  ResetPassword
 } from "../pages";
 
 export default function AppRouter() {
@@ -26,10 +27,13 @@ export default function AppRouter() {
             path="/products/:productId/:productTitle"
             element={<ProductDetails />}
           />
-
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+        </Route>
+
+        <Route element={<NoFooterLayout />}>
+          <Route path="/offers" element={<Offers />} />
         </Route>
 
         {/* Layout del profile */}

@@ -48,8 +48,8 @@ export default function Header() {
               </a>
             </li>
             <li className="cursor-pointer">
-              <a className="nav-center-link" href="" data-link-alt="Descuentos">
-                <span> Descuentos </span>
+              <a className="nav-center-link" href="/offers" data-link-alt="Lo Nuevo">
+                <span> Lo Nuevo </span>
               </a>
             </li>
           </ul>
