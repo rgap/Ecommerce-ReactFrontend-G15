@@ -97,5 +97,6 @@ export default function ProductCard({ product, hideColors }) {
         </div>
       </div>
     </div>
+    
   );
 }

@@ -4,8 +4,18 @@ import { useEffect, useState } from "react";
 import { ProductCard } from "../../components";
 import { create, read } from "../../services";
 
-export default function Products() {
+function Products() {
   const [productsArray, setProductsArray] = useState([]);
+
+  const [productsToShow, setProductsToShow] = useState(12);
+
+  const loadMoreProducts = () => {
+    setProductsToShow(productsToShow + 15);
+  };
+
+  const loadLessProducts = () => {
+    setProductsToShow(productsToShow - 15);
+  };
 
   async function populateDB() {
     for (const product of productsArray) {
@@ -26,29 +36,33 @@ export default function Products() {
   }, []);
 
   return (
-    <main className=" mx-auto p-4 bg-[--color-bg] flex justify-center">
-      <section className="flex flex-col gap-5 mt-8">
-        <nav aria-label="breadcrumb">
-          <ol className="flex text-xl">
-            <li className="mr-2">
-              <a
-                href="/"
-                className="text-[--color-link-text] hover:underline font-semibold	"
-              >
-                Página Principal
-              </a>
-            </li>
-            <li className="text-gray-700 font-bold">/</li>
-            <li className="ml-2 font-bold">Productos</li>
-          </ol>
-        </nav>
+    <div className="block bg-[--color-bg] pb-8">
+    <div className=" mx-auto p-4 flex justify-center">
+      <div className="my-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[1100px]">
+        {productsArray.slice(0, productsToShow).map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+    </div>
+    <div className="my-8">    
+            {productsToShow < productsArray.length && (
+          <div className="w-40 h-10 border border-black shadow-md m-auto text-center p-1 transition ease-in-out delay-150 bg-[#3b6978] text-[white] hover:-translate-y-1 hover:scale-110 hover:bg-[#748c70] duration-200">
+            <button onClick={loadMoreProducts}>
+            Cargar Más
+            </button>
+          </div>
+            )}
 
-        <div className="my-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[1100px] mb-20">
-          {productsArray.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+            {productsToShow > 15 && (
+          <div className="w-40 h-10 border border-black shadow-md m-auto text-center p-1 transition ease-in-out delay-150 bg-[#3b6978] text-[white] hover:-translate-y-1 hover:scale-110 hover:bg-[#748c70] duration-200">
+          <button onClick={loadLessProducts}>
+          Cargar Menos
+          </button>
         </div>
-      </section>
-    </main>
+            )}
+        </div>
+    </div> 
   );
 }
+
+export default Products;

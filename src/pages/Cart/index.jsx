@@ -35,9 +35,8 @@ export default function Cart() {
       <section className="mb-10 flex justify-between items-center md:px-10">
         <div className="p-4 flex justify-content items-center gap-1">
           <div
-            onClick={redirect("/products")}
-            className="text-center text-[--color-cart-text-button-comp] md:text-lg font-normal  capitalize leading-6 cursor-pointer hover:underline"
-          >
+          onClick={redirect("/")}
+          className="text-center text-[--color-cart-text-button-comp] md:text-lg font-normal  capitalize leading-6 cursor-pointer hover:underline">
             volver
           </div>
         </div>
