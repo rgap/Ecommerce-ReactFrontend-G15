@@ -1,12 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components";
+import { read } from "../../services";
+// import { productsArray } from "./mockProducts";
 
 export default function Home() {
   const navigate = useNavigate();
+  const [productsArray, setProductsArray] = useState([]);
 
   useEffect(() => {
     contentLoadedFunction();
+    initializeProductsArray();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array ensures this runs once when the component mounts
 
@@ -45,9 +49,29 @@ export default function Home() {
     };
   }
 
+  function getRandomElements(arr, count) {
+    let result = [];
+    let indices = new Set();
+
+    while (result.length < count) {
+      let randomIndex = Math.floor(Math.random() * arr.length);
+      if (!indices.has(randomIndex)) {
+        indices.add(randomIndex);
+        result.push(arr[randomIndex]);
+      }
+    }
+
+    return result;
+  }
+
+  async function initializeProductsArray() {
+    const productsArray = await read("products");
+    setProductsArray(productsArray);
+  }
+
   return (
     <>
-      <section className="hero">
+      <section className="hero bg-[--color-bg]">
         <div className="bord bg-[url('https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polos-colgados-verdes-hero.jpg')] h-[600px] bg-center bg-cover relative bg-no-repeat">
           <div className="flex justify-center items-center flex-col h-full gap-14">
             <div className="bg-white bg-opacity-50 p-6 space-y-4">
@@ -72,49 +96,19 @@ export default function Home() {
         </div>
       </section>
 
-      <main className="px-10">
+      <main className="px-10 bg-[--color-bg] pb-8">
         <section className="flex justify-center">
           <div className="max-w-[1200px]">
             <div className="my-10 font-semibold text-3xl">
               <span> Los más vendidos </span>
             </div>
             <div className="my-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <ProductCard
-                productImage={
-                  "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-azul-claro-nike-m.jpg"
-                }
-                productTitle={"Polo Azul Nike"}
-                productText={"Algodon Pima 100% Peruano"}
-                productColors={""}
-                productPrice={"S/49.99"}
-                productColor1={"bg-blue-900"}
-                productColor2={"bg-blue-800"}
-                productColor3={"bg-blue-700"}
-              />
-              <ProductCard
-                productImage={
-                  "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verde-claro-nike-m-nobg.jpg"
-                }
-                productTitle={"Polo Verde Nike"}
-                productText={"Algodon Pima 100% Peruano"}
-                productColors={""}
-                productPrice={"S/49.99"}
-                productColor1={"bg-green-700"}
-                productColor2={"bg-green-500"}
-                productColor3={"bg-lime-600"}
-              />
-              <ProductCard
-                productImage={
-                  "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-negro-ripcurl-m.jpg"
-                }
-                productTitle={"Polo Negro Ripcurl"}
-                productText={"Algodon Pima 100% Peruano"}
-                productColors={""}
-                productPrice={"S/49.99"}
-                productColor1={"bg-zinc-950"}
-                productColor2={"bg-zinc-800"}
-                productColor3={"bg-zinc-700"}
-              />
+              {productsArray.slice(0, 3).map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+              {/* {getRandomElements(productsArray, 3).map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))} */}
             </div>
           </div>
         </section>
@@ -188,7 +182,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="w-fit m-auto mb-8 relative max-w-[1200px]">
+        <section className="w-fit m-auto relative max-w-[1200px]">
           <div className="flex justify-center">
             <div className="overflow-hidden">
               <img

@@ -7,8 +7,8 @@ import {
   CartShipping,
   Home,
   Login,
+  ProductDetails,
   Products,
-  ProductsDetails,
   Profile,
   Register,
   ResetPassword,
@@ -21,7 +21,12 @@ export default function AppRouter() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/productsdetails" element={<ProductsDetails />} />
+          {/* <Route path="/productsdetails" element={<ProductsDetails />} /> */}
+          <Route
+            path="/products/:productId/:productTitle"
+            element={<ProductDetails />}
+          />
+
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
@@ -33,10 +38,10 @@ export default function AppRouter() {
         </Route>
 
         {/* Layout sin header/footer */}
-        <Route element={<CartLayout/>}>
-          <Route path="/cart" element={<Cart/>} />
-          <Route path="/cart/info" element={<CartInfo/>} />
-          <Route path="/cart/info/shipping" element={<CartShipping/>}/>
+        <Route element={<CartLayout />}>
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart-info" element={<CartInfo />} />
+          <Route path="/cart-shipping" element={<CartShipping />} />
         </Route>
       </Routes>
     </BrowserRouter>

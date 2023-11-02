@@ -2,50 +2,225 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { read } from "../../services";
+import { EditableField } from "../../components";
+import { read, update } from "../../services";
 import { logOutUser } from "../../slices/userSlice";
+import { inputsAccount, inputsPayment } from "./form";
 
 export default function Profile() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const globalUser = useSelector((state) => state.user.data);
-  const [values, setValues] = useState({
+  const [userID, setUserID] = useState("");
+
+  const [originalPersonalData, setOriginalPersonalData] = useState({});
+  const [originalPaymentData, setOriginalPaymentData] = useState({});
+
+  const [isEditablePersonal, setIsEditablePersonal] = useState(false);
+  const [isEditablePayment, setIsEditablePayment] = useState(false);
+  const [personalData, setPersonalData] = useState({
     name: "",
     email: "",
     password: "",
-    cartProductIDs: "",
-    cartProductQuantities: "",
     phoneNumber: "",
     address: "",
     city: "",
     region: "",
     country: "",
+  });
+  const [personalErrors, setPersonalErrors] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phoneNumber: "",
+    address: "",
+    city: "",
+    region: "",
+    country: "",
+  });
+  const [paymentData, setPaymentData] = useState({
     cardNumber: "",
     expirationDate: "",
     cvc: "",
   });
-  const [cardNumberDisplayed, setCardNumberDisplayed] = useState("•••");
-  const [expirationDateDisplayed, setExpirationDateDisplayed] = useState("•••");
-  const [cvcDisplayed, setCvcDisplayed] = useState("•••");
+  const [paymentErrors, setPaymentErrors] = useState({
+    cardNumber: "",
+    expirationDate: "",
+    cvc: "",
+  });
 
-  async function setFormValues() {
-    const users = await read("users");
-    // Find the user with the specified email
-    const foundUser = users.find((user) => user.email === globalUser.email);
-    // Create a new object for updated values
-    const updatedValues = {};
-    // Iterate over the keys of the current values
-    Object.keys(values).forEach((key) => {
-      updatedValues[key] = foundUser[key];
+  const hasErrors = (errors) => {
+    return Object.values(errors).some((error) => error !== "");
+  };
+
+  const personalDataIsDisabled = hasErrors(personalErrors);
+  const paymentDataIsDisabled = hasErrors(personalErrors);
+
+  const validateField = (form, field, value) => {
+    // General empty field validation
+    if (field === "email" && field === "name" && !value.trim()) {
+      return `Este campo no puede estar vacio`;
+    }
+
+    // Specific validation for the 'name' field
+    if (field === "name" && value.trim().length < 3) {
+      return "El nombre debe tener al menos 3 caracteres";
+    }
+
+    // Specific validation for the 'email' field
+    if (field === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value.trim())) {
+        return "Ingresa un correo valido";
+      }
+    }
+
+    return "";
+  };
+
+  const handleInputChange = (form, field) => (event) => {
+    const value = event.target.value;
+    let error = validateField(form, field, value);
+
+    if (form === "personal") {
+      setPersonalData({ ...personalData, [field]: value });
+      setPersonalErrors({ ...personalErrors, [field]: error });
+    } else if (form === "payment") {
+      setPaymentData({ ...paymentData, [field]: value });
+      setPaymentErrors({ ...paymentErrors, [field]: error });
+    }
+  };
+
+  const renderFields = (fields, isEditable, formData, formErrors, formName) => {
+    return fields.map((field) => {
+      let displayValue = formData[field.name];
+
+      // Mask the value for specific payment fields when not editable
+      if (formName === "payment" && !isEditable) {
+        if (
+          field.name === "cardNumber" ||
+          field.name === "expirationDate" ||
+          field.name === "cvc"
+        ) {
+          displayValue = "•••";
+        }
+      }
+
+      return (
+        <div
+          key={field.name}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-content"
+        >
+          <label className="font-semibold text-center md:text-left">
+            {field.placeholder}
+          </label>
+          <EditableField
+            isEditable={isEditable}
+            type={field.type}
+            value={displayValue}
+            onChange={handleInputChange(formName, field.name)}
+            inputClassName="border border-[--color-form-border] placeholder:text-sm w-full text-center md:text-start max-w-[400px] m-auto"
+            labelClassName="block input-value text-center my-px"
+            error={formErrors[field.name]}
+          />
+          {formErrors[field.name] && (
+            <p className="text-red-500 text-xs">{formErrors[field.name]}</p>
+          )}
+        </div>
+      );
     });
-    setValues(updatedValues);
+  };
+
+  async function initializeFormData() {
+    const users = await read("users");
+    const foundUser = users.find(
+      (user) => user.email.toLowerCase() === globalUser.email.toLowerCase()
+    );
+
+    if (foundUser) {
+      setUserID(foundUser.id);
+      setPersonalData((prev) => ({ ...prev, ...filterKeys(foundUser, prev) }));
+      setPaymentData((prev) => ({ ...prev, ...filterKeys(foundUser, prev) }));
+    }
+  }
+
+  function filterKeys(source, target) {
+    const filtered = {};
+    Object.keys(target).forEach((key) => {
+      if (key in source) {
+        filtered[key] = source[key];
+      }
+    });
+    return filtered;
   }
 
   useEffect(() => {
-    setFormValues();
+    initializeFormData();
+    // console.log("personalData", personalData);
+    // console.log("paymentData", paymentData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const handlePersonalFormSubmit = async (event) => {
+    event.preventDefault();
+    // Check if there have been changes
+    const isDataChanged = Object.keys(personalData).some(
+      (key) => personalData[key] !== originalPersonalData[key]
+    );
+
+    if (isEditablePersonal && isDataChanged && !hasErrors(personalErrors)) {
+      // console.log("Submitting Personal Data:", personalData);
+      // Add your submission logic here
+      await update(userID, { ...personalData }, "users");
+    } else {
+      setOriginalPersonalData({ ...personalData }); // Save current data
+    }
+    setIsEditablePersonal(!isEditablePersonal);
+  };
+
+  const cancelEditModePersonal = (event) => {
+    event.preventDefault();
+    setPersonalData(originalPersonalData); // Restore original data
+    setPersonalErrors({
+      name: "",
+      email: "",
+      password: "",
+      phoneNumber: "",
+      address: "",
+      city: "",
+      region: "",
+      country: "",
+    }); // Clear errors
+    setIsEditablePersonal(!isEditablePersonal);
+  };
+
+  const handlePaymentFormSubmit = async (event) => {
+    event.preventDefault();
+    // Check if there have been changes
+    const isDataChanged = Object.keys(paymentData).some(
+      (key) => paymentData[key] !== originalPaymentData[key]
+    );
+
+    if (isEditablePayment && isDataChanged && !hasErrors(personalErrors)) {
+      // console.log("Submitting Payment Data:", paymentData);
+      await update(userID, { ...paymentData }, "users");
+    } else {
+      setOriginalPaymentData({ ...paymentData }); // Save current data
+    }
+    setIsEditablePayment(!isEditablePayment);
+  };
+
+  const cancelEditModePayment = (event) => {
+    event.preventDefault();
+    setPaymentData(originalPaymentData); // Restore original data
+    setPaymentErrors({
+      cardNumber: "",
+      expirationDate: "",
+      cvc: "",
+    });
+    setIsEditablePayment(!isEditablePayment);
+  };
 
   function redirect(route) {
     return (event) => {
@@ -57,53 +232,6 @@ export default function Profile() {
   function logOut() {
     dispatch(logOutUser());
     navigate("/");
-  }
-
-  function changeToInputs(containerId) {
-    const saveBtn = document.querySelector(`#button-save-${containerId}`);
-    const changeBtn = document.querySelector(`#button-change-${containerId}`);
-
-    document
-      .querySelectorAll(`#${containerId} label.input-value`)
-      .forEach((label) => {
-        const input = document.createElement("input");
-        input.setAttribute("value", label.textContent);
-        input.className =
-          "border border-[--color-form-border] placeholder:text-sm w-full text-center md:text-start";
-        input.type = label.getAttribute("data-type");
-        if (label.id == "country") input.disabled = true;
-        input.id = label.id;
-        label.replaceWith(input);
-      });
-
-    changeBtn.style.display = "none";
-    saveBtn.style.display = "block";
-
-    setCardNumberDisplayed(values.cardNumber);
-    setExpirationDateDisplayed(values.expirationDate);
-    setCvcDisplayed(values.cvc);
-  }
-
-  function changeToLabels(containerId) {
-    const saveBtn = document.querySelector(`#button-save-${containerId}`);
-    const changeBtn = document.querySelector(`#button-change-${containerId}`);
-    const inputs = document.querySelectorAll(`#${containerId} input`);
-
-    inputs.forEach((input) => {
-      const label = document.createElement("label");
-      label.textContent = input.value;
-      label.className = "block input-value";
-      label.setAttribute("data-type", input.type);
-      label.id = input.id;
-      input.replaceWith(label);
-    });
-
-    saveBtn.style.display = "none";
-    changeBtn.style.display = "block";
-
-    setCardNumberDisplayed("•••");
-    setExpirationDateDisplayed("•••");
-    setCvcDisplayed("•••");
   }
 
   return (
@@ -126,125 +254,121 @@ export default function Profile() {
         <h1 className="font-semibold mb-5 text-center capitalize text-3xl">
           Mi Cuenta
         </h1>
-        <form className="mb-6 min-w-auto md:min-w-[510px]" autoComplete="off">
+
+        {/* Personal Data Form */}
+
+        <form
+          className="mb-6 min-w-auto md:min-w-[510px]"
+          autoComplete="off"
+          onSubmit={handlePersonalFormSubmit}
+        >
           <div className="flex justify-between place-items-baseline">
             <h2 className="text-base mb-4 font-semibold">
               Mis Datos Personales
             </h2>
-            <button
-              id="button-change-personal"
-              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
-              onClick={(event) => {
-                event.preventDefault();
-                changeToInputs("personal");
-              }}
-            >
-              Cambiar
-            </button>
-            <button
-              id="button-save-personal"
-              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100 hidden"
-              onClick={(event) => {
-                event.preventDefault();
-                changeToLabels("personal");
-              }}
-            >
-              Guardar
-            </button>
+            {isEditablePersonal ? (
+              <>
+                <button
+                  className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                  type="submit"
+                  onClick={cancelEditModePersonal}
+                >
+                  Cancelar
+                </button>
+                <button
+                  className={`mb-6 mt-2 items-center px-7 py-4 text-white text-sm capitalize leading-normal transition-transform duration-100 
+                ${
+                  personalDataIsDisabled
+                    ? "bg-gray-400"
+                    : "bg-[--color-cart-text-button-comp-hover]"
+                }`}
+                  type="submit"
+                  disabled={personalDataIsDisabled}
+                >
+                  Guardar
+                </button>
+              </>
+            ) : (
+              <button
+                className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                type="submit"
+              >
+                Cambiar
+              </button>
+            )}
           </div>
 
           <hr className="mb-5" />
+
           <div
             id="personal"
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-center mb-10 text-center md:text-start"
+            className="grid gap-4 md:gap-8 items-center mb-10 text-center md:text-start"
           >
-            <label className="font-semibold">Correo Electrónico</label>
-            <label className="block input-value" data-type="email">
-              {values.email}
-            </label>
-
-            <label className="font-semibold">Nombre Completo</label>
-            <label className="block input-value" data-type="text">
-              {values.name}
-            </label>
-
-            <label className="font-semibold">Teléfono</label>
-            <label className="block input-value" data-type="tel">
-              {values.phoneNumber}
-            </label>
-
-            <label className="font-semibold">Dirección</label>
-            <label className="block input-value" data-type="text">
-              {values.address}
-            </label>
-
-            <label className="font-semibold">Ciudad</label>
-            <label className="block input-value" data-type="text">
-              {values.city}
-            </label>
-
-            <label className="font-semibold">Región</label>
-            <label className="block input-value" data-type="text">
-              {values.region}
-            </label>
-            <label className="font-semibold">País</label>
-            <label id="country" className="block input-value" data-type="text">
-              {values.country}
-            </label>
+            {renderFields(
+              inputsAccount,
+              isEditablePersonal,
+              personalData,
+              personalErrors,
+              "personal"
+            )}
           </div>
         </form>
 
-        <form className="mb-6" autoComplete="off">
+        {/* Payment Data Form */}
+
+        <form
+          className="mb-6"
+          autoComplete="off"
+          onSubmit={handlePaymentFormSubmit}
+        >
           <div className="flex justify-between place-items-baseline">
             <h2 className="text-base mb-4 font-semibold">Método de Pago</h2>
-            <button
-              id="button-change-payment"
-              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
-              onClick={(event) => {
-                event.preventDefault();
-                changeToInputs("payment");
-              }}
-            >
-              Cambiar
-            </button>
-            <button
-              id="button-save-payment"
-              className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100 hidden"
-              onClick={(event) => {
-                event.preventDefault();
-                changeToLabels("payment");
-              }}
-            >
-              Guardar
-            </button>
+            {isEditablePayment ? (
+              <>
+                <button
+                  className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                  type="submit"
+                  onClick={cancelEditModePayment}
+                >
+                  Cancelar
+                </button>
+
+                <button
+                  className={`mb-6 mt-2 items-center px-7 py-4 text-white text-sm capitalize leading-normal transition-transform duration-100 
+                ${
+                  paymentDataIsDisabled
+                    ? "bg-gray-400"
+                    : "bg-[--color-cart-text-button-comp-hover]"
+                }`}
+                  type="submit"
+                  disabled={paymentDataIsDisabled}
+                >
+                  Guardar
+                </button>
+              </>
+            ) : (
+              <button
+                className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                type="submit"
+              >
+                Cambiar
+              </button>
+            )}
           </div>
 
           <hr className="mb-5" />
+
           <div
             id="payment"
-            className="flex flex-col md:flex-row justify-between gap-4 md:gap-8 items-center mb-10 md:text-start"
+            className="grid gap-4 md:gap-8 items-center mb-10 text-center md:text-start"
           >
-            <div className="text-center flex flex-col gap-4">
-              <label className="font-semibold">Tarjeta</label>
-              <label className="block input-value" data-type="text">
-                {/* Visa ••• 3011 */}
-                {cardNumberDisplayed}
-              </label>
-            </div>
-            <div className="text-center flex flex-col gap-4">
-              <label className="font-semibold">Expiración</label>
-              <label className="block input-value" data-type="text">
-                {/* 12/23 */}
-                {expirationDateDisplayed}
-              </label>
-            </div>
-            <div className="text-center flex flex-col gap-4">
-              <label className="font-semibold">CVC</label>
-              <label className="block input-value" data-type="text">
-                {/* ••• */}
-                {cvcDisplayed}
-              </label>
-            </div>
+            {renderFields(
+              inputsPayment,
+              isEditablePayment,
+              paymentData,
+              paymentErrors,
+              "payment"
+            )}
           </div>
         </form>
         <div className="flex justify-center">

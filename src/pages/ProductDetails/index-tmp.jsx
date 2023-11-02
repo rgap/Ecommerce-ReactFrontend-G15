@@ -3,12 +3,22 @@ import { ProductCard } from "../../components";
 export default function ProductsDetails() {
   return (
     <>
-        <div className="py-8 pl-20 max-sm:pl-9 max-lg:pl-12">
-          <p>
-            <a href="/" alt="">Inicio</a> / <a href="/products" alt="">Productos</a> / <a href="/productsdetails" alt="">Detalle de Producto</a>
-          </p>
-        </div>
-        <main className="w-ful">
+      <div className="py-8 pl-20 max-sm:pl-9 max-lg:pl-12">
+        <p>
+          <a href="/" alt="">
+            Inicio
+          </a>{" "}
+          /{" "}
+          <a href="/products" alt="">
+            Productos
+          </a>{" "}
+          /{" "}
+          <a href="/productsdetails" alt="">
+            Detalle de Producto
+          </a>
+        </p>
+      </div>
+      <main className="w-ful">
         <section className="flex justify-around items-start max-lg:justify-normal max-lg:gap-8 max-sm:flex-col max-sm:items-center max-sm:justify-around max-sm:gap-8">
           <div className="flex justify-between gap-5">
             <div className="w-[150px] h-[350px] overflow-y-auto max-lg:w-[100px] max-lg:pl-5 max-lg:h-[300px] max-sm:w-[80px] max-sm:h-[250px]">
@@ -78,12 +88,20 @@ export default function ProductsDetails() {
               </button>
             </div>
             <div className="w-[400px] flex justify-between text-[11px] mt-5 max-lg:w-[300px]">
-             <div className="flex items-center gap-1">
-                <img className="w-[25px]" src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/1b6b42249b182d8db2cc518596757b2fabaf95a5/icons/truck.svg" alt="" />
+              <div className="flex items-center gap-1">
+                <img
+                  className="w-[25px]"
+                  src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/1b6b42249b182d8db2cc518596757b2fabaf95a5/icons/truck.svg"
+                  alt=""
+                />
                 <p>Facil Cambio o Devolución</p>
               </div>
               <div className="flex items-center gap-1">
-                <img className="w-[25px]" src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/1b6b42249b182d8db2cc518596757b2fabaf95a5/icons/heart.svg" alt="" />
+                <img
+                  className="w-[25px]"
+                  src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/1b6b42249b182d8db2cc518596757b2fabaf95a5/icons/heart.svg"
+                  alt=""
+                />
                 <p>Agregar a la Lista de Deseos</p>
               </div>
             </div>
@@ -93,7 +111,9 @@ export default function ProductsDetails() {
           <div className="w-[600px] border-[1px] border-[#404040] bg-neutral-200 shadow-lg max-lg:w-[400px] max-sm:w-[320px]">
             <h2 className="font-bold p-3">Detalles Tecnicos</h2>
             <hr className="border-[#404040]" />
-            <h2 className="font-bold text-[#404040] p-3">Fabricacion y Cuidados</h2>
+            <h2 className="font-bold text-[#404040] p-3">
+              Fabricacion y Cuidados
+            </h2>
             <div className="px-3 pb-3">
               <p>Fabricación:</p>
               <p>Algodon Peinado 20/1</p>
@@ -137,37 +157,46 @@ export default function ProductsDetails() {
           </h2>
           <div className="flex justify-around mb-20 max-lg:block max-lg:mb-10">
             <div className="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <ProductCard 
-            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-rojo-billabong-rayas-m.jpg"}
-            productTitle={"Polo Rojo Billabong"}
-            productText={"Algodon peinado 20 a 1"} 
-            productColors={""}
-            productPrice={"S/49.99"}
-            productColor1={"bg-red-800"}
-            productColor2={"bg-red-700"}
-            productColor3={"bg-red-600"}/>
+              <ProductCard
+                productImage={
+                  "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-rojo-billabong-rayas-m.jpg"
+                }
+                productTitle={"Polo Rojo Billabong"}
+                productText={"Algodon peinado 20 a 1"}
+                productColors={""}
+                productPrice={"S/49.99"}
+                productColor1={"bg-red-800"}
+                productColor2={"bg-red-700"}
+                productColor3={"bg-red-600"}
+              />
             </div>
             <div className="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <ProductCard 
-            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-amarillo-nike-m.jpg"}
-            productTitle={"Polo Amarillo Nike"}
-            productText={"Algodon peinado 20 a 1"} 
-            productColors={""}
-            productPrice={"S/49.99"}
-            productColor1={"bg-yellow-400"}
-            productColor2={"bg-yellow-300"}
-            productColor3={"bg-yellow-200"}/>
+              <ProductCard
+                productImage={
+                  "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-amarillo-nike-m.jpg"
+                }
+                productTitle={"Polo Amarillo Nike"}
+                productText={"Algodon peinado 20 a 1"}
+                productColors={""}
+                productPrice={"S/49.99"}
+                productColor1={"bg-yellow-400"}
+                productColor2={"bg-yellow-300"}
+                productColor3={"bg-yellow-200"}
+              />
             </div>
             <div className="w-[357px] max-lg:m-auto max-lg:mt-10">
-            <ProductCard 
-            productImage={"https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-negro-billabong-digital-m.jpg"}
-            productTitle={"Polo Negro Billabong"}
-            productText={"Algodon peinado 20 a 1"} 
-            productColors={""}
-            productPrice={"S/49.99"}
-            productColor1={"bg-stone-950"}
-            productColor2={"bg-stone-900"}
-            productColor3={"bg-stone-800"}/>
+              <ProductCard
+                productImage={
+                  "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-negro-billabong-digital-m.jpg"
+                }
+                productTitle={"Polo Negro Billabong"}
+                productText={"Algodon peinado 20 a 1"}
+                productColors={""}
+                productPrice={"S/49.99"}
+                productColor1={"bg-stone-950"}
+                productColor2={"bg-stone-900"}
+                productColor3={"bg-stone-800"}
+              />
             </div>
           </div>
         </section>
