@@ -4,6 +4,9 @@ import { CartLayout, MainLayout, NoFooterLayout, ProfileLayout } from "../layout
 import {
   Cart,
   CartInfo,
+  CartMessage,
+  CartMessageFail,
+  CartPayment,
   CartShipping,
   Home,
   Login,
@@ -14,6 +17,7 @@ import {
   Register,
   ResetPassword
 } from "../pages";
+
 
 export default function AppRouter() {
   return (
@@ -30,6 +34,9 @@ export default function AppRouter() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/cart-message" element={<CartMessage/>}/>
+          <Route path="/cart-message-fail" element={<CartMessageFail/>}/>
+          
         </Route>
 
         <Route element={<NoFooterLayout />}>
@@ -46,6 +53,7 @@ export default function AppRouter() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart-info" element={<CartInfo />} />
           <Route path="/cart-shipping" element={<CartShipping />} />
+          <Route path="/cart-payment" element={<CartPayment/>} />
         </Route>
       </Routes>
     </BrowserRouter>

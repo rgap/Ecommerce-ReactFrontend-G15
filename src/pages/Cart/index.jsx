@@ -26,7 +26,8 @@ export default function Cart() {
     <div className="bg-white">
       <div className="px-2 pt-2 pb-2 md:px-10 md:pt-2 md:pb-5">
         <img
-          className="h-[50px] md:h-[70px]"
+          onClick={redirect("/")}
+          className="h-[50px] md:h-[70px] hover:cursor-pointer "
           src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/logo/beautipol-textlogo.png"
           alt=""
         />
