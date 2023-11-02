@@ -6,11 +6,8 @@ import { useSelector } from "react-redux";
 import { redirect, useNavigate } from "react-router-dom";
 
 export default function Cart() {
-
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]); //lectura MOCKAPI
-  const globalCart = useSelector(counterProductos); //counterProductos slice para carrito de compras
-
+  const globalCart = useSelector(counterProductos);
   const total = globalCart.reduce((accumulator, product) => {
     const qty = product.quantity;
     const price = product.price;
@@ -18,21 +15,12 @@ export default function Cart() {
     return accumulator + subtotal;
   }, 0);
 
-  const getShoppingCart = async () => {
-    const response = await read("shoppingcart"); //read MockApi
-    setProducts(response);
-  };
-
   function redirect(route) {
     return (event) => {
       event.preventDefault();
       navigate(route);
     };
   }
-
-  useEffect(() => {
-    getShoppingCart();
-  }, []);
 
   return (
     <div className="bg-white">
@@ -47,7 +35,7 @@ export default function Cart() {
       <section className="mb-10 flex justify-between items-center md:px-10">
         <div className="p-4 flex justify-content items-center gap-1">
           <div
-          onClick={redirect("/products")}
+          onClick={redirect("/")}
           className="text-center text-[--color-cart-text-button-comp] md:text-lg font-normal  capitalize leading-6 cursor-pointer hover:underline">
             volver
           </div>
@@ -56,9 +44,10 @@ export default function Cart() {
         <p className="text-xl md:text-[30px] font-semibold ">Tu Carrito</p>
 
         <div className="p-4 flex justify-content items-center gap-1">
-          <div 
-          onClick={redirect("/cart-info")}
-          className="text-center text-[--color-cart-text-button-comp] md:text-lg font-normal capitalize leading-6 cursor-pointer hover:underline">
+          <div
+            onClick={redirect("/cart-info")}
+            className="text-center text-[--color-cart-text-button-comp] md:text-lg font-normal capitalize leading-6 cursor-pointer hover:underline"
+          >
             continuar
           </div>
         </div>
