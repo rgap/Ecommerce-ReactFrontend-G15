@@ -10,9 +10,10 @@ export default function Footer() {
     setSubscriptionEmailSubmitted(true);
     // Send the email to the backend or email service
   };
-
+  // md:min-h-[360px] md:max-h-[200px]
   return (
-    <footer className="pt-5 pb-5">
+    // <footer className="pt-5 pb-5 border relative bottom-0 w-full">
+    <footer className="pt-5 pb-5 w-full">
       <div className="mr-6 ml-6 md:mr-20 md:ml-20 color-text-white flex flex-col justify-between lg:flex-row">
         <div className="footer-left pb-5 my-4">
           <p className="footer-title font-bold md:text-xl my-4">

@@ -2,11 +2,12 @@
 import { useEffect, useState } from "react";
 
 import { ProductCard } from "../../components";
-import { create, read } from "../../services";
+import { read } from "../../services";
 
 function Products() {
   const [productsArray, setProductsArray] = useState([]);
-
+  const [filteredProducts, setFilteredProducts] = useState([]); // State for the filtered products based on search
+  const [searchTerm, setSearchTerm] = useState(""); // State for the search term
   const [productsToShow, setProductsToShow] = useState(12);
 
   const loadMoreProducts = () => {
@@ -17,18 +18,27 @@ function Products() {
     setProductsToShow(productsToShow - 15);
   };
 
-  async function populateDB() {
-    for (const product of productsArray) {
-      delete product.createdAt;
-      delete product.id;
-      await create(product, "products");
-    }
-  }
+  // Function to handle search input changes
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   async function initializeProductsArray() {
-    const productsArray = await read("products");
-    setProductsArray(productsArray);
+    const productsFromDB = await read("products");
+    setProductsArray(productsFromDB);
   }
+
+  // Effect to filter products based on the search term
+  useEffect(() => {
+    if (searchTerm === "") {
+      setFilteredProducts(productsArray);
+    } else {
+      const results = productsArray.filter((product) =>
+        product?.title?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredProducts(results);
+    }
+  }, [searchTerm, productsArray]);
 
   useEffect(() => {
     initializeProductsArray();
@@ -36,14 +46,15 @@ function Products() {
   }, []);
 
   return (
-    <main className=" mx-auto p-4 bg-[--color-bg] flex justify-center">
-      <section className="flex flex-col gap-5 mt-8 mb-16">
+    <main className="p-4 bg-[--color-bg] flex justify-center">
+      <section className="flex flex-col gap-5 mt-4 mb-16 ">
+        {/* Breadcrumb navigation */}
         <nav aria-label="breadcrumb">
           <ol className="flex text-xl">
             <li className="mr-2">
               <a
                 href="/"
-                className="text-[--color-link-text] hover:underline font-semibold	"
+                className="text-[--color-link-text] hover:underline font-semibold"
               >
                 Página Principal
               </a>
@@ -53,24 +64,49 @@ function Products() {
           </ol>
         </nav>
 
+        {/* Search bar */}
+        <div className="my-3 flex justify-center">
+          <input
+            type="text"
+            placeholder="Busqueda por nombre de polo"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="w-full max-w-lg pl-4 pr-10 py-2 border-2 border-gray-200 rounded-full  transition-colors outline-none"
+          />
+        </div>
+
+        {/* Product grid */}
         <div className="my-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[1100px]">
-          {productsArray.slice(0, productsToShow).map((product) => (
+          {filteredProducts.slice(0, productsToShow).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
 
-        <div className="my-4 m-auto text-center">
-          {productsToShow < productsArray.length && (            
-              <button className="mb-6 mt-8 items-center px-20 py-6 bg-[--color-cart-text-button-comp] text-white text-sm capitalize leading-normal transition-transform duration-100"
-              onClick={loadMoreProducts}>Cargar Más</button>
-            
-          )}
+        {/* Load more or less buttons */}
 
-          {productsToShow > 15 && (
-              <button className="mb-6 mt-8 items-center px-20 py-6 bg-[--color-cart-text-button-comp] text-white text-sm capitalize leading-normal transition-transform duration-100" 
-              onClick={loadLessProducts}>Cargar Menos</button>
-          )}
-        </div>
+        {productsArray.length > 0 ? (
+          <div className="my-0 m-auto text-center">
+            {productsToShow < filteredProducts.length && (
+              <button
+                className="mb-0 mt-8 items-center px-20 py-6 bg-[--color-cart-text-button-comp] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                onClick={loadMoreProducts}
+              >
+                Cargar Más
+              </button>
+            )}
+
+            {productsToShow > 15 && (
+              <button
+                className="mb-0 mt-8 items-center px-20 py-6 bg-[--color-cart-text-button-comp] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                onClick={loadLessProducts}
+              >
+                Cargar Menos
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="my-0 m-auto text-center">No hay productos aún</div>
+        )}
       </section>
     </main>
   );

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 
-export default function ProductCard({ product, hideColors }) {
+export default function ProductCard({ product, resizingStyle, hideColors }) {
   const navigate = useNavigate();
 
   const goToProductDetails = () => {
@@ -54,12 +54,25 @@ export default function ProductCard({ product, hideColors }) {
     currency: "PEN",
   }).format(product.prices?.m?.[product.colors[0]] || product.price);
 
+  // const resizingColorClasses = () => {
+  //   const classes = ""
+  //   if (resizingStyle == "products") {
+  //     classes =
+  //   } else {
+  //     w-1 h-1 sm:w-6 sm:h-6 p-1 sm:p-2
+  //   }
+  //   return
+  // };
+  // const resizingPriceClasses = () => {
+  //   return;
+  // };
+
   return (
     <div
       className="rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-xl cursor-pointer bg-white"
       onClick={goToProductDetails}
     >
-      <div className="p-4 bg-white">
+      <div className="p-4 bg-white h-full">
         {/* Product Image */}
         <img
           src={product.image}
@@ -67,36 +80,46 @@ export default function ProductCard({ product, hideColors }) {
           className="w-full h-auto mb-3"
         />
 
-        <div className="flex flex-col justify-between text-center gap-3">
+        <div className="flex flex-col items-center">
           {/* Left Section: Title and Short Description */}
-          <div>
-            <h1 className="font-bold text-xl text-gray-800">{product.title}</h1>
-          </div>
-          <div>
-            <p className="text-sm text-gray-600">{product.shortDescription}</p>
-          </div>
+          <div className="grid h-[120px] text-center align-center">
+            <div>
+              <h1 className="font-bold text-xl text-gray-800">
+                {product.title}
+              </h1>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">
+                {product.shortDescription}
+              </p>
+            </div>
 
-          {/* Right Section: Price and Colors */}
-          <div className="flex items-center justify-between">
-            {/* Colors */}
-            {!hideColors && (
-              <div className="flex ml-4">
-                {product.colors.map((color, index) => (
-                  <div
-                    key={index}
-                    className={`w-6 h-6 rounded-full p-2 border-slate-400 border-2 mr-2 ${colorClass(
-                      color
-                    )}`}
-                  ></div>
-                ))}
+            {/* Right Section: Price and Colors */}
+
+            <div className="flex items-center justify-around">
+              <div className="flex items-center justify-around gap-5">
+                {/* Colors */}
+                {!hideColors && (
+                  <div className="flex">
+                    {product.colors.map((color, index) => (
+                      <div
+                        key={index}
+                        className={`w-2 h-2 sm:w-6 sm:h-6 p-2 sm:p-2 rounded-full border-slate-400 border-2 mr-2 ${colorClass(
+                          color
+                        )}`}
+                      ></div>
+                    ))}
+                  </div>
+                )}
+                {/* Price */}
+                <div className="text-[14px] sm:text-[16px] font-bold text-gray-800">
+                  {mediumPrice}
+                </div>
               </div>
-            )}
-            {/* Price */}
-            <div className="font-bold text-lg text-gray-800">{mediumPrice}</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    
   );
 }
