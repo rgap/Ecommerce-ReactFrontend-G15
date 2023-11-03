@@ -1,7 +1,5 @@
 import * as yup from "yup";
 
-const phoneRegExp = /^[0-9()+]+$/;
-
 export const basicSchema = yup.object().shape({
   name: yup
     .string()
@@ -13,7 +11,7 @@ export const basicSchema = yup.object().shape({
     .required("Campo direccion es obligatorio"),
   phoneNumber: yup
     .string()
-    .matches(phoneRegExp, "Telefono solo puede contener números, +, ( y )")
+    .matches(/^[0-9()+]+$/, "Telefono solo puede contener números, +, ( y )")
     .required("Campo telefono es obligatorio"),
   region: yup
     .string()

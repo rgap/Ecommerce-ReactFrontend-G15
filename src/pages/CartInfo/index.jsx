@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button, ProductShoppingCart } from "../../components";
+import {
+  Breadcrumb,
+  Button,
+  Logo,
+  ProductShoppingCart,
+} from "../../components";
 import { read, update } from "../../services";
 import { counterProductos } from "../../slices/cartSlice";
 import { useFormik } from "formik";
@@ -15,11 +20,11 @@ export default function CartInfo() {
   const [personalData, setPersonalData] = useState([]);
 
   const total = globalCart.reduce((accumulator, product) => {
-    const qty = product.quantity;
-    const price = product.price;
-    const subtotal = qty * price;
+    const subtotal = product.quantity * product.price;
     return accumulator + subtotal;
   }, 0);
+
+  const totalCart = total.toFixed(2);
 
   const onSubmit = async (values, actions) => {
     await update(personalData.id, values, "users");
@@ -88,18 +93,12 @@ export default function CartInfo() {
   return (
     <>
       <div className="lg:flex">
-        <section className="cart-info-left lg:w-[55%] ml-10">
+        <section className="cart-info-left lg:w-[55%]">
+          <Logo />
 
-          <div className="mt-5">
-            <img
-              onClick={redirect("/")}
-              className="h-[50px] md:h-[70px] hover:cursor-pointer "
-              src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/logo/beautipol-textlogo.png"
-              alt=""
-            />
-          </div>
+          <Breadcrumb />
 
-          { !globalUser ? (
+          {!globalUser ? (
             <section className="flex justify-center  h-[50%] items-center">
               <div className="flex flex-col items-center gap-2">
                 <p className="text-lg  break-words"> ¿Ya tienes una cuenta? </p>
@@ -188,39 +187,38 @@ export default function CartInfo() {
           )}
         </section>
 
-        <section className="max-lg:hidden cart-info-right lg:w-[45%] h-screen bg-[--color-bg] flex flex-col justify-start items-center">
-          <div className="mt-5 w-full flex justify-center">
-            <span className="text-xl font-bold mt-10 mb-10">
-              Carrito de Compras
-            </span>
-          </div>
+        <section className="max-lg:hidden cart-info-right h-screen lg:w-[45%] bg-[--color-bg] flex flex-col justify-start items-center">
+        <div className="w-full flex justify-center">
+          <span className="text-xl font-bold mt-10 mb-10">
+           Carrito de Compra
+          </span>
+        </div>
 
           <div className="lg:w-[350px] xl:w-[450px]">
             {globalCart.map((product) => (
-              <ProductShoppingCart
-                productId={product.id}
-                productImage={product.url}
-                productTitle={product.name}
-                productSize={product.size}
-                productColor={product.color}
-                productPrice={product.price}
-                productQuantity={product.quantity}
-                product={product}
-                visible={true}
-              />
+              <div className="md:mb-2">
+                <ProductShoppingCart
+                  productId={product.id}
+                  productImage={product.url}
+                  productTitle={product.name}
+                  productSize={product.size}
+                  productColor={product.color}
+                  productPrice={product.price}
+                  productQuantity={product.quantity}
+                  product={product}
+                  visible={true}
+                />
+              </div>
             ))}
-          </div>
-
-          <div className="mt-5 flex flex-col w-full">
-            <div className="flex justify-end gap-5 mx-5">
-              <p className="mb-2 text-lg leading-8">
-                Subtotal: <span> S/ {total} </span>
+            <div className="flex flex-col items-end mr-1 mt-5 mb-5 ">
+              <p className="text-lg ">
+                Subtotal: <span> S/ {totalCart} </span>
+              </p>
+              <p className="text-xs text-end">
+                (*) El importe total que pagará sera calculado en la sección
+                ENVIOS.
               </p>
             </div>
-            <p className="mx-2 text-right text-xs">
-              (*) El importe total que pagará sera calculado en la sección
-              ENVIOS.
-            </p>
           </div>
         </section>
       </div>
