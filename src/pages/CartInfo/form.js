@@ -1,7 +1,7 @@
-export const inputsCartInfo = [
+export const inputs = [
   {
     placeholder: "Nombres Completos",
-    name: "nombre",
+    name: "name",
     type: "text"
   },
   {
