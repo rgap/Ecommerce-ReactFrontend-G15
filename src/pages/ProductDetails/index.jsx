@@ -5,12 +5,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { read } from "../../services";
 import { addToCart } from "../../slices/cartSlice";
+import React from "react";
+import Carousel from "../../components/Carousel"; 
 
 // import { productsArray } from "./mockProducts"; // Adjust the import path as needed
 
 // const product = productsArray.find((p) => p.id === productId);
 
-export default function ProductDetails() {
+function ProductDetails() {
   // Set initial state to the first available size and color
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
@@ -153,7 +155,7 @@ export default function ProductDetails() {
   return (
     <>
       <ToastContainer position="top-left" />
-      <main className="mx-auto py-8 px-4 md:px-8 bg-[--color-bg]  flex justify-center">
+      <main className="flex-col mx-auto py-8 px-4 md:px-8 bg-[--color-bg]  flex justify-center">
         <section className="flex flex-col gap-8 max-w-[1200px] mb-16">
           <nav aria-label="breadcrumb">
             <ol className="flex text-xl">
@@ -224,7 +226,15 @@ export default function ProductDetails() {
             </div>
           </section>
         </section>
+        <section className="mt-0">
+          <h2 className="text-[22px] font-bold mb-5">Tambien te puede interesar</h2>
+          <div className="ProductDetails">
+            <Carousel />
+          </div>
+        </section>
       </main>
     </>
   );
 }
+
+export default ProductDetails;
