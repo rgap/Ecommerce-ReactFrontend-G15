@@ -3,10 +3,9 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Carousel from "../../components/Carousel";
 import { read } from "../../services";
 import { addToCart } from "../../slices/cartSlice";
-import React from "react";
-import Carousel from "../../components/Carousel"; 
 
 // import { productsArray } from "./mockProducts"; // Adjust the import path as needed
 
@@ -162,7 +161,7 @@ function ProductDetails() {
   return (
     <>
       <ToastContainer position="top-left" />
-      <main className="py-8 px-4 md:px-8 h-auto md:h-full md:px-8 bg-[--color-bg] flex justify-center">
+      <main className="py-8 px-4 h-auto md:h-full md:px-8 bg-[--color-bg] flex justify-center">
         <section className="flex flex-col gap-8 max-w-[1200px] mb-4">
           <nav aria-label="breadcrumb">
             <ol className="flex text-xl">
@@ -189,7 +188,9 @@ function ProductDetails() {
               <div className="mt-4">{renderImageSlider()}</div>
             </div>
             <div className="w-full md:w-1/2 lg:w-2/3 bg-white shadow-lg p-6 rounded-lg">
-              <h1 className="text-2xl font-bold mb-4">{product.title}</h1>
+              <h1 className="text-2xl font-bold mb-4 text-center md:text-left">
+                {product.title}
+              </h1>
               <p className="mb-4">{product.productDescription}</p>
 
               <div className="mb-4 p-4 bg-gray-100 rounded-md">
@@ -232,12 +233,14 @@ function ProductDetails() {
               )}
             </div>
           </section>
-        </section>
-        <section className="mt-0">
-          <h2 className="text-[22px] font-bold mb-5">Tambien te puede interesar</h2>
-          <div className="ProductDetails">
-            <Carousel />
-          </div>
+          <section className="mb-6">
+            <h2 className="text-2xl font-bold my-10 text-center md:text-left">
+              También te puede interesar
+            </h2>
+            <div className="ProductDetails">
+              <Carousel />
+            </div>
+          </section>
         </section>
       </main>
     </>
