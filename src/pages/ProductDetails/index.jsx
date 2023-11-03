@@ -155,7 +155,7 @@ function ProductDetails() {
   return (
     <>
       <ToastContainer position="top-left" />
-      <main className="mx-auto py-8 px-4 md:px-8 bg-[--color-bg]  flex justify-center">
+      <main className="flex-col mx-auto py-8 px-4 md:px-8 bg-[--color-bg]  flex justify-center">
         <section className="flex flex-col gap-8 max-w-[1200px] mb-16">
           <nav aria-label="breadcrumb">
             <ol className="flex text-xl">
@@ -226,7 +226,7 @@ function ProductDetails() {
             </div>
           </section>
         </section>
-        <section className="mt-14">
+        <section className="mt-0">
           <h2 className="text-[22px] font-bold mb-5">Tambien te puede interesar</h2>
           <div className="ProductDetails">
             <Carousel />
