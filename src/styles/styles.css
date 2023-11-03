@@ -137,3 +137,18 @@ input[disabled] {
   width: 20px;
   height: 20px;
 }
+
+
+.modal-cart {
+  display: none;
+  position: absolute;
+  top: 100px; /* Ajusta esta posición según tu diseño */
+  right: 50%;
+  transform: translateX(-50%);
+  z-index: 999; /* Asegura que el modal esté por encima del contenido del body */
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+}

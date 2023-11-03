@@ -34,15 +34,21 @@ export default function ProductShoppingCart({
   }, []);
 
   return (
-    <div className="flex w-full mb-2" key={productId}>
-      <img
-        className="w-[100px] h-[115px] cursor-pointer hover:scale-90  "
-        src={productImage}
-        title={productTitle}
-      />
+    <div
+      className="flex flex-row gap-5 w-full border p-2 rounded-md bg-white "
+      key={productId}
+    >
+      <div className="flex items-center md:items-start">
+        <img
+          className="w-[100px] h-[100px] hover:scale-90 "
+          src={productImage}
+          title={productTitle}
+          alt={productTitle}
+        />
+      </div>
 
-      <div className="w-full flex justify-center">
-        <div className="flex flex-col capitalize leading-7 gap-2">
+      <div className="flex-grow  flex">
+        <div className="flex flex-col capitalize gap-2 ml-2">
           <span className="hidden"> {productId} </span>
           <p className="font-semibold "> {productTitle} </p>
           <p className="text-sm"> Talla: {productSize} </p>
@@ -51,19 +57,20 @@ export default function ProductShoppingCart({
           {isMobile || visible ? (
             <>
               <p className="text-sm "> Precio: S/.{productPrice} </p>
-              <QuantityButton
-                productId={productId}
-                productQuantity={productQuantity}
-                product={product}
-              />
+              
+                <QuantityButton
+                  productId={productId}
+                  productQuantity={productQuantity}
+                  product={product}
+                />
+             
             </>
           ) : (
             ""
           )}
         </div>
       </div>
-
-      <div className="w-full flex flex-col place-items-center">
+      <div className="">
         <img
           onClick={() => handleDeleteFromCart(productId)}
           className="h-6 w-6 hover:scale-125 hover:cursor-pointer border-2 "
