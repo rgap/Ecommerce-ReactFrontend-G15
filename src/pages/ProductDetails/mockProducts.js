@@ -329,43 +329,6 @@ export const productsArray = [
   },
   // Producto 10 (nuevo)
   {
-    createdAt: "2023-11-01T08:00:00.000Z",
-    image:
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-rojo-quiksilver.jpg",
-    title: "Polo Quiksilver Rojo",
-    stock: {
-      s: { red: 15, orange: 10, pink: 8 },
-      m: { red: 12, orange: 8, pink: 6 },
-      l: { red: 10, orange: 6, pink: 4 },
-      xl: { red: 7, orange: 4, pink: 2 },
-    },
-    prices: {
-      s: { red: "46.00", orange: "46.00", pink: "46.00" },
-      m: { red: "56.00", orange: "56.00", pink: "56.00" },
-      l: { red: "66.00", orange: "66.00", pink: "66.00" },
-      xl: { red: "76.00", orange: "76.00", pink: "76.00" },
-    },
-    sizes: ["s", "m", "l", "xl"],
-    colors: ["red", "orange", "pink"],
-    imageArray: [
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-morado-adidas.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-gris-nike.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-blanco-quiksilver.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-azul-nike.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-azul-claro-ripcurl.jpg",
-    ],
-    productMaterial:
-      "Confeccionado con tejido de alta calidad, 70% algodón, 30% poliéster para confort y durabilidad.",
-    productCare:
-      "Lavado suave a máquina, evitar blanqueadores. Secar al aire libre para mantener la forma y color.",
-    productDescription:
-      "Este polo rojo de Quiksilver aporta un toque de color y estilo a tu guardarropa, ideal para actividades al aire libre o para un look casual.",
-    shortDescription: "Vibrante y Cómodo",
-    id: "10",
-  },
-
-  // Producto 11 (nuevo)
-  {
     createdAt: "2023-11-01T08:10:00.000Z",
     image:
       "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-morado-adidas.jpg",
@@ -398,9 +361,9 @@ export const productsArray = [
     productDescription:
       "Con un diseño único y moderno, este polo morado de Adidas es perfecto para cualquier ocasión, combinando estilo y confort.",
     shortDescription: "Estilo Único y Fresco",
-    id: "11",
+    id: "10",
   },
-  // Producto 12 (nuevo)
+  // Producto 11 (nuevo)
   {
     createdAt: "2023-11-01T09:00:00.000Z",
     image:
@@ -434,10 +397,10 @@ export const productsArray = [
     productDescription:
       "Este polo gris de Nike es la combinación perfecta de estilo y comodidad, ideal para el uso diario y ocasiones casuales.",
     shortDescription: "Cómodo y Estilizado",
-    id: "12",
+    id: "11",
   },
 
-  // Producto 13 (nuevo)
+  // Producto 12 (nuevo)
   {
     createdAt: "2023-11-01T09:10:00.000Z",
     image:
@@ -471,9 +434,9 @@ export const productsArray = [
     productDescription:
       "El polo Quiksilver blanco es una pieza esencial para un estilo casual y relajado, perfecto para el día a día o actividades al aire libre.",
     shortDescription: "Casual y Ecológico",
-    id: "13",
+    id: "12",
   },
-  // Producto 14 (nuevo)
+  // Producto 13 (nuevo)
   {
     createdAt: "2023-11-01T09:20:00.000Z",
     image:
@@ -507,10 +470,10 @@ export const productsArray = [
     productDescription:
       "El polo amarillo de Adidas combina estilo y comodidad, perfecto para actividades deportivas o un look casual diario.",
     shortDescription: "Deporte y Estilo Diario",
-    id: "14",
+    id: "13",
   },
 
-  // Producto 15 (nuevo)
+  // Producto 14 (nuevo)
   {
     createdAt: "2023-11-01T09:30:00.000Z",
     image:
@@ -544,9 +507,9 @@ export const productsArray = [
     productDescription:
       "Este polo Nike en tono azul es ideal para cualquier actividad, ofreciendo confort y un estilo moderno y versátil.",
     shortDescription: "Confort y Estilo Moderno",
-    id: "15",
+    id: "14",
   },
-  // Producto 16 (nuevo)
+  // Producto 15 (nuevo)
   {
     createdAt: "2023-11-01T10:00:00.000Z",
     image:
@@ -580,46 +543,10 @@ export const productsArray = [
     productDescription:
       "El polo Ripcurl en azul claro es perfecto para un look casual de fin de semana. Combina estilo y confort de manera única.",
     shortDescription: "Estilo Casual de Finde",
-    id: "16",
+    id: "15",
   },
 
-  // Producto 17 (nuevo)
-  {
-    createdAt: "2023-11-01T10:10:00.000Z",
-    image:
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-guinda-ripcurl.jpg",
-    title: "Polo Ripcurl Guinda",
-    stock: {
-      s: { maroon: 12, black: 18, gray: 14 },
-      m: { maroon: 10, black: 15, gray: 12 },
-      l: { maroon: 8, black: 12, gray: 9 },
-      xl: { maroon: 6, black: 10, gray: 7 },
-    },
-    prices: {
-      s: { maroon: "49.00", black: "49.00", gray: "49.00" },
-      m: { maroon: "59.00", black: "59.00", gray: "59.00" },
-      l: { maroon: "69.00", black: "69.00", gray: "69.00" },
-      xl: { maroon: "79.00", black: "79.00", gray: "79.00" },
-    },
-    sizes: ["s", "m", "l", "xl"],
-    colors: ["maroon", "black", "gray"],
-    imageArray: [
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-melange-nike.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-rojo-adidas.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verdepasto-quiksilver.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-rojojaspeado-quiksilver.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verdesuave-ripcurl.jpg",
-    ],
-    productMaterial:
-      "Hecho de 100% algodón orgánico, ofrece suavidad y resistencia para el uso diario.",
-    productCare:
-      "Lavado a mano o a máquina con agua fría. No usar blanqueador. Planchar a temperatura media. No limpiar en seco.",
-    productDescription:
-      "Este polo guinda de Ripcurl combina estilo clásico con comodidad, ideal para una variedad de ocasiones.",
-    shortDescription: "Clásico y Confortable",
-    id: "17",
-  },
-  // Producto 18 (nuevo)
+  // Producto 16 (nuevo)
   {
     createdAt: "2023-11-01T11:00:00.000Z",
     image:
@@ -653,83 +580,10 @@ export const productsArray = [
     productDescription:
       "El Polo Volcom Negro ofrece un estilo atemporal con su diseño minimalista. Ideal para combinar con cualquier atuendo.",
     shortDescription: "Estilo Minimalista",
-    id: "18",
+    id: "16",
   },
 
-  // Producto 19 (nuevo)
-  {
-    createdAt: "2023-11-01T11:10:00.000Z",
-    image:
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-rojo-quiksilver.jpg",
-    title: "Polo Quiksilver Rojo",
-    stock: {
-      s: { red: 22, blue: 18, yellow: 14 },
-      m: { red: 20, blue: 16, yellow: 12 },
-      l: { red: 17, blue: 13, yellow: 9 },
-      xl: { red: 14, blue: 10, yellow: 6 },
-    },
-    prices: {
-      s: { red: "50.00", blue: "50.00", yellow: "50.00" },
-      m: { red: "60.00", blue: "60.00", yellow: "60.00" },
-      l: { red: "70.00", blue: "70.00", yellow: "70.00" },
-      xl: { red: "80.00", blue: "80.00", yellow: "80.00" },
-    },
-    sizes: ["s", "m", "l", "xl"],
-    colors: ["red", "blue", "yellow"],
-    imageArray: [
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-morado-adidas.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-gris-nike.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-blanco-quiksilver.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-amarillo-adidas.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-azul-nike.jpg",
-    ],
-    productMaterial:
-      "Constituido de una mezcla de algodón y poliéster para mayor resistencia y comodidad.",
-    productCare:
-      "Lavado en ciclo delicado con agua tibia. No blanquear. Secado en línea preferible. Planchar a baja temperatura si es necesario.",
-    productDescription:
-      "Este polo rojo de Quiksilver destaca por su vibrante color y corte clásico, perfecto para un look casual o deportivo.",
-    shortDescription: "Vibrante y Versátil",
-    id: "19",
-  },
-  // Producto 20 (nuevo)
-  {
-    createdAt: "2023-11-01T11:20:00.000Z",
-    image:
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-morado-adidas.jpg",
-    title: "Polo Adidas Morado",
-    stock: {
-      s: { purple: 16, pink: 12, cream: 10 },
-      m: { purple: 14, pink: 10, cream: 8 },
-      l: { purple: 12, pink: 8, cream: 6 },
-      xl: { purple: 10, pink: 6, cream: 4 },
-    },
-    prices: {
-      s: { purple: "47.00", pink: "47.00", cream: "47.00" },
-      m: { purple: "57.00", pink: "57.00", cream: "57.00" },
-      l: { purple: "67.00", pink: "67.00", cream: "67.00" },
-      xl: { purple: "77.00", pink: "77.00", cream: "77.00" },
-    },
-    sizes: ["s", "m", "l", "xl"],
-    colors: ["purple", "pink", "cream"],
-    imageArray: [
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-blanco-quiksilver.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-amarillo-adidas.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-azul-nike.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-azul-ripcurl.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-celeste-quiksilver.jpg",
-    ],
-    productMaterial:
-      "Hecho de material suave al tacto, 70% algodón y 30% poliéster, para confort duradero.",
-    productCare:
-      "Lavar a mano o máquina en agua fría. No usar secadora. Planchar a baja temperatura. Evitar productos blanqueadores.",
-    productDescription:
-      "Polo Adidas Morado, ideal para un estilo casual y deportivo. Su color distintivo lo hace perfecto para cualquier ocasión.",
-    shortDescription: "Casual y Deportivo",
-    id: "20",
-  },
-
-  // Producto 21 (nuevo)
+  // Producto 17 (nuevo)
   {
     createdAt: "2023-11-01T11:30:00.000Z",
     image:
@@ -763,9 +617,9 @@ export const productsArray = [
     productDescription:
       "Elegante polo gris Nike, con diseño moderno y material de alta calidad. Ideal para el día a día o para hacer deporte.",
     shortDescription: "Elegante y Moderno",
-    id: "21",
+    id: "17",
   },
-  // Producto 22 (nuevo)
+  // Producto 18 (nuevo)
   {
     createdAt: "2023-11-01T11:50:00.000Z",
     image:
@@ -799,10 +653,10 @@ export const productsArray = [
     productDescription:
       "Polo rojo vibrante de Adidas, perfecto para un look llamativo. Confortable y versátil para cualquier ocasión.",
     shortDescription: "Vibrante y Confortable",
-    id: "22",
+    id: "18",
   },
 
-  // Producto 23 (nuevo)
+  // Producto 19 (nuevo)
   {
     createdAt: "2023-11-01T12:00:00.000Z",
     image:
@@ -836,9 +690,9 @@ export const productsArray = [
     productDescription:
       "Este polo Quiksilver en tono verde pasto combina estilo y sostenibilidad. Ideal para un look casual y relajado.",
     shortDescription: "Estilo Sustentable",
-    id: "23",
+    id: "19",
   },
-  // Producto 24 (nuevo)
+  // Producto 20 (nuevo)
   {
     createdAt: "2023-11-01T12:10:00.000Z",
     image:
@@ -872,10 +726,10 @@ export const productsArray = [
     productDescription:
       "El polo Quiksilver jaspeado rojo combina estilo y comodidad. Ideal para un look casual y deportivo.",
     shortDescription: "Estilo Casual Jaspeado",
-    id: "24",
+    id: "20",
   },
 
-  // Producto 25 (nuevo)
+  // Producto 21 (nuevo)
   {
     createdAt: "2023-11-01T12:20:00.000Z",
     image:
@@ -909,9 +763,9 @@ export const productsArray = [
     productDescription:
       "Polo Ripcurl de tono verde suave, perfecto para cualquier ocasión. Cómodo, duradero y fácil de combinar.",
     shortDescription: "Confort y Estilo Diario",
-    id: "25",
+    id: "21",
   },
-  // Producto 26 (nuevo)
+  // Producto 22 (nuevo)
   {
     createdAt: "2023-11-01T13:10:00.000Z",
     image:
@@ -945,43 +799,6 @@ export const productsArray = [
     productDescription:
       "Este polo Billabong en rojo clásico combina estilo y comodidad, perfecto para un look casual.",
     shortDescription: "Estilo Rojo Billabong",
-    id: "26",
-  },
-
-  // Producto 27 (nuevo)
-  {
-    createdAt: "2023-11-01T13:20:00.000Z",
-    image:
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verde-claro-nike-m-nobg.jpg",
-    title: "Polo Nike Verde Claro",
-    stock: {
-      s: { green: 25, teal: 20, yellow: 15 },
-      m: { green: 23, teal: 18, yellow: 13 },
-      l: { green: 20, teal: 16, yellow: 10 },
-      xl: { green: 18, teal: 14, yellow: 8 },
-    },
-    prices: {
-      s: { green: "47.00", teal: "47.00", yellow: "47.00" },
-      m: { green: "57.00", teal: "57.00", yellow: "57.00" },
-      l: { green: "67.00", teal: "67.00", yellow: "67.00" },
-      xl: { green: "77.00", teal: "77.00", yellow: "77.00" },
-    },
-    sizes: ["s", "m", "l", "xl"],
-    colors: ["green", "teal", "yellow"],
-    imageArray: [
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-azul-claro-nike-m.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-azul-nike.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-melange-nike.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-gris-nike.jpg",
-      "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-verde-claro-nike-m-nobg.jpg",
-    ],
-    productMaterial:
-      "Fabricado con microfibra de alto rendimiento, 90% poliéster y 10% spandex para flexibilidad.",
-    productCare:
-      "Evitar lejía. Lavar a máquina en frío. Secar en plano. No planchar directamente sobre el estampado.",
-    productDescription:
-      "Polo Nike en un atractivo verde claro. Ideal para actividades deportivas y casuales.",
-    shortDescription: "Nike Verde para Deporte",
-    id: "27",
+    id: "22",
   },
 ];

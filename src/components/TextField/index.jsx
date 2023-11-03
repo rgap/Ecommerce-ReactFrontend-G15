@@ -22,7 +22,7 @@ export default function TextField({
           value={value}
           onChange={onChange}
           name={name}
-          className={`w-full p-2 border border-[--color-form-border] placeholder:text-sm ${className}`}
+          className={`w-full p-2 border border-[--color-form-border] placeholder:text-sm ${className} outline-none`}
           placeholder={placeholder}
         />
       ) : (
@@ -32,7 +32,7 @@ export default function TextField({
             value={value}
             onChange={onChange}
             name={name}
-            className="w-full p-2 border border-[--color-form-border] placeholder:text-sm"
+            className="w-full p-2 border border-[--color-form-border] placeholder:text-sm outline-none"
             placeholder={placeholder}
           />
           <button

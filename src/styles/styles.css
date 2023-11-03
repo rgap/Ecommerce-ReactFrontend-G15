@@ -30,7 +30,7 @@ body {
   --color-cart-text-button-comp: #49656f;
   --color-cart-text-button-comp-hover: #b27652;
   --color-hr: #dfdfdf;
-  --color-cart-bg-gray:#D1D9CF;
+  --color-cart-bg-gray: #d1d9cf;
 
   /* Quantity Button Component */
   --color-quantity-button: #d1d9cf;
@@ -77,28 +77,34 @@ input[disabled] {
   display: block;
   overflow: hidden;
 }
+
 .nav-center-link span {
   color: #404040;
   display: block;
-}
-.nav-center-link:hover span {
-  transform: translateY(-100%);
-  transition: 1s;
-}
-.nav-center-link::before {
-  position: absolute;
-  content: attr(data-link-alt);
-  top: 100%;
-  opacity: 0;
-  transition: 1s;
-  color: #3b6978;
-  font-weight: bolder;
+  transition: transform 1s;
 }
 
-.nav-center-link:hover::before {
-  top: 0;
-  opacity: 1;
-  text-decoration: underline;
+/* Only apply hover styles if the hover media feature is available */
+@media (hover: hover) {
+  .nav-center-link:hover span {
+    transform: translateY(-100%);
+  }
+
+  .nav-center-link::before {
+    position: absolute;
+    content: attr(data-link-alt);
+    top: 100%;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1s, top 1s;
+    color: #3b6978;
+    font-weight: bolder;
+  }
+
+  .nav-center-link:hover::before {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 /* Modal Dialog */

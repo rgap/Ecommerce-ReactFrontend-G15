@@ -4,7 +4,7 @@ import { useState } from "react";
 const HeroSection = () => {
   return (
     <section className="flex justify-center">
-      <div className="bg-e7dfd5 text-center p-16 max-w-[1000px]">
+      <div className="bg-e7dfd5 text-center px-16 pb-12">
         <h1 className="text-4xl font-bold mb-10 text-black leading-relaxed max-w-[600px] m-auto">
           Oferta de Nuevos Polos de Lana Merino
         </h1>
@@ -24,7 +24,7 @@ const HeroSection = () => {
 const ProductFeatures = () => {
   return (
     <section className="flex justify-center">
-      <section className="max-w-[1000px]  flex flex-col justify-center">
+      <section className="flex flex-col justify-center">
         {/* Primera Característica */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-12 px-[50px] py-[30px] bg-gray-100 shadow-lg">
           <div>
@@ -125,9 +125,9 @@ const EmailSignupForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const debug = true
+    const debug = true;
     console.log("Nombre:", name, "Correo:", email, "Teléfono:", phone);
-    if (debug)  {
+    if (debug) {
       setEmail("");
       setName("");
       setPhone("");
@@ -261,15 +261,34 @@ const Footer = () => {
 };
 
 // Componente Principal de la Página de Inicio
-const Offers = () => {
+const Updates = () => {
   return (
-    <main>
-      <HeroSection />
-      <ProductFeatures />
-      <EmailSignupForm />
+    <>
+      <main className="flex flex-row justify-center">
+        <section className="max-w-[1000px] flex flex-col p-6">
+          {/* Breadcrumb navigation */}
+          <nav aria-label="breadcrumb">
+            <ol className="flex text-xl mb-8 mt-4">
+              <li className="mr-2">
+                <a
+                  href="/"
+                  className="text-[--color-link-text] hover:underline font-semibold"
+                >
+                  Página Principal
+                </a>
+              </li>
+              <li className="text-gray-700 font-bold">/</li>
+              <li className="ml-2 font-bold">Novedades</li>
+            </ol>
+          </nav>
+          <HeroSection />
+          <ProductFeatures />
+          <EmailSignupForm />
+        </section>
+      </main>
       <Footer />
-    </main>
+    </>
   );
 };
 
-export default Offers;
+export default Updates;

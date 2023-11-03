@@ -107,7 +107,7 @@ export default function Login() {
   };
 
   return (
-    <main className="bg-white flex justify-center items-center p-5">
+    <main className="bg-white h-full flex justify-center items-center p-5">
       <div className="bg-white p-6 w-full max-w-[420px] md:min-w-[380px]">
         <a
           className="mb-14 flex items-center cursor-pointer"

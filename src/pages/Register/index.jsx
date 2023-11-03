@@ -7,7 +7,6 @@ import { saveUser } from "../../slices/userSlice";
 import { inputs } from "./form";
 
 export default function Register() {
-  
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -55,9 +54,9 @@ export default function Register() {
         }
       },
       password: (value) => {
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
         if (!passwordRegex.test(value)) {
-          return `Debe tener al menos 8 caracteres, una letra y un número`;
+          return `Al menos 8 caracteres, incluyendo una letra y un número`;
         }
       },
     };
@@ -129,7 +128,7 @@ export default function Register() {
   };
 
   return (
-    <main className="bg-white flex justify-center items-center p-5">
+    <main className="bg-white h-full flex justify-center items-center p-5">
       <div className="bg-white p-6 w-full max-w-[420px] md:min-w-[380px]">
         <a
           className="mb-14 flex items-center cursor-pointer"

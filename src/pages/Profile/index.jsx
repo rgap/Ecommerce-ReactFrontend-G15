@@ -65,7 +65,7 @@ export default function Profile() {
 
     // Specific validation for the 'name' field
     if (field === "name" && value.trim().length < 3) {
-      return "El nombre debe tener al menos 3 caracteres";
+      return "Debe tener al menos 3 caracteres";
     }
 
     // Specific validation for the 'email' field
@@ -76,6 +76,30 @@ export default function Profile() {
       }
     }
 
+    if (field === "cardNumber") {
+      // Specific validation for the 'card_number' field
+      const cardNumberRegex = /^\d{16}$/; // Simple validation for a 16 digit card number
+      if (!cardNumberRegex.test(value.replace(/\s+/g, ""))) {
+        // Remove any spaces user might have entered
+        return "Debe tener 16 dígitos";
+      }
+    }
+
+    if (field === "expirationDate") {
+      // Specific validation for the 'expiration_date' field
+      const expirationDateRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/; // Matches MM/YY format
+      if (!expirationDateRegex.test(value.trim())) {
+        return "Debe estar en formato MM/AA";
+      }
+      // Here you could also check if the date is in the past.
+    }
+    if (field === "cvc") {
+      // Specific validation for the 'cvc' field
+      const cvcRegex = /^\d{3,4}$/; // 3 or 4 digits for CVC
+      if (!cvcRegex.test(value.trim())) {
+        return "Debe tener 3 o 4 dígitos";
+      }
+    }
     return "";
   };
 
@@ -105,6 +129,9 @@ export default function Profile() {
         ) {
           displayValue = "•••";
         }
+      } else if (field.name === "country") {
+        // To be fixed on backend
+        displayValue = "Perú";
       }
 
       return (
@@ -112,7 +139,7 @@ export default function Profile() {
           key={field.name}
           className="grid grid-cols-1 md:grid-cols-2 gap-4 justify-content"
         >
-          <label className="font-semibold text-center md:text-left">
+          <label className="font-semibold text-center md:text-left flex-col self-center">
             {field.placeholder}
           </label>
           <EditableField
@@ -122,11 +149,9 @@ export default function Profile() {
             onChange={handleInputChange(formName, field.name)}
             inputClassName="border border-[--color-form-border] placeholder:text-sm w-full text-center md:text-start max-w-[400px] m-auto"
             labelClassName="block input-value text-center my-px"
+            disabled={field.name == "country"}
             error={formErrors[field.name]}
           />
-          {formErrors[field.name] && (
-            <p className="text-red-500 text-xs">{formErrors[field.name]}</p>
-          )}
         </div>
       );
     });
@@ -202,7 +227,7 @@ export default function Profile() {
       (key) => paymentData[key] !== originalPaymentData[key]
     );
 
-    if (isEditablePayment && isDataChanged && !hasErrors(personalErrors)) {
+    if (isEditablePayment && isDataChanged && !hasErrors(paymentErrors)) {
       // console.log("Submitting Payment Data:", paymentData);
       await update(userID, { ...paymentData }, "users");
     } else {
@@ -237,7 +262,7 @@ export default function Profile() {
   return (
     <main className="bg-white flex justify-center items-center p-5 h-fit">
       <div className="bg-white p-6 w-screen md:w-fit max-w-[550px] md:min-w-[380px]">
-        <a
+        {/* <a
           className="mb-7 flex items-center cursor-pointer"
           onClick={redirect("/")}
         >
@@ -249,7 +274,23 @@ export default function Profile() {
           <span className="ml-5 text-[--color-main-text]">
             Volver a la página de inicio
           </span>
-        </a>
+        </a> */}
+
+        {/* Breadcrumb navigation */}
+        <nav aria-label="breadcrumb">
+          <ol className="flex text-xl mb-10 mt-2">
+            <li className="mr-2">
+              <a
+                href="/"
+                className="text-[--color-link-text] hover:underline font-semibold"
+              >
+                Página Principal
+              </a>
+            </li>
+            <li className="text-gray-700 font-bold">/</li>
+            <li className="ml-2 font-bold">Perfil</li>
+          </ol>
+        </nav>
 
         <h1 className="font-semibold mb-5 text-center capitalize text-3xl">
           Mi Cuenta
@@ -262,14 +303,14 @@ export default function Profile() {
           autoComplete="off"
           onSubmit={handlePersonalFormSubmit}
         >
-          <div className="flex justify-between place-items-baseline">
+          <div className="flex justify-between place-items-baseline items-center gap-3">
             <h2 className="text-base mb-4 font-semibold">
               Mis Datos Personales
             </h2>
             {isEditablePersonal ? (
-              <>
+              <div className="flex gap-4">
                 <button
-                  className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                  className="mb-6 mt-2 items-center px-7 py-4 bg-[#B2767A] text-white text-sm capitalize leading-normal transition-transform duration-100"
                   type="submit"
                   onClick={cancelEditModePersonal}
                 >
@@ -287,7 +328,7 @@ export default function Profile() {
                 >
                   Guardar
                 </button>
-              </>
+              </div>
             ) : (
               <button
                 className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
@@ -321,12 +362,12 @@ export default function Profile() {
           autoComplete="off"
           onSubmit={handlePaymentFormSubmit}
         >
-          <div className="flex justify-between place-items-baseline">
+          <div className="flex justify-between place-items-baseline items-center gap-3">
             <h2 className="text-base mb-4 font-semibold">Método de Pago</h2>
             {isEditablePayment ? (
-              <>
+              <div className="flex gap-4">
                 <button
-                  className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                  className="mb-6 mt-2 items-center px-7 py-4 bg-[#B2767A] text-white text-sm capitalize leading-normal transition-transform duration-100"
                   type="submit"
                   onClick={cancelEditModePayment}
                 >
@@ -345,7 +386,7 @@ export default function Profile() {
                 >
                   Guardar
                 </button>
-              </>
+              </div>
             ) : (
               <button
                 className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
@@ -373,7 +414,7 @@ export default function Profile() {
         </form>
         <div className="flex justify-center">
           <button
-            className="mb-6 mt-8 items-center px-7 py-4 bg-[--color-cart-text-button-comp] text-white text-sm capitalize leading-normal transition-transform duration-100"
+            className="mb-6 mt-8 items-center px-7 py-4 bg-[brown] text-white text-sm capitalize leading-normal transition-transform duration-100"
             onClick={logOut}
           >
             Cerrar Sesión

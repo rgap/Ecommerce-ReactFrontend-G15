@@ -49,24 +49,18 @@ export default function Home() {
     };
   }
 
-  function getRandomElements(arr, count) {
-    let result = [];
-    let indices = new Set();
-
-    while (result.length < count) {
-      let randomIndex = Math.floor(Math.random() * arr.length);
-      if (!indices.has(randomIndex)) {
-        indices.add(randomIndex);
-        result.push(arr[randomIndex]);
-      }
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]]; // ES6 destructuring swap
     }
-
-    return result;
+    return array;
   }
 
   async function initializeProductsArray() {
-    const productsArray = await read("products");
-    setProductsArray(productsArray);
+    const products = await read("products");
+    const shuffledProducts = shuffleArray([...products]); // Shuffled copy
+    setProductsArray(shuffledProducts);
   }
 
   return (
@@ -99,22 +93,23 @@ export default function Home() {
       <main className="px-10 bg-[--color-bg] pb-8">
         <section className="flex justify-center">
           <div className="max-w-[1200px]">
-            <div className="my-10 font-semibold text-3xl">
-              <span> Los más vendidos </span>
+            <div className="my-10 font-semibold text-3xl text-center sm:text-left">
+              <span>Polos de diseño variado</span>
             </div>
-            <div className="my-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-              {productsArray.slice(0, 3).map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-              {/* {getRandomElements(productsArray, 3).map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))} */}
-            </div>
+            {productsArray.length > 0 ? (
+              <div className="my-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                {productsArray.slice(0, 3).map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            ) : (
+              <div className="my-4 text-center">No hay productos aún</div>
+            )}
           </div>
         </section>
         <section className="flex justify-center">
           <div className="flex justify-center flex-col items-center max-w-[1200px]">
-            <div className="font-semibold text-3xl text-left w-full my-10">
+            <div className="font-semibold text-3xl text-left w-full my-10 text-center sm:text-left">
               <span>Nueva Coleccion</span>
             </div>
             <div className="grid grid-cols-1 gap-6 my-4 md:grid-cols-2 md:gap-10 md:mb-16 m-auto max-w-[1200px]">
@@ -192,11 +187,13 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="absolute max-w-[200px] text-xs bottom-0 right-1 md:text-lg md:min-w-[350px] md:bottom-5 md:right-5">
-            <p className="text-center pb-[12px]">
-              Todas nuestras prendas son confeccionadas con algodón
-              <span className="font-bold"> Pima Peruano. </span>
-            </p>
+          <div className="absolute max-w-[200px] text-xs bottom-2 right-1 md:text-lg md:min-w-[350px] md:bottom-5 md:right-5 ">
+            <div className="bg-white bg-opacity-80 md:bg-opacity-0">
+              <p className="text-center pb-[0px]">
+                Todas nuestras prendas son confeccionadas con algodón
+                <span className="font-bold"> Pima Peruano. </span>
+              </p>
+            </div>
           </div>
         </section>
       </main>

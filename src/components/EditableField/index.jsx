@@ -6,18 +6,23 @@ const EditableField = ({
   onChange,
   inputClassName,
   labelClassName,
+  disabled,
   error,
 }) => {
   const errorClass = error ? "border-red-500" : "";
 
   if (isEditable) {
     return (
-      <input
-        type={type}
-        value={value}
-        onChange={onChange}
-        className={`${inputClassName} ${errorClass}`}
-      />
+      <div>
+        <input
+          type={type}
+          value={value}
+          onChange={onChange}
+          className={`${inputClassName} ${errorClass} outline-none p-1.5`}
+          disabled={disabled}
+        />
+        {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
+      </div>
     );
   }
 

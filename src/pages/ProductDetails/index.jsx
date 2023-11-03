@@ -130,6 +130,13 @@ export default function ProductDetails() {
   const renderImageSlider = () => {
     return (
       <div className="flex overflow-x-auto">
+        <img
+          key={0}
+          src={product.image}
+          alt={`Product ${0}`}
+          className="w-24 h-24 object-cover mr-2 cursor-pointer hover:opacity-75 transition-opacity duration-300 ease-in-out"
+          onClick={() => setMainImage(product.image)}
+        />
         {product.imageArray.map((image, index) => (
           <img
             key={index}
@@ -153,8 +160,8 @@ export default function ProductDetails() {
   return (
     <>
       <ToastContainer position="top-left" />
-      <main className="mx-auto py-8 px-4 md:px-8 bg-[--color-bg]  flex justify-center">
-        <section className="flex flex-col gap-8 max-w-[1200px] mb-16">
+      <main className="py-8 px-4 md:px-8 h-auto md:h-full bg-[--color-bg] flex justify-center">
+        <section className="flex flex-col gap-8 max-w-[1200px] mb-4">
           <nav aria-label="breadcrumb">
             <ol className="flex text-xl">
               <li className="mr-2">
@@ -170,7 +177,7 @@ export default function ProductDetails() {
             </ol>
           </nav>
 
-          <section className="flex flex-col md:flex-row gap-8">
+          <section className="flex flex-col md:flex-row gap-8 items-center">
             <div className="w-full md:w-1/2 lg:w-1/3 mb-4 md:mb-0 ">
               <img
                 src={mainImage}

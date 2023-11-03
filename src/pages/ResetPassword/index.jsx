@@ -90,9 +90,9 @@ export default function ResetPassword() {
 
     const validations = {
       password: (value) => {
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/;
         if (!passwordRegex.test(value)) {
-          return `Debe tener al menos 8 caracteres, una letra y un número`;
+          return `Al menos 8 caracteres, incluyendo una letra y un número`;
         }
       },
       passwordConfirmation: (value) => {
