@@ -5,12 +5,14 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { read } from "../../services";
 import { addToCart } from "../../slices/cartSlice";
+import React from "react";
+import Carousel from "../../components/Carousel"; 
 
 // import { productsArray } from "./mockProducts"; // Adjust the import path as needed
 
 // const product = productsArray.find((p) => p.id === productId);
 
-export default function ProductDetails() {
+function ProductDetails() {
   // Set initial state to the first available size and color
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
@@ -207,7 +209,15 @@ export default function ProductDetails() {
             )}
           </div>
         </section>
+        <section className="mt-14">
+          <h2 className="text-[22px] font-bold mb-5">Tambien te puede interesar</h2>
+          <div className="ProductDetails">
+            <Carousel />
+          </div>
+        </section>
       </main>
     </>
   );
 }
+
+export default ProductDetails;
