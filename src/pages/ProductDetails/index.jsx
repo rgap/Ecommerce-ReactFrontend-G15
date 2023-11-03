@@ -161,7 +161,7 @@ function ProductDetails() {
   return (
     <>
       <ToastContainer position="top-left" />
-      <main className="py-8 px-4 h-auto md:h-full md:px-8 bg-[--color-bg] flex justify-center">
+      <main className="py-8 px-4  md:px-8 bg-[--color-bg] flex justify-center">
         <section className="flex flex-col gap-8 max-w-[1200px] mb-4">
           <nav aria-label="breadcrumb">
             <ol className="flex text-xl">
