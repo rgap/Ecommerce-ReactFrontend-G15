@@ -7,12 +7,7 @@ import Carousel from "../../components/Carousel";
 import { read } from "../../services";
 import { addToCart } from "../../slices/cartSlice";
 
-// import { productsArray } from "./mockProducts"; // Adjust the import path as needed
-
-// const product = productsArray.find((p) => p.id === productId);
-
 function ProductDetails() {
-  // Set initial state to the first available size and color
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [selectedColor, setSelectedColor] = useState("");
@@ -54,20 +49,12 @@ function ProductDetails() {
     return <div>Producto no encontrado</div>;
   }
 
-  // Custom toast style
   const customToastStyle = {
-    backgroundColor: `var(--color-link-text)`, // Example: Green background
-    color: "white", // White text
-    // fontWeight: "bold", // Bold text
-    // Any other CSS properties you'd like to add
+    backgroundColor: `var(--color-link-text)`,
+    color: "white",
   };
 
   const handleAddToCart = () => {
-    // const currentPriceNumber = currentPrice.replace("S/.", "").trim();
-    // console.log("currentPrice", currentPrice);
-    // console.log("currentPriceNumber", currentPriceNumber);
-    // Logic to add the product to the cart
-
     dispatch(
       addToCart({
         color: selectedColor,
@@ -80,26 +67,23 @@ function ProductDetails() {
       })
     );
 
-    // Show custom toast notification
     toast(
       <>
         <strong>{product.title}</strong> fue agregado al carrito de compras
       </>,
       {
         position: "top-left",
-        autoClose: 5000, // Duration in milliseconds (e.g., 5000 for 5 seconds)
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: false,
         draggable: true,
         progress: undefined,
-        style: customToastStyle, // Apply the custom style
-        // Any other options you'd like to include
+        style: customToastStyle,
       }
     );
   };
 
-  // Render sizes
   const renderSizes = () =>
     product.sizes.map((size) => (
       <button
@@ -115,7 +99,6 @@ function ProductDetails() {
       </button>
     ));
 
-  // Render color options
   const renderColorOptions = () =>
     product.colors.map((color) => (
       <button
@@ -128,7 +111,6 @@ function ProductDetails() {
       ></button>
     ));
 
-  // Function to render additional images in a slider
   const renderImageSlider = () => {
     return (
       <div className="flex overflow-x-auto">
@@ -218,7 +200,6 @@ function ProductDetails() {
                   )}
                 </div>
                 <div className="mt-4 sm:mt-0">{renderSizes()}</div>
-                {/* onClick={() => handleAddToCart(product)} */}
                 <button
                   onClick={handleAddToCart}
                   className="items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm leading-normal transition-transform duration-300 ease-in-out"

@@ -25,14 +25,12 @@ export default function Header() {
 
   const toggleDropdown = () => {
     if (total > 0) {
-      console.log("redirecting");
       navigate("/cart");
     } else {
       setIsDropdownOpen(!isDropdownOpen);
     }
   };
 
-  // Close the dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -113,7 +111,7 @@ export default function Header() {
               alt=""
             />
 
-            {/* Counter over the cart image */}
+            {/* Contador del carrito */}
             {total > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center transform -translate-x-1/2 -translate-y-1/2">
                 {total}

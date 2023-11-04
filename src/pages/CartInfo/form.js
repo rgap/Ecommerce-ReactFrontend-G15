@@ -2,26 +2,26 @@ export const inputs = [
   {
     placeholder: "Nombres Completos",
     name: "name",
-    type: "text"
+    type: "text",
   },
   {
     placeholder: "Dirección",
     name: "address",
-    type: "text"
+    type: "text",
   },
   {
     placeholder: "Ciudad",
     name: "city",
-    type: "text"
+    type: "text",
   },
   {
     placeholder: "Region",
     name: "region",
-    type: "text"
+    type: "text",
   },
   {
     placeholder: "Teléfono",
     name: "phoneNumber",
-    type: "text"
+    type: "text",
   },
 ];

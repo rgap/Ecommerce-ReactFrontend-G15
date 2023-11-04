@@ -58,24 +58,18 @@ export default function Login() {
     });
 
     setErrors(errors);
-    // Return true if there are no errors, otherwise return false
     return Object.keys(errors).length === 0;
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // Only proceed with creating if the form is valid
     if (validateForm()) {
-      // Fetch all users
       const users = await read("users");
-      // Find the user with the matching email
       const user = users.find(
         (user) => user.email.toLowerCase() === values.email.toLowerCase()
       );
-      // Check if email exists and password matches
       if (user && user.password === values.password) {
-        // login success
         dispatch(saveUser({ email: user.email }));
         navigate("/");
       } else {
@@ -89,17 +83,12 @@ export default function Login() {
   };
 
   const handleGoogleLoginOrRegister = async (userGoogleData) => {
-    // Fetch all users
     const users = await read("users");
-    // Check if email already exists
     const foundUser = users.find((user) => user.email === userGoogleData.email);
     if (foundUser) {
-      console.log("foundUser", foundUser);
-      // Login success
       dispatch(saveUser({ email: foundUser.email }));
       navigate("/");
     } else {
-      // Register
       const user = await create(userGoogleData, "users");
       dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");

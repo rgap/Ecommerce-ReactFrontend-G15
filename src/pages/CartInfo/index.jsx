@@ -77,7 +77,6 @@ export default function CartInfo() {
 
   useEffect(() => {
     initializeFormData();
-    // console.log(personalData)
   }, []);
 
   useEffect(() => {

@@ -9,7 +9,7 @@ import { resetCart } from "../../slices/cartSlice";
 
 import { inputs } from "./form";
 
-const initialCheckBox = true; //estado inicial de checkbox
+const initialCheckBox = true; //estado inicial del checkbox
 
 export default function CartPayment() {
   const debug = false;
@@ -26,7 +26,7 @@ export default function CartPayment() {
   };
 
   const handleCheckBoxChange = () => {
-    setCheckbox(!checkbox); //cambia valor de checkbox
+    setCheckbox(!checkbox); // cambia valor de checkbox
     if (!checkbox) {
       setValues({
         name: personalData.name,

@@ -58,17 +58,14 @@ export default function Profile() {
   const paymentDataIsDisabled = hasErrors(paymentErrors);
 
   const validateField = (form, field, value) => {
-    // General empty field validation
     if (field === "email" && field === "name" && !value.trim()) {
       return `Este campo no puede estar vacio`;
     }
 
-    // Specific validation for the 'name' field
     if (field === "name" && value.trim().length < 3) {
       return "Debe tener al menos 3 caracteres";
     }
 
-    // Specific validation for the 'email' field
     if (field === "email") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(value.trim())) {
@@ -77,25 +74,20 @@ export default function Profile() {
     }
 
     if (field === "cardNumber") {
-      // Specific validation for the 'card_number' field
-      const cardNumberRegex = /^\d{16}$/; // Simple validation for a 16 digit card number
+      const cardNumberRegex = /^\d{16}$/;
       if (!cardNumberRegex.test(value.replace(/\s+/g, ""))) {
-        // Remove any spaces user might have entered
         return "Debe tener 16 dígitos";
       }
     }
 
     if (field === "expirationDate") {
-      // Specific validation for the 'expiration_date' field
-      const expirationDateRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/; // Matches MM/YY format
+      const expirationDateRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
       if (!expirationDateRegex.test(value.trim())) {
         return "Debe estar en formato MM/AA";
       }
-      // Here you could also check if the date is in the past.
     }
     if (field === "cvc") {
-      // Specific validation for the 'cvc' field
-      const cvcRegex = /^\d{3,4}$/; // 3 or 4 digits for CVC
+      const cvcRegex = /^\d{3,4}$/;
       if (!cvcRegex.test(value.trim())) {
         return "Debe tener 3 o 4 dígitos";
       }
@@ -120,7 +112,6 @@ export default function Profile() {
     return fields.map((field) => {
       let displayValue = formData[field.name];
 
-      // Mask the value for specific payment fields when not editable
       if (formName === "payment" && !isEditable) {
         if (
           field.name === "cardNumber" ||
@@ -130,7 +121,6 @@ export default function Profile() {
           displayValue = "•••";
         }
       } else if (field.name === "country") {
-        // To be fixed on backend
         displayValue = "Perú";
       }
 
@@ -182,31 +172,26 @@ export default function Profile() {
 
   useEffect(() => {
     initializeFormData();
-    // console.log("personalData", personalData);
-    // console.log("paymentData", paymentData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handlePersonalFormSubmit = async (event) => {
     event.preventDefault();
-    // Check if there have been changes
     const isDataChanged = Object.keys(personalData).some(
       (key) => personalData[key] !== originalPersonalData[key]
     );
 
     if (isEditablePersonal && isDataChanged && !hasErrors(personalErrors)) {
-      // console.log("Submitting Personal Data:", personalData);
-      // Add your submission logic here
       await update(userID, { ...personalData }, "users");
     } else {
-      setOriginalPersonalData({ ...personalData }); // Save current data
+      setOriginalPersonalData({ ...personalData });
     }
     setIsEditablePersonal(!isEditablePersonal);
   };
 
   const cancelEditModePersonal = (event) => {
     event.preventDefault();
-    setPersonalData(originalPersonalData); // Restore original data
+    setPersonalData(originalPersonalData);
     setPersonalErrors({
       name: "",
       email: "",
@@ -222,23 +207,21 @@ export default function Profile() {
 
   const handlePaymentFormSubmit = async (event) => {
     event.preventDefault();
-    // Check if there have been changes
     const isDataChanged = Object.keys(paymentData).some(
       (key) => paymentData[key] !== originalPaymentData[key]
     );
 
     if (isEditablePayment && isDataChanged && !hasErrors(paymentErrors)) {
-      // console.log("Submitting Payment Data:", paymentData);
       await update(userID, { ...paymentData }, "users");
     } else {
-      setOriginalPaymentData({ ...paymentData }); // Save current data
+      setOriginalPaymentData({ ...paymentData });
     }
     setIsEditablePayment(!isEditablePayment);
   };
 
   const cancelEditModePayment = (event) => {
     event.preventDefault();
-    setPaymentData(originalPaymentData); // Restore original data
+    setPaymentData(originalPaymentData);
     setPaymentErrors({
       cardNumber: "",
       expirationDate: "",
@@ -262,21 +245,7 @@ export default function Profile() {
   return (
     <main className="bg-white flex justify-center items-center p-5 h-fit">
       <div className="bg-white p-6 w-screen md:w-fit max-w-[550px] md:min-w-[380px]">
-        {/* <a
-          className="mb-7 flex items-center cursor-pointer"
-          onClick={redirect("/")}
-        >
-          <img
-            className="w-5"
-            src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/arrow_back.svg"
-            alt=""
-          />
-          <span className="ml-5 text-[--color-main-text]">
-            Volver a la página de inicio
-          </span>
-        </a> */}
-
-        {/* Breadcrumb navigation */}
+        {/* Breadcrumb */}
         <nav aria-label="breadcrumb">
           <ol className="flex text-xl mb-10 mt-2">
             <li className="mr-2">

@@ -1,12 +1,17 @@
+/* eslint-disable react/prop-types */
 import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../../slices/cartSlice";
 
-export default function QuantityButton({productId,productQuantity,product,className}) {
-  
+export default function QuantityButton({
+  productId,
+  productQuantity,
+  product,
+  className,
+}) {
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
+    dispatch(addToCart(product));
   };
 
   const handleRemoveFromCart = (productId) => {
@@ -14,7 +19,9 @@ export default function QuantityButton({productId,productQuantity,product,classN
   };
 
   return (
-    <div className={`${className} flex justify-between w-[70px] h-5 md:w-[90px] md:h-7`}>
+    <div
+      className={`${className} flex justify-between w-[70px] h-5 md:w-[90px] md:h-7`}
+    >
       <img
         onClick={() => handleRemoveFromCart(productId)}
         className="cursor-pointer w-5 h-5 md:w-7 md:h-7 bg-[--color-quantity-button] hover:scale-90 hover:text-black"

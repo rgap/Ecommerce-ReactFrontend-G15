@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// Sección Principal
 const HeroSection = () => {
   return (
     <section className="flex justify-center">
@@ -20,7 +19,7 @@ const HeroSection = () => {
   );
 };
 
-// Características de los Polos de Merino
+// Características de los Polos
 const ProductFeatures = () => {
   return (
     <section className="flex justify-center">
@@ -88,7 +87,7 @@ const ProductFeatures = () => {
   );
 };
 
-// Formulario de Registro de Correo Electrónico
+// Formulario y CTA
 const EmailSignupForm = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -121,24 +120,23 @@ const EmailSignupForm = () => {
     return valid;
   };
 
-  const [submitted, setSubmitted] = useState(false); // Add this line
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const debug = true;
-    console.log("Nombre:", name, "Correo:", email, "Teléfono:", phone);
     if (debug) {
       setEmail("");
       setName("");
       setPhone("");
       setErrors({});
-      setSubmitted(true); // Add this line
+      setSubmitted(true);
     } else if (validateInput()) {
       setEmail("");
       setName("");
       setPhone("");
       setErrors({});
-      setSubmitted(true); // Add this line
+      setSubmitted(true);
     }
   };
 
@@ -260,13 +258,13 @@ const Footer = () => {
   );
 };
 
-// Componente Principal de la Página de Inicio
+// Componente Principal
 const Updates = () => {
   return (
     <>
       <main className="flex flex-row justify-center">
         <section className="max-w-[1000px] flex flex-col p-6 text-center md:text-left">
-          {/* Breadcrumb navigation */}
+          {/* Breadcrumb */}
           <nav aria-label="breadcrumb">
             <ol className="flex text-xl mb-8 mt-4">
               <li className="mr-2">

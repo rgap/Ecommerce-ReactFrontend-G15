@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components";
 import { read } from "../../services";
-// import { productsArray } from "./mockProducts";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -12,10 +11,10 @@ export default function Home() {
     contentLoadedFunction();
     initializeProductsArray();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Empty dependency array ensures this runs once when the component mounts
+  }, []);
 
   function contentLoadedFunction() {
-    // Check for modal parameter
+    // Modal para usuarios registrados
     const urlParams = new URLSearchParams(window.location.search);
     const showModalParam = urlParams.get("showModal");
     console.log(showModalParam);
@@ -33,7 +32,6 @@ export default function Home() {
     document.querySelector(".modal").style.display = "none";
     document.querySelector(".modal__backdrop").style.display = "none";
 
-    // Clear URL parameters without causing a page refresh
     const cleanURL =
       window.location.protocol +
       "//" +
@@ -52,14 +50,14 @@ export default function Home() {
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]]; // ES6 destructuring swap
+      [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
   }
 
   async function initializeProductsArray() {
     const products = await read("products");
-    const shuffledProducts = shuffleArray([...products]); // Shuffled copy
+    const shuffledProducts = shuffleArray([...products]);
     setProductsArray(shuffledProducts);
   }
 
@@ -109,7 +107,7 @@ export default function Home() {
         </section>
         <section className="flex justify-center">
           <div className="flex justify-center flex-col items-center max-w-[1200px]">
-            <div className="font-semibold text-3xl text-left w-full my-10 text-center sm:text-left">
+            <div className="font-semibold text-3xl w-full my-10 text-center sm:text-left">
               <span>Nueva Coleccion</span>
             </div>
             <div className="grid grid-cols-1 gap-6 my-4 md:grid-cols-2 md:gap-10 md:mb-16 m-auto max-w-[1200px]">
