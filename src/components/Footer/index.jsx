@@ -8,11 +8,9 @@ export default function Footer() {
   const handleSubscriptionSubmit = (event) => {
     event.preventDefault();
     setSubscriptionEmailSubmitted(true);
-    // Send the email to the backend or email service
   };
-  // md:min-h-[360px] md:max-h-[200px]
+
   return (
-    // <footer className="pt-5 pb-5 border relative bottom-0 w-full">
     <footer className="pt-5 pb-5 w-full">
       <div className="mr-6 ml-6 md:mr-20 md:ml-20 color-text-white flex flex-col justify-between lg:flex-row">
         <div className="footer-left pb-5 my-4">
@@ -38,7 +36,6 @@ export default function Footer() {
                 type="submit"
                 className="absolute inset-y-0 right-0 flex items-center text-white bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover]  px-3 focus:outline-none transition-colors"
               >
-                {/* absolute inset-y-0 right-8 md:right-3 flex items-center pointer-events-none cursor-pointer */}
                 <img
                   className="w-5"
                   src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/arrow-forward.svg"
@@ -64,8 +61,12 @@ export default function Footer() {
             <p className="font-bold md:text-xl pb-2">Sobre Nosotros</p>
             <p />
             <ul className="md:text-lg md:font-normal">
-              <li className="leading-10 hover:underline cursor-pointer">Nuestra Historia</li>
-              <li className="leading-10 hover:underline cursor-pointer">Contactanos</li>
+              <li className="leading-10 hover:underline cursor-pointer">
+                Nuestra Historia
+              </li>
+              <li className="leading-10 hover:underline cursor-pointer">
+                Contactanos
+              </li>
               <li className="leading-10 hover:underline cursor-pointer">
                 Politica de Privacidad
               </li>
@@ -74,9 +75,15 @@ export default function Footer() {
           <div>
             <p className="font-bold md:text-xl pb-2">Ayuda y Soporte</p>
             <ul className="md:text-lg md:font-normal">
-              <li className="leading-10 hover:underline cursor-pointer">Ordenes y Envios</li>
-              <li className="leading-10 hover:underline cursor-pointer">Devoluciones</li>
-              <li className="leading-10 hover:underline cursor-pointer">FAQs</li>
+              <li className="leading-10 hover:underline cursor-pointer">
+                Ordenes y Envios
+              </li>
+              <li className="leading-10 hover:underline cursor-pointer">
+                Devoluciones
+              </li>
+              <li className="leading-10 hover:underline cursor-pointer">
+                FAQs
+              </li>
             </ul>
           </div>
         </div>

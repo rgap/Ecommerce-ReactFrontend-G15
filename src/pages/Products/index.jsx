@@ -6,8 +6,8 @@ import { read } from "../../services";
 
 function Products() {
   const [productsArray, setProductsArray] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]); // State for the filtered products based on search
-  const [searchTerm, setSearchTerm] = useState(""); // State for the search term
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [productsToShow, setProductsToShow] = useState(12);
 
   const loadMoreProducts = () => {
@@ -18,7 +18,6 @@ function Products() {
     setProductsToShow(productsToShow - 15);
   };
 
-  // Function to handle search input changes
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -28,7 +27,6 @@ function Products() {
     setProductsArray(productsFromDB);
   }
 
-  // Effect to filter products based on the search term
   useEffect(() => {
     if (searchTerm === "") {
       setFilteredProducts(productsArray);
@@ -48,7 +46,6 @@ function Products() {
   return (
     <main className="p-4 bg-[--color-bg] flex justify-center">
       <section className="flex flex-col gap-5 mt-4 mb-16 ">
-        {/* Breadcrumb navigation */}
         <nav aria-label="breadcrumb">
           <ol className="flex text-xl">
             <li className="mr-2">
@@ -64,7 +61,8 @@ function Products() {
           </ol>
         </nav>
 
-        {/* Search bar */}
+        {/* Buscador */}
+
         <div className="my-3 flex justify-center">
           <input
             type="text"
@@ -75,7 +73,8 @@ function Products() {
           />
         </div>
 
-        {/* Product grid */}
+        {/* Grilla */}
+
         <div className="my-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[1100px]">
           {filteredProducts.slice(0, productsToShow).length > 0 ? (
             filteredProducts
@@ -90,7 +89,7 @@ function Products() {
           )}
         </div>
 
-        {/* Load more or less buttons */}
+        {/* Boton de cargar mas */}
 
         {productsArray.length > 0 ? (
           <div className="my-0 m-auto text-center">

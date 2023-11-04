@@ -1,8 +1,9 @@
-import QuantityButton from "../QuantityButton";
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteFromCart } from "../../slices/cartSlice";
+import QuantityButton from "../QuantityButton";
 
 export default function ProductShoppingCart({
   productId,

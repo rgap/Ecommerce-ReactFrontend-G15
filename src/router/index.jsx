@@ -23,7 +23,6 @@ import {
   Updates,
 } from "../pages";
 
-
 export default function AppRouter() {
   return (
     <BrowserRouter>
@@ -31,7 +30,6 @@ export default function AppRouter() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
-          {/* <Route path="/productsdetails" element={<ProductsDetails />} /> */}
           <Route
             path="/products/:productId/:productTitle"
             element={<ProductDetails />}
@@ -39,9 +37,8 @@ export default function AppRouter() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/cart-message" element={<CartMessage/>}/>
-          <Route path="/cart-message-fail" element={<CartMessageFail/>}/>
-          
+          <Route path="/cart-message" element={<CartMessage />} />
+          <Route path="/cart-message-fail" element={<CartMessageFail />} />
         </Route>
 
         <Route element={<NoFooterLayout />}>
@@ -58,7 +55,7 @@ export default function AppRouter() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart-info" element={<CartInfo />} />
           <Route path="/cart-shipping" element={<CartShipping />} />
-          <Route path="/cart-payment" element={<CartPayment/>} />
+          <Route path="/cart-payment" element={<CartPayment />} />
         </Route>
       </Routes>
     </BrowserRouter>

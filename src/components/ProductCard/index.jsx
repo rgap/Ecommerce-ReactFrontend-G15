@@ -12,7 +12,6 @@ export default function ProductCard({ product, resizingStyle, hideColors }) {
   };
 
   const colorMap = {
-    // Existing colors
     green: "bg-green-500",
     blue: "bg-blue-500",
     lime: "bg-lime-500",
@@ -33,39 +32,22 @@ export default function ProductCard({ product, resizingStyle, hideColors }) {
     sky: "bg-sky-500",
     violet: "bg-violet-500",
 
-    // Added from productsArray
     brown: "bg-amber-500",
     turquoise: "bg-turquoise-500",
     wine: "bg-wine-500",
     gold: "bg-gold-500",
     maroon: "bg-red-800",
     cream: "bg-yellow-100",
-    // More colors can be added as needed
   };
 
-  // Function to map color names to Tailwind CSS color classes
   const colorClass = (color) => {
-    return colorMap[color] || "bg-gray-200"; // Default color if not found
+    return colorMap[color] || "bg-gray-200"; // Color por defecto
   };
 
-  // Extract the price for medium size of the first available color
   const mediumPrice = new Intl.NumberFormat("es-PE", {
     style: "currency",
     currency: "PEN",
   }).format(product.prices?.m?.[product.colors[0]] || product.price);
-
-  // const resizingColorClasses = () => {
-  //   const classes = ""
-  //   if (resizingStyle == "products") {
-  //     classes =
-  //   } else {
-  //     w-1 h-1 sm:w-6 sm:h-6 p-1 sm:p-2
-  //   }
-  //   return
-  // };
-  // const resizingPriceClasses = () => {
-  //   return;
-  // };
 
   return (
     <div
@@ -73,7 +55,6 @@ export default function ProductCard({ product, resizingStyle, hideColors }) {
       onClick={goToProductDetails}
     >
       <div className="p-4 bg-white h-full">
-        {/* Product Image */}
         <img
           src={product.image}
           alt={product.title}
@@ -81,7 +62,7 @@ export default function ProductCard({ product, resizingStyle, hideColors }) {
         />
 
         <div className="flex flex-col items-center">
-          {/* Left Section: Title and Short Description */}
+          {/* Izquierda */}
           <div className="grid h-[120px] text-center align-center">
             <div>
               <h1 className="font-bold text-xl text-gray-800">
@@ -94,11 +75,10 @@ export default function ProductCard({ product, resizingStyle, hideColors }) {
               </p>
             </div>
 
-            {/* Right Section: Price and Colors */}
-
+            {/* Derecha */}
             <div className="flex items-center justify-around">
               <div className="flex items-center justify-around gap-5">
-                {/* Colors */}
+                {/* Colores */}
                 {!hideColors && (
                   <div className="flex gap-0">
                     {product.colors.map((color, index) => (
@@ -111,7 +91,6 @@ export default function ProductCard({ product, resizingStyle, hideColors }) {
                     ))}
                   </div>
                 )}
-                {/* Price */}
                 <div className="text-[14px] sm:text-[16px] font-bold text-gray-800">
                   {mediumPrice}
                 </div>

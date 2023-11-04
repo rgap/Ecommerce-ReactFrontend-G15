@@ -75,7 +75,6 @@ export default function Register() {
     });
 
     setErrors(errorsEmpty);
-    // Return true if there are no errors, otherwise return false
     return Object.keys(errorsEmpty).length === 0;
   };
 
@@ -87,17 +86,12 @@ export default function Register() {
       const user = await create(values, "users");
       dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");
-    }
-    // Only proceed with creating if the form is valid
-    else if (validateForm()) {
-      // Fetch all users
+    } else if (validateForm()) {
       const users = await read("users");
-      // Check if email already exists
       const emailExists = users.some(
         (user) => user.email.toLowerCase() === values.email.toLowerCase()
       );
       if (emailExists) {
-        // Update the errors state to show an email exists error
         setErrors((prevErrors) => ({
           ...prevErrors,
           email: "Ya existe un usuario con ese correo",
@@ -111,16 +105,12 @@ export default function Register() {
   };
 
   const handleGoogleLogin = async (userGoogleData) => {
-    // Fetch all users
     const users = await read("users");
-    // Check if email already exists
     const foundUser = users.find((user) => user.email === userGoogleData.email);
     if (foundUser) {
-      // Login
       dispatch(saveUser({ email: foundUser.email }));
       navigate("/");
     } else {
-      // Register
       const user = await create(userGoogleData, "users");
       dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");

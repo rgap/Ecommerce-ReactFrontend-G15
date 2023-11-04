@@ -41,7 +41,7 @@ export const creditCardSchema = yup.object().shape({
       "El número de tarjeta de crédito debe tener 16 dígitos válidos"
     )
     .required("El número de tarjeta de crédito es obligatorio"),
-    expirationMonth: yup
+  expirationMonth: yup
     .string()
     .matches(/^(0[1-9]|1[0-2])$/, "El mes de vencimiento no es válido")
     .required("El mes de vencimiento es obligatorio"),

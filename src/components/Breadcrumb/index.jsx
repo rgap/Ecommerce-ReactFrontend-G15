@@ -11,14 +11,9 @@ const Breadcrumb = () => {
   const location = useLocation();
   const path = location.pathname;
 
-  // Get the routes in the order they are supposed to be shown
   const orderedRoutes = Object.keys(breadcrumbText);
-
-  // Find the index of the current route in the breadcrumb
   const currentIndex = orderedRoutes.indexOf(path);
 
-  // If the current route is not in the breadcrumb, we can show the full breadcrumb trail
-  // Otherwise, we slice the array to only include routes up to and including the current route
   const routesToShow =
     currentIndex === -1
       ? orderedRoutes

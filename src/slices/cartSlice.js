@@ -7,7 +7,7 @@ export const counterSlice = createSlice({
     : [],
   reducers: {
     addToCart: (state, action) => {
-      const newProduct = action.payload; //recibe toda la info de product
+      const newProduct = action.payload; // recibe toda la info de product
       const productInCartIndex = state.findIndex(
         (item) => item.id === newProduct.id
       );
@@ -42,7 +42,7 @@ export const counterSlice = createSlice({
     },
 
     removeFromCart: (state, action) => {
-      const productid = action.payload; //recibe id de producto
+      const productid = action.payload; // recibe id de producto
 
       const newState = state.map((item) => {
         if (item.id === productid) {
@@ -62,7 +62,7 @@ export const counterSlice = createSlice({
     },
 
     deleteFromCart: (state, action) => {
-      const productid = action.payload; //recibe id de producto
+      const productid = action.payload; // recibe id de producto
 
       const newState = state.filter((item) => item.id !== productid);
 

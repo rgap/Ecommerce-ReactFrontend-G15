@@ -68,17 +68,13 @@ export default function ResetPassword() {
     });
 
     setResetErrors(errors);
-    // Return true if there are no errors, otherwise return false
     return Object.keys(errors).length === 0;
   };
 
   const handleResetFormSubmit = async (event) => {
     event.preventDefault();
 
-    // Only proceed with creating if the form is valid
     if (validateResetForm()) {
-      // Check if the email exists in a backend service and send an email
-      // and redirect to the message
       setIsFormSubmitted(true);
     }
   };
@@ -115,25 +111,19 @@ export default function ResetPassword() {
     });
 
     setResetPasswordErrors(errors);
-    // Return true if there are no errors, otherwise return false
     return Object.keys(errors).length === 0;
   };
 
   const handleResetPasswordFormSubmit = async (event) => {
     event.preventDefault();
 
-    // Only proceed with creating if the form is valid
     if (validateResetPasswordForm()) {
       console.log("handleResetPasswordFormSubmit = true");
-      // Password reset logic
       const users = await read("users");
-      // Find the user with the matching email
       const user = users.find(
         (user) => user.email.toLowerCase() === resetValues.email.toLowerCase()
       );
-      // Check if passwords match
       if (user) {
-        // reset success
         await update(
           user.id,
           {
@@ -148,7 +138,6 @@ export default function ResetPassword() {
 
   function handleConfirmationLinkClick(event) {
     event.preventDefault();
-    // This is for simulation only
     setIsConfirmationLinkClicked(true);
   }
 
