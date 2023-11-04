@@ -55,7 +55,7 @@ export default function Profile() {
   };
 
   const personalDataIsDisabled = hasErrors(personalErrors);
-  const paymentDataIsDisabled = hasErrors(personalErrors);
+  const paymentDataIsDisabled = hasErrors(paymentErrors);
 
   const validateField = (form, field, value) => {
     // General empty field validation
