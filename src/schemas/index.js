@@ -4,6 +4,10 @@ export const basicSchema = yup.object().shape({
   name: yup
     .string()
     .min(8, "Nombre es muy corto")
+    .matches(
+      /^[A-Za-z\s]+$/,
+      "Nombre no puede contener números ni caracteres especiales"
+    )
     .required("Campo nombre es obligatorio"),
   address: yup
     .string()

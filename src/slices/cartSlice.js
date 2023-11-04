@@ -71,10 +71,14 @@ export const counterSlice = createSlice({
       return newState;
 
     },
+    resetCart:(state,action)=>{
+      localStorage.clear("cart")
+      return initialState; 
+    }
   },
   
 });
 
-export const { addToCart, removeFromCart, deleteFromCart } = counterSlice.actions;
+export const { addToCart, removeFromCart, deleteFromCart, resetCart } = counterSlice.actions;
 export const counterProductos = (state) => state.cart;
 export default counterSlice.reducer;

@@ -109,7 +109,7 @@ export default function CartShipping() {
         </div>
       </section>
 
-      <section className="max-lg:hidden cart-info-right lg:w-[40%]  bg-[--color-bg] flex flex-col justify-start items-center">
+      <section className="max-lg:hidden cart-info-right min-h-screen lg:w-[40%]  bg-[--color-bg] flex flex-col justify-start items-center">
         <div className="w-full flex justify-center">
           <span className="text-xl font-bold mt-10 mb-5">
             Carrito de Compra
