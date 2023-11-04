@@ -6,29 +6,22 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { counterProductos } from "../../slices/cartSlice";
-import { useDispatch } from "react-redux";
-import { resetCart } from "../../slices/cartSlice";
 
 const initialCheckBox = true; //estado inicial de checkbox
 
 export default function CartPayment() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
+  const debug = true;
+
+  const navigate = useNavigate();
   const globalUser = useSelector((state) => state.user.data);
-  
+
   const [personalData, setPersonalData] = useState([]);
   const [selectedCredit, setSelectedCredit] = useState(false);
   const [checkbox, setCheckbox] = useState(initialCheckBox);
 
   const handleCreditClick = (id) => {
     setSelectedCredit(id);
-  };
-
-  const handlePayment = (productId) => {
-    dispatch(resetCart(productId));
-    redirect("/cart-message")
   };
 
   const handleCheckBoxChange = () => {
@@ -69,7 +62,7 @@ export default function CartPayment() {
       region: "",
       phoneNumber: "",
     },
-    validationSchema: basicSchema,
+    validationSchema: debug ? undefined: basicSchema,
   });
 
   const formCreditCard = useFormik({
@@ -79,7 +72,7 @@ export default function CartPayment() {
       expirationYear: "",
       cvv: "",
     },
-    validationSchema: creditCardSchema,
+    validationSchema: debug ? undefined: creditCardSchema,
   });
 
   function redirect(route) {
@@ -122,8 +115,8 @@ export default function CartPayment() {
 
   return (
     <>
-     <Logo/>
-     <Breadcrumb/>
+      <Logo />
+      <Breadcrumb />
       <div className="flex flex-col md:flex md:flex-row">
         <section className="cart-info-left lg:w-[50%] flex flex-col items-center">
           <p className="mb-5 font-bold text-lg ">Direccion de Facturacion </p>
@@ -319,7 +312,7 @@ export default function CartPayment() {
             </div>
 
             <button
-              onClick={handlePayment}
+              onClick={redirect("/cart-message")}
               type="submit"
               className="w-full mt-4 p-2 h-12 border text-white text-sm capitalize cursor-pointer mx-1 my-0.5 bg-[--color-cart-text-button-comp] "
             >

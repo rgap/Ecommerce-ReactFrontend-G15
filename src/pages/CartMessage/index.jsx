@@ -1,6 +1,10 @@
-export default function CartMessage() {
+import { useDispatch } from "react-redux";
+import { resetCart } from "../../slices/cartSlice";
 
-  
+export default function CartMessage() {
+  const dispatch = useDispatch();
+  dispatch(resetCart());
+
   return (
     <>
       <div className=" text-center md:h-screen flex flex-col justify-center items-center gap-10 bg-white mb-10 ">
@@ -15,7 +19,7 @@ export default function CartMessage() {
         <p className="text-xl">
           {" "}
           <span className="font-semibold"> GRACIAS </span> , su orden sera{" "}
-          <span className="font-semibold">GENERADA</span> en los proximos
+          <span className="font-semibold"> GENERADA </span> en los proximos
           minutos.
         </p>
         <p className="text-xl">
