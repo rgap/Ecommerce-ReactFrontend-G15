@@ -72,7 +72,7 @@ export const counterSlice = createSlice({
 
     },
     resetCart:(state,action)=>{
-      localStorage.clear("cart")
+      localStorage.setItem("cart",[]);
       return initialState; 
     }
   },
