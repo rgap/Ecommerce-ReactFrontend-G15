@@ -100,11 +100,11 @@ export default function ProductCard({ product, resizingStyle, hideColors }) {
               <div className="flex items-center justify-around gap-5">
                 {/* Colors */}
                 {!hideColors && (
-                  <div className="flex">
+                  <div className="flex gap-0">
                     {product.colors.map((color, index) => (
                       <div
                         key={index}
-                        className={`w-2 h-2 sm:w-6 sm:h-6 p-2 sm:p-2 rounded-full border-slate-400 border-2 mr-2 ${colorClass(
+                        className={`w-2 h-2 sm:w-6 sm:h-6 p-2 sm:p-2 rounded-full border-slate-400 border-2 mr-2 md:mr-[1px] lg:mr-2 ${colorClass(
                           color
                         )}`}
                       ></div>

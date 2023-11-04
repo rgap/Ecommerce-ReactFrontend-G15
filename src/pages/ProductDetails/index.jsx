@@ -67,10 +67,11 @@ function ProductDetails() {
     // console.log("currentPrice", currentPrice);
     // console.log("currentPriceNumber", currentPriceNumber);
     // Logic to add the product to the cart
+
     dispatch(
       addToCart({
         color: selectedColor,
-        id: productId,
+        id: `${productId}.${selectedSize}.${selectedColor}`,
         name: product.title,
         price: currentPrice,
         quantity: 1,

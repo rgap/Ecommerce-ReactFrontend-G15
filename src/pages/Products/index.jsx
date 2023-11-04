@@ -77,9 +77,17 @@ function Products() {
 
         {/* Product grid */}
         <div className="my-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[1100px]">
-          {filteredProducts.slice(0, productsToShow).map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {filteredProducts.slice(0, productsToShow).length > 0 ? (
+            filteredProducts
+              .slice(0, productsToShow)
+              .map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))
+          ) : (
+            <div className="col-span-2 md:col-span-4 text-center">
+              No se encontraron productos
+            </div>
+          )}
         </div>
 
         {/* Load more or less buttons */}
@@ -88,7 +96,7 @@ function Products() {
           <div className="my-0 m-auto text-center">
             {productsToShow < filteredProducts.length && (
               <button
-                className="mb-0 mt-8 items-center px-20 py-6 bg-[--color-cart-text-button-comp] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                className="mb-0 mt-8 items-center px-20 py-6 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
                 onClick={loadMoreProducts}
               >
                 Cargar Más

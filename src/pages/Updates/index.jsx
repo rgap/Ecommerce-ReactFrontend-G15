@@ -4,7 +4,7 @@ import { useState } from "react";
 const HeroSection = () => {
   return (
     <section className="flex justify-center">
-      <div className="bg-e7dfd5 text-center px-16 pb-12">
+      <div className="bg-e7dfd5 text-center px-0 md:px-16 pb-12">
         <h1 className="text-4xl font-bold mb-10 text-black leading-relaxed max-w-[600px] m-auto">
           Oferta de Nuevos Polos de Lana Merino
         </h1>
@@ -26,7 +26,7 @@ const ProductFeatures = () => {
     <section className="flex justify-center">
       <section className="flex flex-col justify-center">
         {/* Primera Característica */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-12 px-[50px] py-[30px] bg-gray-100 shadow-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-12 px-[16px] md:px-[50px] py-[30px] bg-gray-100 shadow-lg">
           <div>
             <h3 className="text-3xl font-bold mb-4">Térmico Natural</h3>
             <p className="text-lg">
@@ -45,7 +45,7 @@ const ProductFeatures = () => {
         </div>
 
         {/* Segunda Característica */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-12  px-[50px] py-[30px] bg-gray-100 shadow-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center mb-12  px-[16px] md:px-[50px] py-[30px] bg-gray-100 shadow-lg">
           <div className="m-auto">
             <img
               src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/landing/merino-olor.jpg"
@@ -64,7 +64,7 @@ const ProductFeatures = () => {
         </div>
 
         {/* Tercera Característica */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center  px-[50px] py-[30px] bg-gray-100 shadow-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center  px-[16px] md:px-[50px]  py-[30px] bg-gray-100 shadow-lg">
           <div>
             <h3 className="text-3xl font-bold mb-4">
               Absorción y Evaporación de Humedad
@@ -144,9 +144,9 @@ const EmailSignupForm = () => {
 
   return (
     <section className="flex justify-center my-8">
-      <div className="bg-e7dfd5 p-12 max-w-[1000px]">
+      <div className="bg-e7dfd5 px-0 md:px-12 py-12 max-w-[1000px]">
         <div className="p-8 bg-[--color-cart-bg-gray] text-center  shadow-lg mx-auto">
-          <div className="max-w-md	 flex flex-col m-auto">
+          <div className="max-w-md flex flex-col m-auto">
             <h2 className="text-3xl font-bold mb-4">¡Oferta Especial!</h2>
             <p className="mb-6">
               ¡Obtén un 10% de descuento y envío gratuito en nuestros polos de
@@ -265,7 +265,7 @@ const Updates = () => {
   return (
     <>
       <main className="flex flex-row justify-center">
-        <section className="max-w-[1000px] flex flex-col p-6">
+        <section className="max-w-[1000px] flex flex-col p-6 text-center md:text-left">
           {/* Breadcrumb navigation */}
           <nav aria-label="breadcrumb">
             <ol className="flex text-xl mb-8 mt-4">

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 
 export default function Button({
@@ -6,11 +7,11 @@ export default function Button({
   className,
   variant = "primary",
   ruta,
-}) 
-{
+  clickFunction = true,
+}) {
   const colors = {
     primary: "bg-[--color-cart-text-button-comp]",
-    hover: "bg-[--color-bg-announcement-bar]",
+    hover: "bg-[--color-cart-text-button-comp-hover]",
     disabled: "",
     danger: "",
     warning: "",
@@ -25,11 +26,12 @@ export default function Button({
   }
 
   return (
-      <button
-        onClick={redirect(ruta)}
-        type={type}
-        className={`w-full h-full cursor-pointer text-white text-sm capitalize hover:${colors["hover"]}  ${colors[variant]} ${className}`}> 
-        {text}
-      </button>
+    <button
+      onClick={clickFunction ? redirect(ruta) : undefined}
+      type={type}
+      className={`w-full h-full cursor-pointer text-white text-sm capitalize hover:${colors["hover"]}  ${colors[variant]} ${className}`}
+    >
+      {text}
+    </button>
   );
 }

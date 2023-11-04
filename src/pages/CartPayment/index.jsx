@@ -1,18 +1,19 @@
-import { basicSchema, creditCardSchema } from "../../schemas";
-import { Breadcrumb, Logo } from "../../components";
-import { inputs } from "./form";
-import { read } from "../../services";
-import { useEffect, useState } from "react";
 import { useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Breadcrumb, Button, Logo } from "../../components";
+import { basicSchema, creditCardSchema } from "../../schemas";
+import { read } from "../../services";
+import { resetCart } from "../../slices/cartSlice";
+
+import { inputs } from "./form";
 
 const initialCheckBox = true; //estado inicial de checkbox
 
 export default function CartPayment() {
-
-  const debug = true;
-
+  const debug = false;
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const globalUser = useSelector((state) => state.user.data);
 
@@ -46,24 +47,17 @@ export default function CartPayment() {
     }
   };
 
-  const {
-    values,
-    errors,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    setValues,
-  } = useFormik({
-    initialValues: {
-      name: "",
-      address: "",
-      city: "",
-      region: "",
-      phoneNumber: "",
-    },
-    validationSchema: debug ? undefined: basicSchema,
-  });
+  const { values, errors, touched, handleBlur, handleChange, setValues } =
+    useFormik({
+      initialValues: {
+        name: "",
+        address: "",
+        city: "",
+        region: "",
+        phoneNumber: "",
+      },
+      validationSchema: debug ? undefined : basicSchema,
+    });
 
   const formCreditCard = useFormik({
     initialValues: {
@@ -72,14 +66,13 @@ export default function CartPayment() {
       expirationYear: "",
       cvv: "",
     },
-    validationSchema: debug ? undefined: creditCardSchema,
+    validationSchema: debug ? undefined : creditCardSchema,
   });
 
-  function redirect(route) {
-    return (event) => {
-      event.preventDefault();
-      navigate(route);
-    };
+  function handlePayment() {
+    dispatch(resetCart());
+    navigate("/cart-message");
+    window.location.reload();
   }
 
   async function initializeFormData() {
@@ -116,9 +109,9 @@ export default function CartPayment() {
   return (
     <>
       <Logo />
-      <Breadcrumb />
-      <div className="flex flex-col md:flex md:flex-row">
-        <section className="cart-info-left lg:w-[50%] flex flex-col items-center">
+      <div className="flex flex-col md:flex lg:flex-row">
+        <section className="cart-info-left lg:w-[50%] flex flex-col items-center md:items-left px-12">
+          <Breadcrumb />
           <p className="mb-5 font-bold text-lg ">Direccion de Facturacion </p>
           <form
             autoComplete="off"
@@ -137,7 +130,7 @@ export default function CartPayment() {
               </label>
             </div>
             {inputs.map((input) => (
-              <>
+              <React.Fragment key={input.name}>
                 <div className="p-2 border border-gray-700">
                   <input
                     className="w-full outline-none"
@@ -145,187 +138,196 @@ export default function CartPayment() {
                     type={input.type}
                     placeholder={input.placeholder}
                     onChange={handleChange}
-                    value={values[input.name]}
+                    value={values[input.name] || ""}
                     onBlur={handleBlur}
                   />
                 </div>
                 {errors[input.name] && touched[input.name] && (
                   <p className="text-xs text-red-500">{errors[input.name]}</p>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </form>
         </section>
 
-        <section className="lg:w-[50%] flex flex-col justify-start items-start">
-          <div className="flex flex-col">
-            <p className="mb-5 font-bold text-lg">Pago</p>
-            <p className="">Selecciona metodo de pago</p>
-          </div>
-
-          <div className="flex gap-10 mt-5 mb-7">
-            <div className="w-[100px] h-[40px] flex">
-              <img
-                id="american"
-                className={`cursor-pointer ${
-                  selectedCredit === "american"
-                    ? "border-2 rounded-sm border-teal-800 "
-                    : ""
-                }`}
-                src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/amex.svg"
-                alt=""
-                onClick={() => handleCreditClick("american")}
-              />
-            </div>
-            <div className="w-[100px] h-[40px] flex">
-              <img
-                id="paypal"
-                className={`cursor-pointer ${
-                  selectedCredit === "paypal"
-                    ? "border-2 rounded-sm border-teal-800 "
-                    : ""
-                }`}
-                src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/Paypal.svg"
-                alt=""
-                onClick={() => handleCreditClick("paypal")}
-              />
-            </div>
-            <div className="w-[100px] h-[40px] flex gap-1  ">
-              <img
-                className={`cursor-pointer ${
-                  selectedCredit === "visa"
-                    ? "border-2 rounded-sm border-teal-800 "
-                    : ""
-                }`}
-                id="visa"
-                src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/Visa.svg"
-                alt=""
-                onClick={() => handleCreditClick("visa")}
-              />
-            </div>
-            <div className="w-[100px] h-[40px] flex">
-              <img
-                className={`cursor-pointer ${
-                  selectedCredit === "mastercard"
-                    ? "border-2 rounded-sm border-teal-800 "
-                    : ""
-                }`}
-                id="mastercard"
-                src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/Masterrcard.svg"
-                alt=""
-                onClick={() => handleCreditClick("mastercard")}
-              />
-            </div>
-          </div>
-
-          <form autoComplete="off" className="w-[500px]">
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-1"
-                for="creditCardNumber"
-              >
-                Número de Tarjeta
-              </label>
-              <input
-                className="border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="creditCardNumber"
-                type="text"
-                placeholder="Número de Tarjeta"
-                onChange={formCreditCard.handleChange}
-                onBlur={formCreditCard.handleBlur}
-              />
-              {formCreditCard.errors.creditCardNumber &&
-                formCreditCard.touched.creditCardNumber && (
-                  <p className="text-xs text-red-500">
-                    {formCreditCard.errors.creditCardNumber}
-                  </p>
-                )}
+        <section className="lg:w-[50%] flex flex-col justify-start items-start px-5 pt-5 mb-12 md:px-10 m-auto">
+          <section>
+            <div className="flex flex-col gap-10 mt-0 mb-7">
+              <div className="flex flex-col text-center">
+                <p className="mb-5 font-bold text-lg text-center">Pago</p>
+                <p className="">Selecciona metodo de pago</p>
+              </div>
+              <div className="flex gap-5">
+                <div className="w-[70px] md:w-[100px] h-[40px]">
+                  <img
+                    id="american"
+                    className={`cursor-pointer ${
+                      selectedCredit === "american"
+                        ? "border-2 rounded-sm border-teal-800 "
+                        : ""
+                    }`}
+                    src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/amex.svg"
+                    alt=""
+                    onClick={() => handleCreditClick("american")}
+                  />
+                </div>
+                <div className="w-[70px] md:w-[100px] h-[40px] flex">
+                  <img
+                    id="paypal"
+                    className={`cursor-pointer ${
+                      selectedCredit === "paypal"
+                        ? "border-2 rounded-sm border-teal-800 "
+                        : ""
+                    }`}
+                    src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/Paypal.svg"
+                    alt=""
+                    onClick={() => handleCreditClick("paypal")}
+                  />
+                </div>
+                <div className="w-[70px] md:w-[100px] h-[40px] flex gap-1  ">
+                  <img
+                    className={`cursor-pointer ${
+                      selectedCredit === "visa"
+                        ? "border-2 rounded-sm border-teal-800 "
+                        : ""
+                    }`}
+                    id="visa"
+                    src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/Visa.svg"
+                    alt=""
+                    onClick={() => handleCreditClick("visa")}
+                  />
+                </div>
+                <div className="w-[70px] md:w-[100px] h-[40px] flex">
+                  <img
+                    className={`cursor-pointer ${
+                      selectedCredit === "mastercard"
+                        ? "border-2 rounded-sm border-teal-800 "
+                        : ""
+                    }`}
+                    id="mastercard"
+                    src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/Masterrcard.svg"
+                    alt=""
+                    onClick={() => handleCreditClick("mastercard")}
+                  />
+                </div>
+              </div>
             </div>
 
-            <div className="flex flex-wrap -mx-3 mb-4">
-              <div className="w-1/2 px-3">
+            <form
+              autoComplete="off"
+              className="w-full md:w-[500px]"
+              onSubmit={handlePayment}
+            >
+              <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-1"
-                  for="expirationMonth"
+                  htmlFor="creditCardNumber"
                 >
-                  Mes
+                  Número de Tarjeta
                 </label>
                 <input
-                  className=" border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="expirationMonth"
+                  className="border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="creditCardNumber"
                   type="text"
-                  placeholder="Mes"
+                  placeholder="Número de Tarjeta"
                   onChange={formCreditCard.handleChange}
                   onBlur={formCreditCard.handleBlur}
                 />
-                {formCreditCard.errors.expirationMonth &&
-                  formCreditCard.touched.expirationMonth && (
-                    <p className="text-xs text-red-500">
-                      {formCreditCard.errors.expirationMonth}
+                {formCreditCard.errors.creditCardNumber &&
+                  formCreditCard.touched.creditCardNumber && (
+                    <p className="text-xs text-red-500 mt-3">
+                      {formCreditCard.errors.creditCardNumber}
                     </p>
                   )}
               </div>
-              <div className="w-1/2 px-3">
+
+              <div className="flex flex-wrap -mx-3 mb-4">
+                <div className="w-1/2 px-3">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-1"
+                    htmlFor="expirationMonth"
+                  >
+                    Mes
+                  </label>
+                  <input
+                    className=" border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="expirationMonth"
+                    type="text"
+                    placeholder="Mes"
+                    onChange={formCreditCard.handleChange}
+                    onBlur={formCreditCard.handleBlur}
+                  />
+                  {formCreditCard.errors.expirationMonth &&
+                    formCreditCard.touched.expirationMonth && (
+                      <p className="text-xs text-red-500 mt-3">
+                        {formCreditCard.errors.expirationMonth}
+                      </p>
+                    )}
+                </div>
+                <div className="w-1/2 px-3">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-1"
+                    htmlFor="expirationYear"
+                  >
+                    Año
+                  </label>
+                  <input
+                    className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="expirationYear"
+                    type="text"
+                    placeholder="Año"
+                    onChange={formCreditCard.handleChange}
+                    onBlur={formCreditCard.handleBlur}
+                  />
+                  {formCreditCard.errors.expirationYear &&
+                    formCreditCard.touched.expirationYear && (
+                      <p className="text-xs text-red-500 mt-3">
+                        {formCreditCard.errors.expirationYear}
+                      </p>
+                    )}
+                </div>
+              </div>
+
+              <div className="">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-1"
-                  for="expirationYear"
+                  htmlFor="cvv"
                 >
-                  Año
+                  CVV
                 </label>
                 <input
                   className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="expirationYear"
+                  id="cvv"
                   type="text"
-                  placeholder="Año"
+                  placeholder="CVV"
                   onChange={formCreditCard.handleChange}
                   onBlur={formCreditCard.handleBlur}
                 />
-                {formCreditCard.errors.expirationYear &&
-                  formCreditCard.touched.expirationYear && (
-                    <p className="text-xs text-red-500">
-                      {formCreditCard.errors.expirationYear}
-                    </p>
-                  )}
+                {formCreditCard.errors.cvv && formCreditCard.touched.cvv && (
+                  <p className="text-xs text-red-500 mt-3">
+                    {formCreditCard.errors.cvv}
+                  </p>
+                )}
               </div>
-            </div>
+              <div className="justify-center flex">
+                <div className="w-[185px] h-[50px] m-10 flex">
+                  <Button
+                    text="Pagar"
+                    type="submit"
+                    variant="primary"
+                    clickFunction={false}
+                  />
+                </div>
+              </div>
 
-            <div className="">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-1"
-                for="cvv"
-              >
-                CVV
-              </label>
-              <input
-                className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="cvv"
-                type="text"
-                placeholder="CVV"
-                onChange={formCreditCard.handleChange}
-                onBlur={formCreditCard.handleBlur}
-              />
-              {formCreditCard.errors.cvv && formCreditCard.touched.cvv && (
-                <p className="text-xs text-red-500">
-                  {formCreditCard.errors.cvv}
-                </p>
-              )}
-            </div>
-
-            <button
-              onClick={redirect("/cart-message")}
-              type="submit"
-              className="w-full mt-4 p-2 h-12 border text-white text-sm capitalize cursor-pointer mx-1 my-0.5 bg-[--color-cart-text-button-comp] "
-            >
-              Pagar
-            </button>
-
-            <p className="mt-2 text-xs text-justify">
-              El precio total a pagar, incluidos los impuestos y gastos
-              adicionales (si los hubiera), se indican claramente en la página
-              de pago. Al hacer clic en "Pagar", usted autoriza el cargo
-              correspondiente en su método de pago seleccionado
-            </p>
-          </form>
+              <p className="mt-2 text-xs text-justify">
+                El precio total a pagar, incluidos los impuestos y gastos
+                adicionales (si los hubiera), se indican claramente en la página
+                de pago. Al hacer clic en "Pagar", usted autoriza el cargo
+                correspondiente en su método de pago seleccionado
+              </p>
+            </form>
+          </section>
         </section>
       </div>
     </>
