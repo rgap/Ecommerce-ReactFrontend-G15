@@ -6,19 +6,29 @@ import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { counterProductos } from "../../slices/cartSlice";
+import { useDispatch } from "react-redux";
+import { resetCart } from "../../slices/cartSlice";
 
 const initialCheckBox = true; //estado inicial de checkbox
 
 export default function CartPayment() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const globalUser = useSelector((state) => state.user.data);
+  
   const [personalData, setPersonalData] = useState([]);
   const [selectedCredit, setSelectedCredit] = useState(false);
   const [checkbox, setCheckbox] = useState(initialCheckBox);
 
   const handleCreditClick = (id) => {
     setSelectedCredit(id);
+  };
+
+  const handlePayment = (productId) => {
+    dispatch(resetCart(productId));
+    redirect("/cart-message")
   };
 
   const handleCheckBoxChange = () => {
@@ -309,7 +319,7 @@ export default function CartPayment() {
             </div>
 
             <button
-              onClick={redirect("/cart-message")}
+              onClick={handlePayment}
               type="submit"
               className="w-full mt-4 p-2 h-12 border text-white text-sm capitalize cursor-pointer mx-1 my-0.5 bg-[--color-cart-text-button-comp] "
             >

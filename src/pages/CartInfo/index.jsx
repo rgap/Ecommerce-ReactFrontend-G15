@@ -99,7 +99,7 @@ export default function CartInfo() {
           <Breadcrumb />
 
           {!globalUser ? (
-            <section className="flex justify-center  h-[50%] items-center">
+            <section className="flex justify-center h-[50%] items-center">
               <div className="flex flex-col items-center gap-2">
                 <p className="text-lg  break-words"> ¿Ya tienes una cuenta? </p>
                 <div className="border flex w-[120px] h-[40px] justify-center items-center gap-1 flex-shrink-0 ">
@@ -132,7 +132,7 @@ export default function CartInfo() {
               <form
                 onSubmit={handleSubmit}
                 autoComplete="off"
-                className="w-[300px] md:w-[400px] xl:w-[500px] mb-10 flex flex-col gap-2"
+                className="w-[300px] md:w-[350px] xl:w-[450px] mb-10 flex flex-col gap-2"
               >
                 {inputs.map((input) => (
                   <>
@@ -155,30 +155,28 @@ export default function CartInfo() {
                   </>
                 ))}
 
-                <div className="flex justify-center mb-4 mt-10">
-                  <div className="w-[500px] flex justify-between">
-                    <div className="flex w-[190px] h-[40px] items-center">
-                      <img
-                        className="w-6 h-6"
-                        src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/fcccf12acd7bdce6bdc28e60b4b662dfbffb70cd/icons/arrow_back.svg"
-                        alt=""
-                      />
-                      <span
-                        onClick={redirect("/cart")}
-                        className="text-sm leading-6 cursor-pointer hover:underline"
+                <div className="w-full flex mt-10 justify-between">
+                  <div className="flex w-[190px] h-[40px] items-center">
+                    <img
+                      className="w-6 h-6"
+                      src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/fcccf12acd7bdce6bdc28e60b4b662dfbffb70cd/icons/arrow_back.svg"
+                      alt=""
+                    />
+                    <span
+                      onClick={redirect("/cart")}
+                      className="text-sm leading-6 cursor-pointer hover:underline"
+                    >
+                      Regresar
+                    </span>
+                  </div>
+                  <div className="flex justify-end">
+                    <div className="w-[200px] h-[40px]">
+                      <button
+                        type="submit"
+                        className="w-full h-full cursor-pointer text-white text-sm capitalize bg-[--color-cart-text-button-comp] hover:bg-[--color-bg-announcement-bar] "
                       >
-                        Regresar
-                      </span>
-                    </div>
-                    <div className="flex justify-end">
-                      <div className="w-[200px] h-[40px]">
-                        <button
-                          type="submit"
-                          className="w-full h-full cursor-pointer text-white text-sm capitalize bg-[--color-cart-text-button-comp] hover:bg-[--color-bg-announcement-bar] "
-                        >
-                          Continuar con Envio
-                        </button>
-                      </div>
+                        Continuar con Envio
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -187,12 +185,12 @@ export default function CartInfo() {
           )}
         </section>
 
-        <section className="max-lg:hidden cart-info-right h-screen lg:w-[45%] bg-[--color-bg] flex flex-col justify-start items-center">
-        <div className="w-full flex justify-center">
-          <span className="text-xl font-bold mt-10 mb-10">
-           Carrito de Compra
-          </span>
-        </div>
+        <section className="max-lg:hidden cart-info-right min-h-screen lg:w-[45%] bg-[--color-bg] flex flex-col justify-start items-center">
+          <div className="w-full flex justify-center">
+            <span className="text-xl font-bold mt-10 mb-10">
+              Carrito de Compra
+            </span>
+          </div>
 
           <div className="lg:w-[350px] xl:w-[450px]">
             {globalCart.map((product) => (
