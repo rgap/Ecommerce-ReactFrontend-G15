@@ -1,6 +1,8 @@
 # ECOMMERCE-G15
 
-An e-commerce website developed a final project for a Fullstack bootcamp.
+An e-commerce website developed as a final project for a Fullstack bootcamp.
+
+This only covers the Front-End side so far.
 
 ## Online demo
 
