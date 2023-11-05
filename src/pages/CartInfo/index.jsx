@@ -170,7 +170,9 @@ export default function CartInfo() {
                       ruta="/cart-shipping"
                       text="Continuar con Envio"
                       type="submit"
-                      variant="primary"
+                      variant={
+                        Object.keys(errors).length > 0 ? "disabled" : "primary"
+                      }
                     />
                   </div>
                 </div>

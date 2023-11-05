@@ -314,7 +314,12 @@ export default function CartPayment() {
                   <Button
                     text="Pagar"
                     type="submit"
-                    variant="primary"
+                    variant={
+                      Object.keys(errors).length > 0 ||
+                      Object.keys(formCreditCard.errors).length > 0
+                        ? "disabled"
+                        : "primary"
+                    }
                     clickFunction={false}
                   />
                 </div>
@@ -324,7 +329,7 @@ export default function CartPayment() {
                 El precio total a pagar, incluidos los impuestos y gastos
                 adicionales (si los hubiera), se indican claramente en la página
                 de pago. Al hacer clic en "Pagar", usted autoriza el cargo
-                correspondiente en su método de pago seleccionado
+                correspondiente en su método de pago seleccionado.
               </p>
             </form>
           </section>

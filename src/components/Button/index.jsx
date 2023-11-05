@@ -12,7 +12,7 @@ export default function Button({
   const colors = {
     primary: "bg-[--color-cart-text-button-comp]",
     hover: "bg-[--color-cart-text-button-comp-hover]",
-    disabled: "",
+    disabled: "bg-gray-400",
     danger: "",
     warning: "",
     dark: "",
@@ -25,11 +25,14 @@ export default function Button({
     };
   }
 
+  const hoverClass = variant !== "disabled" ? `hover:${colors["hover"]}` : "";
+
   return (
     <button
       onClick={clickFunction ? redirect(ruta) : undefined}
       type={type}
-      className={`w-full h-full cursor-pointer text-white text-sm capitalize hover:${colors["hover"]}  ${colors[variant]} ${className}`}
+      className={`w-full h-full cursor-pointer text-white text-sm capitalize ${hoverClass} ${colors[variant]} ${className}`}
+      disabled={variant == "disabled"}
     >
       {text}
     </button>
