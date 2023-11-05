@@ -2,6 +2,10 @@
 
 An e-commerce website developed a final project for a Fullstack bootcamp.
 
+## Online demo
+
+TODO
+
 ## Tools & Frameworks
 
 - React JS
@@ -11,7 +15,7 @@ An e-commerce website developed a final project for a Fullstack bootcamp.
 - Figma
 - HTML5/CSS3
 
-These were the mid-fidelity wireframes made in Figma:
+These are the mid-fidelity wireframes made in Figma:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/presentation/wireframes-overview.jpg">
@@ -42,7 +46,3 @@ Here are some views:
 <p align="center">
   <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/presentation/shopping-cart.jpg">
 </p>
-
-## Online demo
-
-TODO
