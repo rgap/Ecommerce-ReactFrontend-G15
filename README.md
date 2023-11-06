@@ -25,7 +25,7 @@ These are the mid-fidelity wireframes made in Figma:
   <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/presentation/wireframes-overview.jpg">
 </p>
 
-Here are some views from Responsively App:
+Here are some screenshots taken from Responsively App:
 
 - Home page
 
