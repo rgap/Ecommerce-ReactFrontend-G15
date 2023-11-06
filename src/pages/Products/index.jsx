@@ -1,10 +1,19 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components";
 import { read } from "../../services";
 
 function Products() {
+  const navigate = useNavigate();
+
+  function redirect(route) {
+    return (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
+
   const [productsArray, setProductsArray] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -50,7 +59,7 @@ function Products() {
           <ol className="flex text-xl">
             <li className="mr-2">
               <a
-                href="/"
+                onClick={redirect("/")}
                 className="text-[--color-link-text] hover:underline font-semibold"
               >
                 Página Principal

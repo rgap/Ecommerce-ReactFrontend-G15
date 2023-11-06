@@ -250,7 +250,7 @@ export default function Profile() {
           <ol className="flex text-xl mb-10 mt-2">
             <li className="mr-2">
               <a
-                href="/"
+                onClick={redirect("/")}
                 className="text-[--color-link-text] hover:underline font-semibold"
               >
                 Página Principal

@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Logo,
@@ -10,6 +11,7 @@ import { counterProductos } from "../../slices/cartSlice";
 
 export default function Cart() {
   const globalCart = useSelector(counterProductos);
+  const navigate = useNavigate();
 
   const total = globalCart.reduce((accumulator, product) => {
     const subtotal = product.quantity * product.price;
@@ -17,6 +19,13 @@ export default function Cart() {
   }, 0);
 
   const totalCart = total.toFixed(2);
+
+  function redirect(route) {
+    return (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
 
   return (
     <main className="bg-white">
@@ -29,7 +38,7 @@ export default function Cart() {
               <ol className="flex text-xl justify-center md:justify-start mt-3 mb-8">
                 <li className="mr-2">
                   <a
-                    href="/products"
+                    onClick={redirect("/products")}
                     className="text-[--color-link-text] hover:underline font-semibold	"
                   >
                     Productos
