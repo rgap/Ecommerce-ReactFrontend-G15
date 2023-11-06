@@ -76,7 +76,7 @@ export default function Header() {
             <li className="cursor-pointer hidden md:block">
               <a
                 className="nav-center-link"
-                href="/updates"
+                onClick={redirect("/updates")}
                 data-link-alt="Novedades"
               >
                 <span>Novedades</span>

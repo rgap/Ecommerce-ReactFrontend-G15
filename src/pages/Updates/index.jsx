@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -260,6 +261,15 @@ const Footer = () => {
 
 // Componente Principal
 const Updates = () => {
+  const navigate = useNavigate();
+
+  function redirect(route) {
+    return (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
+
   return (
     <>
       <main className="flex flex-row justify-center">
@@ -269,7 +279,7 @@ const Updates = () => {
             <ol className="flex text-xl mb-8 mt-4">
               <li className="mr-2">
                 <a
-                  href="/"
+                  onClick={redirect("/")}
                   className="text-[--color-link-text] hover:underline font-semibold"
                 >
                   Página Principal

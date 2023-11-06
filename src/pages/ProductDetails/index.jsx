@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Carousel from "../../components/Carousel";
@@ -16,6 +16,7 @@ function ProductDetails() {
   const [currentPrice, setCurrentPrice] = useState("");
   const [mainImage, setMainImage] = useState("");
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -141,6 +142,13 @@ function ProductDetails() {
     }).format(currentPrice || product.price);
   }
 
+  function redirect(route) {
+    return (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
+
   return (
     <>
       <ToastContainer position="top-left" />
@@ -150,7 +158,7 @@ function ProductDetails() {
             <ol className="flex text-xl">
               <li className="mr-2">
                 <a
-                  href="/products"
+                  onClick={redirect("/products")}
                   className="text-[--color-link-text] hover:underline font-semibold	"
                 >
                   Productos
