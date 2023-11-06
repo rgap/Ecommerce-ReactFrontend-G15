@@ -17,13 +17,15 @@ https://ecommerce-react-g15.vercel.app/
 - Figma
 - HTML5/CSS3
 
+## Some Screenshots
+
 These are the mid-fidelity wireframes made in Figma:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/presentation/wireframes-overview.jpg">
 </p>
 
-Here are some views:
+Here are some views from Responsively App:
 
 - Home page
 
