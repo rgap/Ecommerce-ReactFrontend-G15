@@ -83,21 +83,25 @@ export default function Register() {
     const debug = false;
 
     if (debug) {
-      const user = await create(values, "users");
+      const user = await create(values, "users/register");
+
       dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");
     } else if (validateForm()) {
-      const users = await read("users");
-      const emailExists = users.some(
-        (user) => user.email.toLowerCase() === values.email.toLowerCase()
-      );
-      if (emailExists) {
+      console.log("values", values);
+      const response = await read("users/findbyemail", { email: values.email });
+      console.log("response", response);
+
+      if (response.ok == true) {
+        // User exists
         setErrors((prevErrors) => ({
           ...prevErrors,
           email: "Ya existe un usuario con ese correo",
         }));
       } else {
-        const user = await create(values, "users");
+        // User not found
+        const user = await create(values, "users/register");
+
         dispatch(saveUser({ email: user.email }));
         navigate("/?showModal=true");
       }
