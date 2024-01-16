@@ -65,12 +65,12 @@ export default function Login() {
     event.preventDefault();
 
     if (validateForm()) {
-      const users = await read("users");
-      const user = users.find(
-        (user) => user.email.toLowerCase() === values.email.toLowerCase()
-      );
-      if (user && user.password === values.password) {
-        dispatch(saveUser({ email: user.email }));
+      // TODO: Para revisar con linder !
+      const response = await create(values, "users/login");
+
+      // login successful
+      if (response.ok == true) {
+        dispatch(saveUser({ email: values.email }));
         navigate("/");
       } else {
         setErrors({
