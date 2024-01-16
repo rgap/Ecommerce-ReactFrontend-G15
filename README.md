@@ -4,7 +4,7 @@ An e-commerce website developed as a final project for a Fullstack bootcamp.
 
 This only covers the Front-End side so far.
 
-## Online demo
+## Online Demo
 
 https://ecommerce-react-g15.vercel.app/
 
@@ -46,6 +46,26 @@ Here are some screenshots taken from Responsively App:
 </p>
 
 - Shopping cart page
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/presentation/shopping-cart.jpg">
+</p>
+
+## Some User Flow Charts
+
+- Login
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/presentation/shopping-cart.jpg">
+</p>
+
+- Register
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/presentation/shopping-cart.jpg">
+</p>
+
+- Register
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/presentation/shopping-cart.jpg">
