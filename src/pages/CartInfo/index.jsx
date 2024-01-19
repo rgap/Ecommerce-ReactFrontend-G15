@@ -9,7 +9,7 @@ import {
   ProductShoppingCart,
 } from "../../components";
 import { basicSchema } from "../../schemas";
-import { read, update } from "../../services";
+import { sendGetRequest, sendPutRequest } from "../../services";
 import { counterProductos } from "../../slices/cartSlice";
 import { inputs } from "./form";
 
@@ -27,7 +27,7 @@ export default function CartInfo() {
   const totalCart = total.toFixed(2);
 
   const onSubmit = async (values, actions) => {
-    await update(personalData.id, values, "users");
+    await sendPutRequest(personalData.id, values, "users");
     navigate("/cart-shipping");
   };
 
@@ -59,7 +59,7 @@ export default function CartInfo() {
   }
 
   async function initializeFormData() {
-    const users = await read("users");
+    const users = await sendGetRequest("users");
     const foundUser = users.find(
       (user) => user.email.toLowerCase() === globalUser.email.toLowerCase()
     );

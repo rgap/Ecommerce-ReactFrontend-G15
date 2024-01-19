@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components";
-import { read } from "../../services";
+import { sendGetRequest } from "../../services";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -56,7 +56,7 @@ export default function Home() {
   }
 
   async function initializeProductsArray() {
-    const products = await read("products");
+    const products = await sendGetRequest("products");
     const shuffledProducts = shuffleArray([...products]);
     setProductsArray(shuffledProducts);
   }

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Carousel from "../../components/Carousel";
-import { read } from "../../services";
+import { sendGetRequest } from "../../services";
 import { addToCart } from "../../slices/cartSlice";
 
 function ProductDetails() {
@@ -21,7 +21,7 @@ function ProductDetails() {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const fetchedProduct = await read("products", productId);
+      const fetchedProduct = await sendGetRequest("products", productId);
       if (fetchedProduct) {
         setProduct(fetchedProduct);
       }

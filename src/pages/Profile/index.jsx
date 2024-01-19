@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { EditableField } from "../../components";
-import { read, update } from "../../services";
+import { sendGetRequest, sendPutRequest } from "../../services";
 import { logOutUser } from "../../slices/userSlice";
 import { inputsAccount, inputsPayment } from "./form";
 
@@ -148,7 +148,7 @@ export default function Profile() {
   };
 
   async function initializeFormData() {
-    const users = await read("users");
+    const users = await sendGetRequest("users");
     const foundUser = users.find(
       (user) => user.email.toLowerCase() === globalUser.email.toLowerCase()
     );
@@ -182,7 +182,7 @@ export default function Profile() {
     );
 
     if (isEditablePersonal && isDataChanged && !hasErrors(personalErrors)) {
-      await update(userID, { ...personalData }, "users");
+      await sendPutRequest(userID, { ...personalData }, "users");
     } else {
       setOriginalPersonalData({ ...personalData });
     }
@@ -212,7 +212,7 @@ export default function Profile() {
     );
 
     if (isEditablePayment && isDataChanged && !hasErrors(paymentErrors)) {
-      await update(userID, { ...paymentData }, "users");
+      await sendPutRequest(userID, { ...paymentData }, "users");
     } else {
       setOriginalPaymentData({ ...paymentData });
     }

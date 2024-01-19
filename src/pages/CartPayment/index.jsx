@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Breadcrumb, Button, Logo } from "../../components";
 import { basicSchema, creditCardSchema } from "../../schemas";
-import { read } from "../../services";
+import { sendGetRequest } from "../../services";
 import { resetCart } from "../../slices/cartSlice";
 
 import { inputs } from "./form";
@@ -76,7 +76,7 @@ export default function CartPayment() {
   }
 
   async function initializeFormData() {
-    const users = await read("users");
+    const users = await sendGetRequest("users");
     const foundUser = users.find(
       (user) => user.email.toLowerCase() === globalUser.email.toLowerCase()
     );

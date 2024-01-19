@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components";
-import { read } from "../../services";
+import { sendGetRequest } from "../../services";
 
 function Products() {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ function Products() {
   };
 
   async function initializeProductsArray() {
-    const productsFromDB = await read("products");
+    const productsFromDB = await sendGetRequest("products");
     setProductsArray(productsFromDB);
   }
 

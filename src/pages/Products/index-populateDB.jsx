@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { ProductCard } from "../../components";
-import { create, read } from "../../services";
+import { sendPostRequest } from "../../services";
 import { productsArray } from "./mockProducts";
 
 export default function Products() {
@@ -8,7 +8,7 @@ export default function Products() {
     for (const product of productsArray) {
       delete product.createdAt;
       delete product.id;
-      await create(product, "products");
+      await sendPostRequest(product, "products");
     }
   }
 

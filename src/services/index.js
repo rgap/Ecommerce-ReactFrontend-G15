@@ -2,18 +2,18 @@ import { makeHttpRequest } from "./config";
 
 // CRUD
 
-export async function create(body, url) {
-  return await makeHttpRequest({ url, body, method: "POST" });
+export async function sendPostRequest(body, endpoint) {
+  return await makeHttpRequest({ endpoint, body, method: "POST" });
 }
 
-export async function read(url, body, id = "") {
-  return await makeHttpRequest({ url, body, id });
+export async function sendGetRequest(endpoint, body, id = "") {
+  return await makeHttpRequest({ endpoint, body, id });
 }
 
-export async function update(id, body, url) {
-  return await makeHttpRequest({ url, id, body, method: "PUT" });
+export async function sendPutRequest(id, body, endpoint) {
+  return await makeHttpRequest({ endpoint, id, body, method: "PUT" });
 }
 
-export async function destroy(id, url) {
-  return await makeHttpRequest({ url, id, method: "DELETE" });
+export async function sendDeleteRequest(id, endpoint) {
+  return await makeHttpRequest({ endpoint, id, method: "DELETE" });
 }
