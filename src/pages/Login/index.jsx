@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GoogleLoginButton, TextField } from "../../components";
-import { create, read } from "../../services";
+import { sendGetRequest, sendPostRequest } from "../../services";
 import { saveUser } from "../../slices/userSlice";
 import { inputs } from "./form";
 
@@ -65,14 +65,14 @@ export default function Login() {
     event.preventDefault();
 
     if (validateForm()) {
-      // TODO: Para revisar con linder !
-      const response = await create(values, "users/login");
+      const response = await sendPostRequest(values, "users/login");
 
-      // login successful
       if (response.ok == true) {
+        // login successful
         dispatch(saveUser({ email: values.email }));
         navigate("/");
       } else {
+        // login error
         setErrors({
           ...errors,
           email: "Correo y / o password incorrecto",
@@ -83,13 +83,13 @@ export default function Login() {
   };
 
   const handleGoogleLoginOrRegister = async (userGoogleData) => {
-    const users = await read("users");
+    const users = await sendGetRequest("users");
     const foundUser = users.find((user) => user.email === userGoogleData.email);
     if (foundUser) {
       dispatch(saveUser({ email: foundUser.email }));
       navigate("/");
     } else {
-      const user = await create(userGoogleData, "users");
+      const user = await sendPostRequest(userGoogleData, "users");
       dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");
     }

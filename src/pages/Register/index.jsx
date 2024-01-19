@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GoogleLoginButton, TextField } from "../../components";
-import { create, read } from "../../services";
+import { sendGetRequest, sendPostRequest } from "../../services";
 import { saveUser } from "../../slices/userSlice";
 import { inputs } from "./form";
 
@@ -83,14 +83,19 @@ export default function Register() {
     const debug = false;
 
     if (debug) {
-      const user = await create(values, "users/register");
+      const user = await sendPostRequest(values, "users/register");
 
       dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");
     } else if (validateForm()) {
-      console.log("values", values);
-      const response = await read("users/findbyemail", { email: values.email });
-      console.log("response", response);
+      // console.log("values", values);
+      const response = await sendPostRequest(
+        {
+          email: values.email,
+        },
+        "users/findbyemail"
+      );
+      // console.log("response", response);
 
       if (response.ok == true) {
         // User exists
@@ -100,7 +105,7 @@ export default function Register() {
         }));
       } else {
         // User not found
-        const user = await create(values, "users/register");
+        const user = await sendPostRequest(values, "users/register");
 
         dispatch(saveUser({ email: user.email }));
         navigate("/?showModal=true");
@@ -109,13 +114,13 @@ export default function Register() {
   };
 
   const handleGoogleLogin = async (userGoogleData) => {
-    const users = await read("users");
+    const users = await sendGetRequest("users");
     const foundUser = users.find((user) => user.email === userGoogleData.email);
     if (foundUser) {
       dispatch(saveUser({ email: foundUser.email }));
       navigate("/");
     } else {
-      const user = await create(userGoogleData, "users");
+      const user = await sendPostRequest(userGoogleData, "users");
       dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");
     }

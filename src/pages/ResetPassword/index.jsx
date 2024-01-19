@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "../../components";
-import { read, update } from "../../services";
+import { sendGetRequest, sendPutRequest } from "../../services";
 import { inputsPasswordReset } from "./formPasswordReset";
 import { inputsReset } from "./formReset";
 
@@ -119,12 +119,12 @@ export default function ResetPassword() {
 
     if (validateResetPasswordForm()) {
       console.log("handleResetPasswordFormSubmit = true");
-      const users = await read("users");
+      const users = await sendGetRequest("users");
       const user = users.find(
         (user) => user.email.toLowerCase() === resetValues.email.toLowerCase()
       );
       if (user) {
-        await update(
+        await sendPutRequest(
           user.id,
           {
             password: resetPasswordValues.password,

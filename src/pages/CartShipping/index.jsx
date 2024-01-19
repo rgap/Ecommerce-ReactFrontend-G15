@@ -7,7 +7,6 @@ import {
   Logo,
   ProductShoppingCart,
 } from "../../components";
-import { read } from "../../services";
 import { counterProductos } from "../../slices/cartSlice";
 
 export default function CartShipping() {
