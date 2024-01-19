@@ -88,11 +88,14 @@ export default function Register() {
       dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");
     } else if (validateForm()) {
-      console.log("values", values);
-      const response = await sendPostRequest("users/findbyemail", {
-        email: values.email,
-      });
-      console.log("response", response);
+      // console.log("values", values);
+      const response = await sendPostRequest(
+        {
+          email: values.email,
+        },
+        "users/findbyemail"
+      );
+      // console.log("response", response);
 
       if (response.ok == true) {
         // User exists
