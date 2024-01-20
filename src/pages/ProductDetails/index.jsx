@@ -101,7 +101,7 @@ function ProductDetails() {
     ));
 
   const renderColorOptions = () =>
-    product.colors.map((color) => (
+    product.availableColors.map((color) => (
       <button
         key={color}
         style={{ backgroundColor: color }}

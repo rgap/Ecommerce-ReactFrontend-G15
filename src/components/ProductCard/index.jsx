@@ -11,43 +11,12 @@ export default function ProductCard({ product, resizingStyle, hideColors }) {
     navigate(`/products/${productPath}`);
   };
 
-  const colorMap = {
-    green: "bg-green-500",
-    blue: "bg-blue-500",
-    lime: "bg-lime-500",
-    teal: "bg-teal-500",
-    yellow: "bg-yellow-500",
-    red: "bg-red-500",
-    orange: "bg-orange-500",
-    purple: "bg-purple-500",
-    pink: "bg-pink-500",
-    indigo: "bg-indigo-500",
-    gray: "bg-gray-500",
-    black: "bg-black",
-    white: "bg-white",
-    cyan: "bg-cyan-500",
-    emerald: "bg-emerald-500",
-    fuchsia: "bg-fuchsia-500",
-    rose: "bg-rose-500",
-    sky: "bg-sky-500",
-    violet: "bg-violet-500",
-
-    brown: "bg-amber-500",
-    turquoise: "bg-turquoise-500",
-    wine: "bg-wine-500",
-    gold: "bg-gold-500",
-    maroon: "bg-red-800",
-    cream: "bg-yellow-100",
-  };
-
-  const colorClass = (color) => {
-    return colorMap[color] || "bg-gray-200"; // Color por defecto
-  };
-
-  const mediumPrice = new Intl.NumberFormat("es-PE", {
-    style: "currency",
-    currency: "PEN",
-  }).format(product.prices?.m?.[product.colors[0]] || product.price);
+  const price = product.minimumPrice
+    ? new Intl.NumberFormat("es-PE", {
+        style: "currency",
+        currency: "PEN",
+      }).format(product.minimumPrice)
+    : "Not available";
 
   return (
     <div
@@ -56,7 +25,7 @@ export default function ProductCard({ product, resizingStyle, hideColors }) {
     >
       <div className="p-4 bg-white h-full">
         <img
-          src={product.image}
+          src={product.mainImage}
           alt={product.title}
           className="w-full h-auto mb-3"
         />
@@ -81,18 +50,17 @@ export default function ProductCard({ product, resizingStyle, hideColors }) {
                 {/* Colores */}
                 {!hideColors && (
                   <div className="flex gap-0">
-                    {product.colors.map((color, index) => (
+                    {product.availableColors.map((color, index) => (
                       <div
                         key={index}
-                        className={`w-2 h-2 sm:w-6 sm:h-6 p-2 sm:p-2 rounded-full border-slate-400 border-2 mr-2 md:mr-[1px] lg:mr-2 ${colorClass(
-                          color
-                        )}`}
+                        style={{ backgroundColor: `${color.hexCode}` }}
+                        className={`w-2 h-2 sm:w-6 sm:h-6 p-2 sm:p-2 rounded-full border-slate-400 border-2 mr-2 md:mr-[1px] lg:mr-2`}
                       ></div>
                     ))}
                   </div>
                 )}
                 <div className="text-[14px] sm:text-[16px] font-bold text-gray-800">
-                  {mediumPrice}
+                  {price}
                 </div>
               </div>
             </div>
