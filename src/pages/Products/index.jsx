@@ -32,8 +32,9 @@ function Products() {
   };
 
   async function initializeProductsArray() {
-    const productsFromDB = await sendGetRequest("products");
-    setProductsArray(productsFromDB);
+    const response = await sendGetRequest("products/get-products-plp");
+    console.log(response.data);
+    setProductsArray(response.data);
   }
 
   useEffect(() => {
