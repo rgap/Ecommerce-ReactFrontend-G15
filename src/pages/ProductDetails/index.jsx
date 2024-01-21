@@ -21,7 +21,13 @@ function ProductDetails() {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const fetchedProduct = await sendGetRequest("products", productId);
+      // console.log("productId", productId);
+      const fetchedProduct = await sendGetRequest(
+        "products/get-product-pdp",
+        productId
+      );
+      // console.log(fetchedProduct);
+
       if (fetchedProduct) {
         setProduct(fetchedProduct);
       }
@@ -33,7 +39,7 @@ function ProductDetails() {
     if (product) {
       setSelectedColor(product.colors[0]);
       setSelectedSize(product.sizes[0]);
-      setMainImage(product.image);
+      setMainImage(product.mainImage);
     }
   }, [product]);
 

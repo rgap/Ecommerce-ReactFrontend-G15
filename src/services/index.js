@@ -6,8 +6,8 @@ export async function sendPostRequest(body, endpoint) {
   return await makeHttpRequest({ endpoint, body, method: "POST" });
 }
 
-export async function sendGetRequest(endpoint, body, id = "") {
-  return await makeHttpRequest({ endpoint, body, id });
+export async function sendGetRequest(endpoint, id = "") {
+  return await makeHttpRequest({ endpoint, id });
 }
 
 export async function sendPutRequest(id, body, endpoint) {
