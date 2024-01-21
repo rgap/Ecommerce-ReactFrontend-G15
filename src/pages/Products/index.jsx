@@ -32,7 +32,7 @@ function Products() {
   };
 
   async function initializeProductsArray() {
-    const response = await sendGetRequest("products/get-products-plp");
+    const response = await sendGetRequest("products/get-products-plp/all");
     console.log(response.data);
     setProductsArray(response.data);
   }
