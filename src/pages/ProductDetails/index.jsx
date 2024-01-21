@@ -22,11 +22,12 @@ function ProductDetails() {
   useEffect(() => {
     const fetchProduct = async () => {
       // console.log("productId", productId);
-      const fetchedProduct = await sendGetRequest(
+      const response = await sendGetRequest(
         "products/get-product-pdp",
         productId
       );
-      // console.log(fetchedProduct);
+      const fetchedProduct = response.data;
+      console.log(fetchedProduct);
 
       if (fetchedProduct) {
         setProduct(fetchedProduct);
@@ -37,8 +38,8 @@ function ProductDetails() {
 
   useEffect(() => {
     if (product) {
-      setSelectedColor(product.colors[0]);
-      setSelectedSize(product.sizes[0]);
+      setSelectedColor(product.minimumPriceColor);
+      setSelectedSize(product.minimumPriceSize);
       setMainImage(product.mainImage);
     }
   }, [product]);
@@ -70,7 +71,7 @@ function ProductDetails() {
         price: currentPrice,
         quantity: 1,
         size: selectedSize,
-        url: product.image,
+        url: product.mainImage,
       })
     );
 
@@ -92,7 +93,7 @@ function ProductDetails() {
   };
 
   const renderSizes = () =>
-    product.sizes.map((size) => (
+    product.availableSizes.map((size) => (
       <button
         key={size}
         className={`p-2 border rounded-md mr-2 ${
@@ -109,12 +110,14 @@ function ProductDetails() {
   const renderColorOptions = () =>
     product.availableColors.map((color) => (
       <button
-        key={color}
-        style={{ backgroundColor: color }}
+        key={color.name}
+        style={{ backgroundColor: color.hexCode }}
         className={`w-8 h-8 rounded-full mr-2 border-2 ${
-          selectedColor === color ? "border-black" : "hover:border-gray-300"
+          selectedColor === color.name
+            ? "border-black"
+            : "hover:border-gray-300"
         }`}
-        onClick={() => setSelectedColor(color)}
+        onClick={() => setSelectedColor(color.name)}
       ></button>
     ));
 
@@ -123,10 +126,10 @@ function ProductDetails() {
       <div className="flex overflow-x-auto">
         <img
           key={0}
-          src={product.image}
+          src={product.mainImage}
           alt={`Product ${0}`}
           className="w-24 h-24 object-cover mr-2 cursor-pointer hover:opacity-75 transition-opacity duration-300 ease-in-out"
-          onClick={() => setMainImage(product.image)}
+          onClick={() => setMainImage(product.mainImage)}
         />
         {product.imageArray.map((image, index) => (
           <img
@@ -188,13 +191,13 @@ function ProductDetails() {
               <h1 className="text-2xl font-bold mb-4 text-center md:text-left">
                 {product.title}
               </h1>
-              <p className="mb-4">{product.productDescription}</p>
+              <p className="mb-4">{product.description}</p>
 
               <div className="mb-4 p-4 bg-gray-100 rounded-md">
-                <strong>Materiales:</strong> {product.productMaterial}
+                <strong>Materiales:</strong> {product.material}
               </div>
               <div className="mb-4 p-4 bg-gray-100 rounded-md">
-                <strong>Instrucciones:</strong> {product.productCare}
+                <strong>Instrucciones:</strong> {product.care}
               </div>
               <div className="mb-4 p-4 bg-gray-100 rounded-md">
                 <strong>Precio:</strong> {formatPrice()}
