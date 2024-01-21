@@ -82,15 +82,28 @@ export default function Login() {
     }
   };
 
+  // Login de Google simulado
   const handleGoogleLoginOrRegister = async (userGoogleData) => {
-    const users = await sendGetRequest("users");
-    const foundUser = users.find((user) => user.email === userGoogleData.email);
-    if (foundUser) {
-      dispatch(saveUser({ email: foundUser.email }));
+    const response = await sendPostRequest(
+      {
+        email: userGoogleData.email,
+      },
+      "users/findbyemail"
+    );
+
+    if (response.ok) {
+      dispatch(saveUser({ email: userGoogleData.email }));
       navigate("/");
     } else {
-      const user = await sendPostRequest(userGoogleData, "users");
-      dispatch(saveUser({ email: user.email }));
+      await sendPostRequest(
+        {
+          name: userGoogleData.name,
+          email: userGoogleData.email,
+          password: userGoogleData.temporaryPassword,
+        },
+        "users/register"
+      );
+      dispatch(saveUser({ email: userGoogleData.email }));
       navigate("/?showModal=true");
     }
   };

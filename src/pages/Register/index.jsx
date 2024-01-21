@@ -88,7 +88,6 @@ export default function Register() {
       dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");
     } else if (validateForm()) {
-      // console.log("values", values);
       const response = await sendPostRequest(
         {
           email: values.email,
@@ -113,15 +112,28 @@ export default function Register() {
     }
   };
 
-  const handleGoogleLogin = async (userGoogleData) => {
-    const users = await sendGetRequest("users");
-    const foundUser = users.find((user) => user.email === userGoogleData.email);
-    if (foundUser) {
-      dispatch(saveUser({ email: foundUser.email }));
+  // Login de Google simulado
+  const handleGoogleLoginOrRegister = async (userGoogleData) => {
+    const response = await sendPostRequest(
+      {
+        email: userGoogleData.email,
+      },
+      "users/findbyemail"
+    );
+
+    if (response.ok) {
+      dispatch(saveUser({ email: userGoogleData.email }));
       navigate("/");
     } else {
-      const user = await sendPostRequest(userGoogleData, "users");
-      dispatch(saveUser({ email: user.email }));
+      await sendPostRequest(
+        {
+          name: userGoogleData.name,
+          email: userGoogleData.email,
+          password: userGoogleData.temporaryPassword,
+        },
+        "users/register"
+      );
+      dispatch(saveUser({ email: userGoogleData.email }));
       navigate("/?showModal=true");
     }
   };
@@ -180,7 +192,7 @@ export default function Register() {
           </div>
           <div className="flex flex-col items-center justify-center text-xs mb-6 text-center gap-6">
             <p>o entra con tu cuenta gmail</p>
-            <GoogleLoginButton onUserLogin={handleGoogleLogin} />
+            <GoogleLoginButton onUserLogin={handleGoogleLoginOrRegister} />
           </div>
 
           <div className="text-center">

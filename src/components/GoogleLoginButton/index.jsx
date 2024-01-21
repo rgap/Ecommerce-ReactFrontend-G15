@@ -5,6 +5,7 @@ export default function MockGoogleLoginButton(props) {
       id: "mockGoogleId12345",
       name: "Beautipol Alpha",
       email: "beautipol.alpha.1@gmail.com",
+      temporaryPassword: "mockGooglePassword12345",
       imageUrl:
         "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/logo/beautipol-logo.png",
     };
