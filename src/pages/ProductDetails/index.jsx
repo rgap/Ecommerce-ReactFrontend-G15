@@ -168,7 +168,7 @@ function ProductDetails() {
               <li className="mr-2">
                 <a
                   onClick={redirect("/products")}
-                  className="text-[--color-link-text] hover:underline font-semibold	"
+                  className="text-[--color-link-text] hover:underline font-semibold	cursor-pointer"
                 >
                   Productos
                 </a>
