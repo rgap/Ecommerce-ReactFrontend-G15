@@ -39,7 +39,7 @@ export default function Cart() {
                 <li className="mr-2">
                   <a
                     onClick={redirect("/products")}
-                    className="text-[--color-link-text] hover:underline font-semibold	"
+                    className="text-[--color-link-text] hover:underline font-semibold	cursor-pointer"
                   >
                     Productos
                   </a>
@@ -78,7 +78,7 @@ export default function Cart() {
                     product={product}
                   />
                   <div className="max-md:hidden text-lg  flex justify-center items-center  ">
-                    S/. {product.price}
+                    S/ {product.price}
                   </div>
                   <div className=" flex justify-center items-center">
                     <QuantityButton

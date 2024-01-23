@@ -29,7 +29,7 @@ const Breadcrumb = () => {
             ) : (
               <Link
                 to={route}
-                className=" text-[--color-link-text] hover:underline"
+                className="text-[--color-link-text] hover:underline cursor-pointer"
               >
                 {breadcrumbText[route]}
               </Link>

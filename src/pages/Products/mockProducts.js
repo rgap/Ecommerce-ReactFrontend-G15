@@ -509,7 +509,7 @@ export const productsArray = [
     shortDescription: "Confort y Estilo Moderno",
     id: "14",
   },
-  // Producto 15 (nuevo)
+  // Producto 15
   {
     createdAt: "2023-11-01T10:00:00.000Z",
     image:
@@ -546,7 +546,7 @@ export const productsArray = [
     id: "15",
   },
 
-  // Producto 16 (nuevo)
+  // Producto 16
   {
     createdAt: "2023-11-01T11:00:00.000Z",
     image:
@@ -583,7 +583,7 @@ export const productsArray = [
     id: "16",
   },
 
-  // Producto 17 (nuevo)
+  // Producto 17
   {
     createdAt: "2023-11-01T11:30:00.000Z",
     image:
@@ -619,7 +619,7 @@ export const productsArray = [
     shortDescription: "Elegante y Moderno",
     id: "17",
   },
-  // Producto 18 (nuevo)
+  // Producto 18
   {
     createdAt: "2023-11-01T11:50:00.000Z",
     image:
@@ -656,7 +656,7 @@ export const productsArray = [
     id: "18",
   },
 
-  // Producto 19 (nuevo)
+  // Producto 19
   {
     createdAt: "2023-11-01T12:00:00.000Z",
     image:
@@ -692,7 +692,7 @@ export const productsArray = [
     shortDescription: "Estilo Sustentable",
     id: "19",
   },
-  // Producto 20 (nuevo)
+  // Producto 20
   {
     createdAt: "2023-11-01T12:10:00.000Z",
     image:
@@ -729,7 +729,7 @@ export const productsArray = [
     id: "20",
   },
 
-  // Producto 21 (nuevo)
+  // Producto 21
   {
     createdAt: "2023-11-01T12:20:00.000Z",
     image:
@@ -765,7 +765,7 @@ export const productsArray = [
     shortDescription: "Confort y Estilo Diario",
     id: "21",
   },
-  // Producto 22 (nuevo)
+  // Producto 22
   {
     createdAt: "2023-11-01T13:10:00.000Z",
     image:
