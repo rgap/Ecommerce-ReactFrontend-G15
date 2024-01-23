@@ -6,12 +6,19 @@ import { Breadcrumb, Button, Logo } from "../../components";
 import { basicSchema, creditCardSchema } from "../../schemas";
 import { sendPostRequest } from "../../services";
 import { resetCart } from "../../slices/cartSlice";
-
 import { inputs } from "./form";
+import { initMercadoPago, CardPayment } from "@mercadopago/sdk-react";
+import { storePayment } from "../../services";
+
+initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY);
 
 const initialCheckBox = true; //estado inicial del checkbox
 
 export default function CartPayment() {
+  const initialization = {
+    amount: 500,
+  };
+
   const debug = false;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,7 +28,12 @@ export default function CartPayment() {
   const [selectedCredit, setSelectedCredit] = useState(false);
   const [checkbox, setCheckbox] = useState(initialCheckBox);
 
-  const handleCreditClick = (id) => {
+  const handleOnSubmit = async (formData) => {
+    console.log(formData);
+    await storePayment(formData);
+  };
+
+  const  handleCreditClick = (id) => {
     setSelectedCredit(id);
   };
 
@@ -155,8 +167,24 @@ export default function CartPayment() {
         </section>
 
         <section className="lg:w-[50%] flex flex-col justify-start items-start px-5 pt-5 mb-12 md:px-10 m-auto">
-          <section>
-            <div className="flex flex-col gap-10 mt-0 mb-7">
+          <CardPayment
+            initialization={initialization}
+            onSubmit={handleOnSubmit}
+            customization={{
+              paymentMethods: {
+                maxInstallments: 1,
+              },
+            }}
+          />
+        </section>
+      </div>
+    </>
+  );
+}
+
+/*
+
+ <div className="flex flex-col gap-10 mt-0 mb-7">
               <div className="flex flex-col text-center">
                 <p className="mb-5 font-bold text-lg text-center">Pago</p>
                 <p className="">Selecciona metodo de pago</p>
@@ -337,8 +365,7 @@ export default function CartPayment() {
               </p>
             </form>
           </section>
-        </section>
-      </div>
-    </>
-  );
-}
+
+
+
+*/

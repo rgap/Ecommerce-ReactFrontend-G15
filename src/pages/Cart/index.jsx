@@ -30,7 +30,6 @@ export default function Cart() {
   return (
     <main className="bg-white">
       <Logo />
-
       <section className="flex flex-col md:px-10">
         <div className="flex justify-center">
           <div className="flex flex-col">
