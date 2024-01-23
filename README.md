@@ -6,7 +6,7 @@ This only covers the Front-End side so far.
 
 ## Online Demo
 
-https://ecommerce-react-g15.vercel.app/
+https://ecommerce-react-mockup-g15.vercel.app/
 
 ## Tools & Frameworks
 
