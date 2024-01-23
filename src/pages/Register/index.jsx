@@ -92,7 +92,7 @@ export default function Register() {
         {
           email: values.email,
         },
-        "users/findbyemail"
+        "users/check-if-email-exists"
       );
       // console.log("response", response);
 
@@ -118,7 +118,7 @@ export default function Register() {
       {
         email: userGoogleData.email,
       },
-      "users/findbyemail"
+      "users/check-if-email-exists"
     );
 
     if (response.ok) {
@@ -130,6 +130,7 @@ export default function Register() {
           name: userGoogleData.name,
           email: userGoogleData.email,
           password: userGoogleData.temporaryPassword,
+          isVerified: true,
         },
         "users/register"
       );

@@ -43,14 +43,4 @@ export const inputsPayment = [
     name: "cardNumber",
     type: "text",
   },
-  {
-    placeholder: "Expiración",
-    name: "expirationDate",
-    type: "text",
-  },
-  {
-    placeholder: "CVC",
-    name: "cvc",
-    type: "text",
-  },
 ];

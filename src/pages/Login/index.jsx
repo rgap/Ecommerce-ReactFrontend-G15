@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GoogleLoginButton, TextField } from "../../components";
-import { sendGetRequest, sendPostRequest } from "../../services";
+import { sendPostRequest } from "../../services";
 import { saveUser } from "../../slices/userSlice";
 import { inputs } from "./form";
 
@@ -88,7 +88,7 @@ export default function Login() {
       {
         email: userGoogleData.email,
       },
-      "users/findbyemail"
+      "users/check-if-email-exists"
     );
 
     if (response.ok) {
@@ -100,6 +100,7 @@ export default function Login() {
           name: userGoogleData.name,
           email: userGoogleData.email,
           password: userGoogleData.temporaryPassword,
+          isVerified: true,
         },
         "users/register"
       );

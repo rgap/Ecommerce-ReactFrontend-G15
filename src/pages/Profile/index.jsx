@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { EditableField } from "../../components";
-import { sendGetRequest, sendPutRequest } from "../../services";
+import {
+  sendGetRequest,
+  sendPostRequest,
+  sendPutRequest,
+} from "../../services";
 import { logOutUser } from "../../slices/userSlice";
 import { inputsAccount, inputsPayment } from "./form";
 
@@ -41,13 +45,9 @@ export default function Profile() {
   });
   const [paymentData, setPaymentData] = useState({
     cardNumber: "",
-    expirationDate: "",
-    cvc: "",
   });
   const [paymentErrors, setPaymentErrors] = useState({
     cardNumber: "",
-    expirationDate: "",
-    cvc: "",
   });
 
   const hasErrors = (errors) => {
@@ -80,18 +80,18 @@ export default function Profile() {
       }
     }
 
-    if (field === "expirationDate") {
-      const expirationDateRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
-      if (!expirationDateRegex.test(value.trim())) {
-        return "Debe estar en formato MM/AA";
-      }
-    }
-    if (field === "cvc") {
-      const cvcRegex = /^\d{3,4}$/;
-      if (!cvcRegex.test(value.trim())) {
-        return "Debe tener 3 o 4 dígitos";
-      }
-    }
+    // if (field === "expirationDate") {
+    //   const expirationDateRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
+    //   if (!expirationDateRegex.test(value.trim())) {
+    //     return "Debe estar en formato MM/AA";
+    //   }
+    // }
+    // if (field === "cvc") {
+    //   const cvcRegex = /^\d{3,4}$/;
+    //   if (!cvcRegex.test(value.trim())) {
+    //     return "Debe tener 3 o 4 dígitos";
+    //   }
+    // }
     return "";
   };
 
@@ -113,15 +113,9 @@ export default function Profile() {
       let displayValue = formData[field.name];
 
       if (formName === "payment" && !isEditable) {
-        if (
-          field.name === "cardNumber" ||
-          field.name === "expirationDate" ||
-          field.name === "cvc"
-        ) {
+        if (field.name === "cardNumber") {
           displayValue = "•••";
         }
-      } else if (field.name === "country") {
-        displayValue = "Perú";
       }
 
       return (
@@ -148,11 +142,14 @@ export default function Profile() {
   };
 
   async function initializeFormData() {
-    const users = await sendGetRequest("users");
-    const foundUser = users.find(
-      (user) => user.email.toLowerCase() === globalUser.email.toLowerCase()
+    const response = await sendPostRequest(
+      {
+        email: globalUser.email,
+      },
+      "users/get-by-email"
     );
 
+    const foundUser = response.data;
     if (foundUser) {
       setUserID(foundUser.id);
       setPersonalData((prev) => ({ ...prev, ...filterKeys(foundUser, prev) }));
@@ -224,8 +221,6 @@ export default function Profile() {
     setPaymentData(originalPaymentData);
     setPaymentErrors({
       cardNumber: "",
-      expirationDate: "",
-      cvc: "",
     });
     setIsEditablePayment(!isEditablePayment);
   };
@@ -272,9 +267,11 @@ export default function Profile() {
           autoComplete="off"
           onSubmit={handlePersonalFormSubmit}
         >
+          <hr className="mb-3 h-[5px] bg-[--color-bg] border-0" />
+
           <div className="flex justify-between place-items-baseline items-center gap-3">
-            <h2 className="text-base mb-4 font-semibold">
-              Mis Datos Personales
+            <h2 className="text-lg sm:text-2xl mb-4 font-semibold">
+              Datos de Cuenta
             </h2>
             {isEditablePersonal ? (
               <div className="flex gap-4">
@@ -308,8 +305,6 @@ export default function Profile() {
             )}
           </div>
 
-          <hr className="mb-5" />
-
           <div
             id="personal"
             className="grid gap-4 md:gap-8 items-center mb-10 text-center md:text-start"
@@ -331,8 +326,12 @@ export default function Profile() {
           autoComplete="off"
           onSubmit={handlePaymentFormSubmit}
         >
+          <hr className="mb-3 h-[5px] bg-[--color-bg] border-0" />
+
           <div className="flex justify-between place-items-baseline items-center gap-3">
-            <h2 className="text-base mb-4 font-semibold">Método de Pago</h2>
+            <h2 className="text-lg sm:text-2xl	mb-4 font-semibold">
+              Método de Pago
+            </h2>
             {isEditablePayment ? (
               <div className="flex gap-4">
                 <button
@@ -365,8 +364,6 @@ export default function Profile() {
               </button>
             )}
           </div>
-
-          <hr className="mb-5" />
 
           <div
             id="payment"

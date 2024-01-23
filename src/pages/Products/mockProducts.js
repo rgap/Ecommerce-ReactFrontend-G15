@@ -35,7 +35,7 @@ export const productsArray = [
     shortDescription: "Confort Casual y Estilo",
     id: "1",
   },
-  // Producto 2 (nuevo)
+  // Producto 2
   {
     createdAt: "2023-10-31T14:15:00.000Z",
     image:
@@ -72,7 +72,7 @@ export const productsArray = [
     id: "2",
   },
 
-  // Producto 3 (nuevo)
+  // Producto 3
   {
     createdAt: "2023-10-31T14:20:00.000Z",
     image:
@@ -108,7 +108,7 @@ export const productsArray = [
     shortDescription: "Vibrante y Confortable",
     id: "3",
   },
-  // Producto 4 (nuevo)
+  // Producto 4
   {
     createdAt: "2023-10-31T15:00:00.000Z",
     image:
@@ -145,7 +145,7 @@ export const productsArray = [
     id: "4",
   },
 
-  // Producto 5 (nuevo)
+  // Producto 5
   {
     createdAt: "2023-10-31T15:10:00.000Z",
     image:
@@ -181,7 +181,7 @@ export const productsArray = [
     shortDescription: "Cómodo y Estilizado",
     id: "5",
   },
-  // Producto 6 (nuevo)
+  // Producto 6
   {
     createdAt: "2023-10-31T15:20:00.000Z",
     image:
@@ -218,7 +218,7 @@ export const productsArray = [
     id: "6",
   },
 
-  // Producto 7 (nuevo)
+  // Producto 7
   {
     createdAt: "2023-10-31T15:30:00.000Z",
     image:
@@ -254,7 +254,7 @@ export const productsArray = [
     shortDescription: "Versátil y Relajado",
     id: "7",
   },
-  // Producto 8 (nuevo)
+  // Producto 8
   {
     createdAt: "2023-10-31T16:00:00.000Z",
     image:
@@ -291,7 +291,7 @@ export const productsArray = [
     id: "8",
   },
 
-  // Producto 9 (nuevo)
+  // Producto 9
   {
     createdAt: "2023-10-31T16:10:00.000Z",
     image:
@@ -327,7 +327,7 @@ export const productsArray = [
     shortDescription: "Moderno y Versátil",
     id: "9",
   },
-  // Producto 10 (nuevo)
+  // Producto 10
   {
     createdAt: "2023-11-01T08:10:00.000Z",
     image:
@@ -363,7 +363,7 @@ export const productsArray = [
     shortDescription: "Estilo Único y Fresco",
     id: "10",
   },
-  // Producto 11 (nuevo)
+  // Producto 11
   {
     createdAt: "2023-11-01T09:00:00.000Z",
     image:
@@ -400,7 +400,7 @@ export const productsArray = [
     id: "11",
   },
 
-  // Producto 12 (nuevo)
+  // Producto 12
   {
     createdAt: "2023-11-01T09:10:00.000Z",
     image:
@@ -436,7 +436,7 @@ export const productsArray = [
     shortDescription: "Casual y Ecológico",
     id: "12",
   },
-  // Producto 13 (nuevo)
+  // Producto 13
   {
     createdAt: "2023-11-01T09:20:00.000Z",
     image:
@@ -473,7 +473,7 @@ export const productsArray = [
     id: "13",
   },
 
-  // Producto 14 (nuevo)
+  // Producto 14
   {
     createdAt: "2023-11-01T09:30:00.000Z",
     image:

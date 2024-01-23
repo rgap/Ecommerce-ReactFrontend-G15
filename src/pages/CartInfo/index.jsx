@@ -9,7 +9,7 @@ import {
   ProductShoppingCart,
 } from "../../components";
 import { basicSchema } from "../../schemas";
-import { sendGetRequest, sendPutRequest } from "../../services";
+import { sendPostRequest, sendPutRequest } from "../../services";
 import { counterProductos } from "../../slices/cartSlice";
 import { inputs } from "./form";
 
@@ -59,10 +59,14 @@ export default function CartInfo() {
   }
 
   async function initializeFormData() {
-    const users = await sendGetRequest("users");
-    const foundUser = users.find(
-      (user) => user.email.toLowerCase() === globalUser.email.toLowerCase()
+    const response = await sendPostRequest(
+      {
+        email: globalUser.email,
+      },
+      "users/get-by-email"
     );
+
+    const foundUser = response.data;
     if (foundUser) {
       setPersonalData({
         id: foundUser.id,
