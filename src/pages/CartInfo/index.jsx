@@ -59,23 +59,25 @@ export default function CartInfo() {
   }
 
   async function initializeFormData() {
-    const response = await sendPostRequest(
-      {
-        email: globalUser.email,
-      },
-      "users/get-by-email"
-    );
+    if (globalUser) {
+      const response = await sendPostRequest(
+        {
+          email: globalUser.email,
+        },
+        "users/get-by-email"
+      );
 
-    const foundUser = response.data;
-    if (foundUser) {
-      setPersonalData({
-        id: foundUser.id,
-        name: foundUser.name,
-        address: foundUser.address,
-        city: foundUser.city,
-        region: foundUser.region,
-        phoneNumber: foundUser.phoneNumber,
-      });
+      if (response.data) {
+        const foundUser = response.data;
+        setPersonalData({
+          id: foundUser.id,
+          name: foundUser.name,
+          address: foundUser.address,
+          city: foundUser.city,
+          region: foundUser.region,
+          phoneNumber: foundUser.phoneNumber,
+        });
+      }
     }
   }
 
