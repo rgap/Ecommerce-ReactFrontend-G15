@@ -1,14 +1,13 @@
+import { CardPayment, initMercadoPago } from "@mercadopago/sdk-react";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Breadcrumb, Button, Logo } from "../../components";
 import { basicSchema, creditCardSchema } from "../../schemas";
-import { sendPostRequest } from "../../services";
+import { sendPostRequest, storePayment } from "../../services";
 import { resetCart } from "../../slices/cartSlice";
 import { inputs } from "./form";
-import { initMercadoPago, CardPayment } from "@mercadopago/sdk-react";
-import { storePayment } from "../../services";
 
 initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY);
 
@@ -33,7 +32,7 @@ export default function CartPayment() {
     await storePayment(formData);
   };
 
-  const  handleCreditClick = (id) => {
+  const handleCreditClick = (id) => {
     setSelectedCredit(id);
   };
 
@@ -88,23 +87,25 @@ export default function CartPayment() {
   }
 
   async function initializeFormData() {
-    const response = await sendPostRequest(
-      {
-        email: globalUser.email,
-      },
-      "users/get-by-email"
-    );
+    if (globalUser) {
+      const response = await sendPostRequest(
+        {
+          email: globalUser.email,
+        },
+        "users/get-by-email"
+      );
 
-    const foundUser = response.data;
-    if (foundUser) {
-      setPersonalData({
-        id: foundUser.id,
-        name: foundUser.name,
-        address: foundUser.address,
-        city: foundUser.city,
-        region: foundUser.region,
-        phoneNumber: foundUser.phoneNumber,
-      });
+      const foundUser = response.data;
+      if (foundUser) {
+        setPersonalData({
+          id: foundUser.id,
+          name: foundUser.name,
+          address: foundUser.address,
+          city: foundUser.city,
+          region: foundUser.region,
+          phoneNumber: foundUser.phoneNumber,
+        });
+      }
     }
   }
 

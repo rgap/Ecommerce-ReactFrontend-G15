@@ -27,7 +27,7 @@ function ProductDetails() {
         productId
       );
       const fetchedProduct = response.data;
-      console.log(fetchedProduct);
+      // console.log(fetchedProduct);
 
       if (fetchedProduct) {
         setProduct(fetchedProduct);
