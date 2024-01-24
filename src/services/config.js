@@ -1,7 +1,5 @@
 const apiUrl = "http://localhost:3000/api/v1/";
 
-export const mercadoPagoUrl = "http://localhost:5173/api/v1/"
-
 export async function makeHttpRequest({ endpoint, id, body, method = "GET" }) {
   let finalUrl = id ? `${apiUrl}${endpoint}/${id}` : `${apiUrl}${endpoint}`;
 
