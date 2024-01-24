@@ -8,7 +8,6 @@ import { sendPostRequest } from "../../services";
 import { resetCart } from "../../slices/cartSlice";
 import { inputs } from "./form";
 import { initMercadoPago, CardPayment } from "@mercadopago/sdk-react";
-import { storePayment } from "../../services";
 
 initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY);
 
@@ -16,7 +15,7 @@ const initialCheckBox = true; //estado inicial del checkbox
 
 export default function CartPayment() {
   const initialization = {
-    amount: 500,
+    amount: 100,
   };
 
   const debug = false;
@@ -25,17 +24,39 @@ export default function CartPayment() {
   const globalUser = useSelector((state) => state.user.data);
 
   const [personalData, setPersonalData] = useState([]);
-  const [selectedCredit, setSelectedCredit] = useState(false);
+  //const [selectedCredit, setSelectedCredit] = useState(false);
   const [checkbox, setCheckbox] = useState(initialCheckBox);
+
+  function getFormatDate() {
+    const date = new Date();
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  }
 
   const handleOnSubmit = async (formData) => {
     console.log(formData);
-    await storePayment(formData);
+    const body = {
+      payment_date: getFormatDate(),
+      payer_email: formData.payer.email,
+      payer_document_type: formData.payer.identification.type,
+      payer_document_number: formData.payer.identification.number,
+      installments: formData.installments,
+      issuer_id: formData.issuer_id,
+      payment_method_id: formData.payment_method_id,
+      token: formData.token,
+      status: 'CREATED',
+      transaction_amount: formData.transaction_amount,
+      userId: 1,
+    }
+
+    // Mercado pago
+    const response = await sendPostRequest(body, "payments/generate")
+    console.log("response.data", response.data)
+    
   };
 
-  const  handleCreditClick = (id) => {
+  /*const  handleCreditClick = (id) => {
     setSelectedCredit(id);
-  };
+  };*/
 
   const handleCheckBoxChange = () => {
     setCheckbox(!checkbox); // cambia valor de checkbox
