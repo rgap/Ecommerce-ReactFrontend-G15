@@ -118,7 +118,7 @@ export default function ResetPassword() {
     event.preventDefault();
 
     if (validateResetPasswordForm()) {
-      console.log("handleResetPasswordFormSubmit = true");
+      // console.log("handleResetPasswordFormSubmit = true");
       const users = await sendGetRequest("users");
       const user = users.find(
         (user) => user.email.toLowerCase() === resetValues.email.toLowerCase()

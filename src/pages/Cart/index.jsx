@@ -28,7 +28,7 @@ export default function Cart() {
   }, [globalCart]);
 
   useEffect(() => {
-    console.log("globalCart", globalCart);
+    // console.log("globalCart", globalCart);
     if (total === 0) {
       navigate(lastProductPath, { replace: true });
     }
@@ -62,14 +62,14 @@ export default function Cart() {
               </ol>
             </nav>
 
-            <div className="md:mb-10 flex justify-center items-center">
+            <div className="md:mb-16 flex justify-center items-center">
               <p className="text-xl md:text-[30px] font-semibold max-md:hidden ">
-                Tu Carrito
+                Carrito de Compras
               </p>
             </div>
 
             <div className="mb-2 text-xl font-semibold grid md:gap-5 md:grid-cols-[350px_90px_90px_90px] lg:grid-cols-[400px_100px_100px_100px] xl:grid-cols-[400px_200px_200px_200px] ">
-              <div className="max-md:text-center "> Resumen de Compra</div>
+              <div className="max-md:text-center "> Carrito de Compras</div>
               <div className="max-md:hidden  text-center ">Precio</div>
               <div className="max-md:hidden text-center ">Cantidad</div>
               <div className="max-md:hidden  text-center">Total</div>

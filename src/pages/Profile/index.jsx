@@ -3,13 +3,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { EditableField } from "../../components";
-import {
-  sendGetRequest,
-  sendPostRequest,
-  sendPutRequest,
-} from "../../services";
+import { sendPostRequest, sendPutRequest } from "../../services";
 import { logOutUser } from "../../slices/userSlice";
-import { inputsAccount, inputsPayment } from "./form";
+import { inputsAccount } from "./form";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -19,10 +15,8 @@ export default function Profile() {
   const [userID, setUserID] = useState("");
 
   const [originalPersonalData, setOriginalPersonalData] = useState({});
-  const [originalPaymentData, setOriginalPaymentData] = useState({});
 
   const [isEditablePersonal, setIsEditablePersonal] = useState(false);
-  const [isEditablePayment, setIsEditablePayment] = useState(false);
   const [personalData, setPersonalData] = useState({
     name: "",
     email: "",
@@ -43,19 +37,12 @@ export default function Profile() {
     region: "",
     country: "",
   });
-  const [paymentData, setPaymentData] = useState({
-    cardNumber: "",
-  });
-  const [paymentErrors, setPaymentErrors] = useState({
-    cardNumber: "",
-  });
 
   const hasErrors = (errors) => {
     return Object.values(errors).some((error) => error !== "");
   };
 
   const personalDataIsDisabled = hasErrors(personalErrors);
-  const paymentDataIsDisabled = hasErrors(paymentErrors);
 
   const validateField = (form, field, value) => {
     if (field === "email" && field === "name" && !value.trim()) {
@@ -72,26 +59,6 @@ export default function Profile() {
         return "Ingresa un correo valido";
       }
     }
-
-    if (field === "cardNumber") {
-      const cardNumberRegex = /^\d{16}$/;
-      if (!cardNumberRegex.test(value.replace(/\s+/g, ""))) {
-        return "Debe tener 16 dígitos";
-      }
-    }
-
-    // if (field === "expirationDate") {
-    //   const expirationDateRegex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
-    //   if (!expirationDateRegex.test(value.trim())) {
-    //     return "Debe estar en formato MM/AA";
-    //   }
-    // }
-    // if (field === "cvc") {
-    //   const cvcRegex = /^\d{3,4}$/;
-    //   if (!cvcRegex.test(value.trim())) {
-    //     return "Debe tener 3 o 4 dígitos";
-    //   }
-    // }
     return "";
   };
 
@@ -102,21 +69,12 @@ export default function Profile() {
     if (form === "personal") {
       setPersonalData({ ...personalData, [field]: value });
       setPersonalErrors({ ...personalErrors, [field]: error });
-    } else if (form === "payment") {
-      setPaymentData({ ...paymentData, [field]: value });
-      setPaymentErrors({ ...paymentErrors, [field]: error });
     }
   };
 
   const renderFields = (fields, isEditable, formData, formErrors, formName) => {
     return fields.map((field) => {
       let displayValue = formData[field.name];
-
-      if (formName === "payment" && !isEditable) {
-        if (field.name === "cardNumber") {
-          displayValue = "•••";
-        }
-      }
 
       return (
         <div
@@ -142,18 +100,18 @@ export default function Profile() {
   };
 
   async function initializeFormData() {
+    // console.log("globalUser.email", globalUser.email);
     const response = await sendPostRequest(
       {
         email: globalUser.email,
       },
       "users/get-by-email"
     );
-
     const foundUser = response.data;
+
     if (foundUser) {
       setUserID(foundUser.id);
       setPersonalData((prev) => ({ ...prev, ...filterKeys(foundUser, prev) }));
-      setPaymentData((prev) => ({ ...prev, ...filterKeys(foundUser, prev) }));
     }
   }
 
@@ -200,29 +158,6 @@ export default function Profile() {
       country: "",
     }); // Clear errors
     setIsEditablePersonal(!isEditablePersonal);
-  };
-
-  const handlePaymentFormSubmit = async (event) => {
-    event.preventDefault();
-    const isDataChanged = Object.keys(paymentData).some(
-      (key) => paymentData[key] !== originalPaymentData[key]
-    );
-
-    if (isEditablePayment && isDataChanged && !hasErrors(paymentErrors)) {
-      await sendPutRequest(userID, { ...paymentData }, "users");
-    } else {
-      setOriginalPaymentData({ ...paymentData });
-    }
-    setIsEditablePayment(!isEditablePayment);
-  };
-
-  const cancelEditModePayment = (event) => {
-    event.preventDefault();
-    setPaymentData(originalPaymentData);
-    setPaymentErrors({
-      cardNumber: "",
-    });
-    setIsEditablePayment(!isEditablePayment);
   };
 
   function redirect(route) {
@@ -319,65 +254,6 @@ export default function Profile() {
           </div>
         </form>
 
-        {/* Payment Data Form */}
-
-        <form
-          className="mb-6"
-          autoComplete="off"
-          onSubmit={handlePaymentFormSubmit}
-        >
-          <hr className="mb-3 h-[5px] bg-[--color-bg] border-0" />
-
-          <div className="flex justify-between place-items-baseline items-center gap-3">
-            <h2 className="text-lg sm:text-2xl	mb-4 font-semibold">
-              Método de Pago
-            </h2>
-            {isEditablePayment ? (
-              <div className="flex gap-4">
-                <button
-                  className="mb-6 mt-2 items-center px-7 py-4 bg-[#B2767A] text-white text-sm capitalize leading-normal transition-transform duration-100"
-                  type="submit"
-                  onClick={cancelEditModePayment}
-                >
-                  Cancelar
-                </button>
-
-                <button
-                  className={`mb-6 mt-2 items-center px-7 py-4 text-white text-sm capitalize leading-normal transition-transform duration-100 
-                ${
-                  paymentDataIsDisabled
-                    ? "bg-gray-400"
-                    : "bg-[--color-cart-text-button-comp-hover]"
-                }`}
-                  type="submit"
-                  disabled={paymentDataIsDisabled}
-                >
-                  Guardar
-                </button>
-              </div>
-            ) : (
-              <button
-                className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
-                type="submit"
-              >
-                Cambiar
-              </button>
-            )}
-          </div>
-
-          <div
-            id="payment"
-            className="grid gap-4 md:gap-8 items-center mb-10 text-center md:text-start"
-          >
-            {renderFields(
-              inputsPayment,
-              isEditablePayment,
-              paymentData,
-              paymentErrors,
-              "payment"
-            )}
-          </div>
-        </form>
         <div className="flex justify-center">
           <button
             className="mb-6 mt-8 items-center px-7 py-4 bg-[brown] text-white text-sm capitalize leading-normal transition-transform duration-100"
