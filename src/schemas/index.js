@@ -3,7 +3,7 @@ import * as yup from "yup";
 export const basicSchema = yup.object().shape({
   name: yup
     .string()
-    .min(8, "Nombre es muy corto")
+    .min(6, "Nombre es muy corto")
     .matches(
       /^[A-Za-z\s]+$/,
       "Nombre no puede contener números ni caracteres especiales"
@@ -15,7 +15,10 @@ export const basicSchema = yup.object().shape({
     .required("Campo direccion es obligatorio"),
   phoneNumber: yup
     .string()
-    .matches(/^[0-9()+]+$/, "Telefono solo puede contener números, +, ( y )")
+    .matches(
+      /^\+\d{1,3} \d{7,}$/,
+      "Telefono debe estar en el formato +[codigo de pais] [numero]"
+    )
     .required("Campo telefono es obligatorio"),
   region: yup
     .string()

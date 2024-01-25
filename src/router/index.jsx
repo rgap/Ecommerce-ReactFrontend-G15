@@ -13,6 +13,7 @@ import {
   CartMessageFail,
   CartPayment,
   CartShipping,
+  EmailVerification,
   Home,
   Login,
   ProductDetails,
@@ -37,6 +38,7 @@ export default function AppRouter() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/verify" element={<EmailVerification />} />
           <Route path="/cart-message" element={<CartMessage />} />
           <Route path="/cart-message-fail" element={<CartMessageFail />} />
         </Route>

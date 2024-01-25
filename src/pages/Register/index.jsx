@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GoogleLoginButton, TextField } from "../../components";
-import { sendGetRequest, sendPostRequest } from "../../services";
+import { sendPostRequest } from "../../services";
 import { saveUser } from "../../slices/userSlice";
 import { inputs } from "./form";
 
@@ -83,9 +83,8 @@ export default function Register() {
     const debug = false;
 
     if (debug) {
-      const user = await sendPostRequest(values, "users/register");
-
-      dispatch(saveUser({ email: user.email }));
+      await sendPostRequest(values, "users/register");
+      // dispatch(saveUser({ email: user.email }));
       navigate("/?showModal=true");
     } else if (validateForm()) {
       const response = await sendPostRequest(
@@ -104,9 +103,7 @@ export default function Register() {
         }));
       } else {
         // User not found
-        const user = await sendPostRequest(values, "users/register");
-
-        dispatch(saveUser({ email: user.email }));
+        await sendPostRequest(values, "users/register");
         navigate("/?showModal=true");
       }
     }
