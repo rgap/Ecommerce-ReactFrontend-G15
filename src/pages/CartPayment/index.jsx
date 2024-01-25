@@ -18,7 +18,7 @@ const initialCheckBox = true; //estado inicial del checkbox
 
 export default function CartPayment() {
   const initialization = {
-    amount: 100,
+    amount: 1200,
   };
 
   const debug = false;
@@ -30,15 +30,11 @@ export default function CartPayment() {
   //const [selectedCredit, setSelectedCredit] = useState(false);
   const [checkbox, setCheckbox] = useState(initialCheckBox);
 
-  function getFormatDate() {
-    const date = new Date();
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-  }
-
   const handleOnSubmit = async (formData) => {
-    console.log(formData);
+    console.log("formData", formData);
+
     const body = {
-      payment_date: getFormatDate(),
+      payment_date: new Date(),
       payer_email: formData.payer.email,
       payer_document_type: formData.payer.identification.type,
       payer_document_number: formData.payer.identification.number,
@@ -46,15 +42,18 @@ export default function CartPayment() {
       issuer_id: formData.issuer_id,
       payment_method_id: formData.payment_method_id,
       token: formData.token,
-      status: 'CREATED',
+      status: "created",
       transaction_amount: formData.transaction_amount,
-      userId: 1,
-    }
+      userId: personalData.id,
+    };
 
+    //console.log("body",body)
     // Mercado pago
-    const response = await sendPostRequest(body, "payments/generate")
-    console.log("response.data", response.data)
-    
+    const response = await sendPostRequest(body, "payments/generate");
+    //console.log("response.data", response.data)
+    dispatch(resetCart());
+    navigate("/cart-message");
+    window.location.reload();
   };
 
   const handleCheckBoxChange = () => {
@@ -100,12 +99,6 @@ export default function CartPayment() {
     },
     validationSchema: debug ? undefined : creditCardSchema,
   });
-
-  function handlePayment() {
-    dispatch(resetCart());
-    navigate("/cart-message");
-    window.location.reload();
-  }
 
   async function initializeFormData() {
     if (globalUser) {
