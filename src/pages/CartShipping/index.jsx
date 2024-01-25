@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -11,10 +11,42 @@ import { counterProductos } from "../../slices/cartSlice";
 
 export default function CartShipping() {
   const navigate = useNavigate();
-
   const globalCart = useSelector(counterProductos);
   const [selectedValue, setSelectedValue] = useState("12");
   const [envio, setEnvio] = useState(12);
+  const globalUser = useSelector((state) => state.user.data);
+
+  const total = globalCart.reduce((accumulator, product) => {
+    const qty = product.quantity;
+    const price = product.price;
+    const subtotal = qty * price;
+    return accumulator + subtotal;
+  }, 0);
+  const totalCart = total.toFixed(2);
+  const totalenvio = total + envio;
+
+  const [lastProductPath, setLastProductPath] = useState("/products");
+
+  // Redirect if globalUser is not defined
+  useEffect(() => {
+    if (!globalUser) {
+      navigate("/login"); // Redirect to the login page or any other appropriate page
+    }
+  }, [globalUser, navigate]);
+
+  useEffect(() => {
+    if (globalCart.length > 0) {
+      const lastProduct = globalCart[globalCart.length - 1];
+      setLastProductPath(lastProduct.productPath || "/products");
+    }
+  }, [globalCart]);
+
+  useEffect(() => {
+    console.log("globalCart", globalCart);
+    if (total === 0) {
+      navigate(lastProductPath, { replace: true });
+    }
+  }, [lastProductPath, navigate, total]);
 
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
@@ -27,15 +59,6 @@ export default function CartShipping() {
       navigate(route);
     };
   }
-
-  const total = globalCart.reduce((accumulator, product) => {
-    const qty = product.quantity;
-    const price = product.price;
-    const subtotal = qty * price;
-    return accumulator + subtotal;
-  }, 0);
-  const totalCart = total.toFixed(2);
-  const totalenvio = total + envio;
 
   return (
     <main className="lg:flex">
