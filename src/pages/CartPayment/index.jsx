@@ -47,7 +47,6 @@ export default function CartPayment() {
     //console.log("body",body)
     // Mercado pago
     const response = await sendPostRequest(body, "payments/generate");
-
     //console.log("response.data", response.data)
     dispatch(resetCart());
     navigate("/cart-message");
