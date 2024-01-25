@@ -7,11 +7,29 @@ export default function Home() {
   const navigate = useNavigate();
   const [productsArray, setProductsArray] = useState([]);
 
+  // Array of image URLs for the hero section
+  const imageUrls = [
+    "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polos-de-verano-hero.jpg",
+    "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polos-colgados-verdes-hero.jpg",
+    // Add more image URLs as needed
+  ];
+  // State for the current image index
+  const [imageIndex, setImageIndex] = useState(0);
+
   useEffect(() => {
     contentLoadedFunction();
     initializeProductsArray();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    // Interval for updating the image index
+    const interval = setInterval(() => {
+      setImageIndex((currentIndex) => (currentIndex + 1) % imageUrls.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [imageUrls.length]); // Dependency on the length of imageUrls array
 
   function contentLoadedFunction() {
     // Modal para usuarios registrados
@@ -55,9 +73,15 @@ export default function Home() {
   return (
     <>
       <section className="hero bg-[--color-bg]">
-        <div className="bord bg-[url('https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polos-colgados-verdes-hero.jpg')] h-[600px] bg-center bg-cover relative bg-no-repeat">
+        <div
+          className="bord h-[600px] bg-center bg-cover relative bg-no-repeat"
+          style={{
+            backgroundImage: `url(${imageUrls[imageIndex]})`,
+            transition: "background-image 1s ease-in-out",
+          }}
+        >
           <div className="flex justify-center items-center flex-col h-full gap-14">
-            <div className="bg-white bg-opacity-50 p-6 space-y-4">
+            <div className="bg-white bg-opacity-50 p-12 space-y-4">
               <div>
                 <p className="text-3xl font-bold md:text-4xl text-center tracking-wide">
                   NUEVA COLECCION
@@ -65,13 +89,13 @@ export default function Home() {
               </div>
               <div>
                 <p className="text-2xl font-semibold md:text-3xl text-center tracking-wide">
-                  VERANO 2023
+                  VERANO 2024
                 </p>
               </div>
             </div>
             <button
               onClick={redirect("/products")}
-              className="flex items-center justify-center w-[184px] px-4 py-5 bg-[--color-bg-header-footer] hover:bg-[--color-cart-text-button-comp-hover] text-white text-[16px] font-normal capitalize leading-normal transition-transform duration-100 hover:scale-110"
+              className="flex items-center justify-center w-[184px] px-4 py-5 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-[16px] font-normal capitalize leading-normal transition-transform duration-100 hover:scale-110"
             >
               Ver Productos
             </button>
@@ -86,8 +110,8 @@ export default function Home() {
               <span>Polos de diseño variado</span>
             </div>
             {productsArray.length > 0 ? (
-              <div className="my-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-                {productsArray.slice(0, 3).map((product) => (
+              <div className="my-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+                {productsArray.slice(0, 4).map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>

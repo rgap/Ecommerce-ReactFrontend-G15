@@ -1,8 +1,8 @@
-# ECOMMERCE-G15
+# ECOMMERCE-G15 - Front-End
 
 An e-commerce website developed as a final project for a Fullstack bootcamp.
 
-This only covers the Front-End side so far.
+This is the Front-End project.
 
 ## Online Demo
 
@@ -10,12 +10,26 @@ https://ecommerce-react-g15.vercel.app/
 
 ## Tools & Frameworks
 
-- React JS
+- PERN Stack: Postgres + Express.js + React + Node.js
+- React
 - Tailwind 3.3
 - Formik
 - Toastify
+- Mercadopago SDK
 - Figma
 - HTML5/CSS3
+
+## Install Dependencies
+
+```
+npm install
+```
+
+## Create .env
+
+```
+VITE_MERCADOPAGO_PUBLICK_KEY=""
+```
 
 ## Some Screenshots
 

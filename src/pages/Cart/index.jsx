@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Button,
   Logo,
@@ -12,13 +12,27 @@ import { counterProductos } from "../../slices/cartSlice";
 export default function Cart() {
   const globalCart = useSelector(counterProductos);
   const navigate = useNavigate();
-
   const total = globalCart.reduce((accumulator, product) => {
     const subtotal = product.quantity * product.price;
     return accumulator + subtotal;
   }, 0);
 
   const totalCart = total.toFixed(2);
+  const [lastProductPath, setLastProductPath] = useState("/products");
+
+  useEffect(() => {
+    if (globalCart.length > 0) {
+      const lastProduct = globalCart[globalCart.length - 1];
+      setLastProductPath(lastProduct.productPath || "/products");
+    }
+  }, [globalCart]);
+
+  useEffect(() => {
+    console.log("globalCart", globalCart);
+    if (total === 0) {
+      navigate(lastProductPath, { replace: true });
+    }
+  }, [lastProductPath, navigate, total]);
 
   function redirect(route) {
     return (event) => {
