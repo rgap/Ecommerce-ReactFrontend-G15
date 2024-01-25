@@ -3,14 +3,11 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Breadcrumb, Button, Logo } from "../../components";
-import { basicSchema, creditCardSchema } from "../../schemas";
-import { sendPostRequest, storePayment } from "../../services";
+import { Breadcrumb, Logo } from "../../components";
+import { basicSchema } from "../../schemas";
+import { sendPostRequest } from "../../services";
 import { resetCart } from "../../slices/cartSlice";
 import { inputs } from "./form";
-
-import { initMercadoPago, CardPayment } from "@mercadopago/sdk-react";
-
 
 initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY);
 
@@ -31,7 +28,6 @@ export default function CartPayment() {
   const [checkbox, setCheckbox] = useState(initialCheckBox);
 
   const handleOnSubmit = async (formData) => {
-    console.log("formData", formData);
 
     const body = {
       payment_date: new Date(),
@@ -47,13 +43,14 @@ export default function CartPayment() {
       userId: personalData.id,
     };
 
-    //console.log("body",body)
-    // Mercado pago
     const response = await sendPostRequest(body, "payments/generate");
-    //console.log("response.data", response.data)
-    dispatch(resetCart());
-    navigate("/cart-message");
-    window.location.reload();
+
+    if(response){
+      dispatch(resetCart());
+      navigate("/cart-message");
+      window.location.reload();
+    }
+
   };
 
   const handleCheckBoxChange = () => {
@@ -90,7 +87,7 @@ export default function CartPayment() {
       validationSchema: debug ? undefined : basicSchema,
     });
 
-  const formCreditCard = useFormik({
+  /*const formCreditCard = useFormik({
     initialValues: {
       creditCardNumber: "",
       expirationMonth: "",
@@ -98,7 +95,7 @@ export default function CartPayment() {
       cvv: "",
     },
     validationSchema: debug ? undefined : creditCardSchema,
-  });
+  });*/
 
   async function initializeFormData() {
     if (globalUser) {
