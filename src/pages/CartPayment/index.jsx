@@ -109,6 +109,13 @@ export default function CartPayment() {
     }
   }
 
+  // Redirect if globalUser is not defined
+  useEffect(() => {
+    if (!globalUser) {
+      navigate("/login"); // Redirect to the login page or any other appropriate page
+    }
+  }, [globalUser, navigate]);
+
   useEffect(() => {
     initializeFormData();
   }, []);

@@ -27,7 +27,7 @@ export default function ProductCard({ product, resizingStyle, hideColors }) {
         <img
           src={product.mainImage}
           alt={product.title}
-          className="w-full h-auto mb-3"
+          className="w-full h-auto mb-3 transition-transform duration-300 hover:scale-110" // Tailwind classes for transition and hover effect
         />
 
         <div className="flex flex-col items-center">

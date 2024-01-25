@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Breadcrumb,
   Button,
@@ -18,13 +18,27 @@ export default function CartInfo() {
   const globalUser = useSelector((state) => state.user.data);
   const globalCart = useSelector(counterProductos);
   const [personalData, setPersonalData] = useState([]);
-
   const total = globalCart.reduce((accumulator, product) => {
     const subtotal = product.quantity * product.price;
     return accumulator + subtotal;
   }, 0);
 
   const totalCart = total.toFixed(2);
+  const [lastProductPath, setLastProductPath] = useState("/products");
+
+  useEffect(() => {
+    if (globalCart.length > 0) {
+      const lastProduct = globalCart[globalCart.length - 1];
+      setLastProductPath(lastProduct.productPath || "/products");
+    }
+  }, [globalCart]);
+
+  useEffect(() => {
+    console.log("globalCart", globalCart);
+    if (total === 0) {
+      navigate(lastProductPath, { replace: true });
+    }
+  }, [lastProductPath, navigate, total]);
 
   const onSubmit = async (values, actions) => {
     await sendPutRequest(personalData.id, values, "users");

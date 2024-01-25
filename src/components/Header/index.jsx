@@ -25,7 +25,7 @@ export default function Header() {
 
   const toggleDropdown = () => {
     if (total > 0) {
-      navigate("/cart");
+      navigate("/cart", { state: { from: location.pathname } });
     } else {
       setIsDropdownOpen(!isDropdownOpen);
     }
@@ -47,10 +47,10 @@ export default function Header() {
   return (
     <header className="bg-[--color-bg]">
       <div className="header-bar py-2 flex items-center justify-center">
-        <p className="text-xs md:text-sm">
+        <marquee className="text-xs md:text-sm tracking-wide">
           Delivery <span className="font-semibold">gratis</span> por compras a
-          partir de <span className="font-semibold">S/199.00</span> soles.
-        </p>
+          partir de <span className="font-semibold">S/199.00</span> soles
+        </marquee>
       </div>
 
       <nav className="max-sm:p-4 flex justify-between items-center md:px-4">

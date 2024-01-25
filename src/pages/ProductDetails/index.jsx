@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Carousel from "../../components/Carousel";
-import { sendGetRequest } from "../../services";
+import ProductCard from "../../components/ProductCard";
+import { sendGetRequest, sendPostRequest } from "../../services";
 import { addToCart } from "../../slices/cartSlice";
 
 function ProductDetails() {
@@ -15,26 +15,51 @@ function ProductDetails() {
   const [availableStock, setAvailableStock] = useState(0);
   const [currentPrice, setCurrentPrice] = useState("");
   const [mainImage, setMainImage] = useState("");
+  const [relatedProducts, setRelatedProducts] = useState([]);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProduct = async () => {
-      // console.log("productId", productId);
       const response = await sendGetRequest(
         "products/get-product-pdp",
         productId
       );
       const fetchedProduct = response.data;
-      // console.log(fetchedProduct);
 
       if (fetchedProduct) {
         setProduct(fetchedProduct);
       }
     };
+
     fetchProduct();
   }, [productId]);
+
+  useEffect(() => {
+    const fetchRelatedProducts = async () => {
+      if (product) {
+        try {
+          const response = await sendPostRequest(
+            {
+              title: product.title,
+              excludeProductId: product.id,
+            },
+            "products/related/4"
+          );
+          setRelatedProducts(response.data);
+        } catch (error) {
+          console.error("Error fetching related products:", error);
+          // Handle error
+        }
+      }
+    };
+
+    if (product) {
+      fetchRelatedProducts();
+    }
+  }, [product]);
 
   useEffect(() => {
     if (product) {
@@ -72,6 +97,7 @@ function ProductDetails() {
         quantity: 1,
         size: selectedSize,
         url: product.mainImage,
+        productPath: location.pathname,
       })
     );
 
@@ -98,7 +124,7 @@ function ProductDetails() {
         key={size}
         className={`p-2 border rounded-md mr-2 ${
           selectedSize === size
-            ? "bg-blue-500 text-white border-blue-500"
+            ? "bg-[--color-cart-text-button-comp] text-white"
             : "bg-white hover:bg-gray-300 border-gray-300"
         }`}
         onClick={() => setSelectedSize(size)}
@@ -236,8 +262,21 @@ function ProductDetails() {
             <h2 className="text-2xl font-bold my-10 text-center md:text-left">
               También te puede interesar
             </h2>
-            <div className="ProductDetails">
-              <Carousel />
+            <div className="related-products">
+              {relatedProducts.length > 0 ? (
+                <div className="my-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto">
+                  {relatedProducts.map((relatedProduct) => (
+                    <ProductCard
+                      key={relatedProduct.id}
+                      product={relatedProduct}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center">
+                  Cargando productos relacionados...
+                </div>
+              )}
             </div>
           </section>
         </section>
