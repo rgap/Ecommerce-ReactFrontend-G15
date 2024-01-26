@@ -3,8 +3,8 @@ import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Breadcrumb, Button, Logo } from "../../components";
-import { basicSchema, creditCardSchema } from "../../schemas";
+import { Breadcrumb, Logo } from "../../components";
+import { basicSchema } from "../../schemas";
 import { sendPostRequest } from "../../services";
 import { resetCart } from "../../slices/cartSlice";
 import { inputs } from "./form";
@@ -13,11 +13,12 @@ initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY, {
   locale: "es-PE",
 });
 
+
 const initialCheckBox = true; //estado inicial del checkbox
 
 export default function CartPayment() {
   const initialization = {
-    amount: 1200,
+    amount: 1200
   };
 
   const debug = false;
@@ -30,7 +31,6 @@ export default function CartPayment() {
   const [checkbox, setCheckbox] = useState(initialCheckBox);
 
   const handleOnSubmit = async (formData) => {
-    console.log("formData", formData);
 
     const body = {
       payment_date: new Date(),
@@ -46,13 +46,14 @@ export default function CartPayment() {
       userId: personalData.id,
     };
 
-    //console.log("body",body)
-    // Mercado pago
     const response = await sendPostRequest(body, "payments/generate");
-    //console.log("response.data", response.data)
-    dispatch(resetCart());
-    navigate("/cart-message");
-    window.location.reload();
+
+    if(response){
+      dispatch(resetCart());
+      navigate("/cart-message");
+      window.location.reload();
+    }
+
   };
 
   const handleCheckBoxChange = () => {
@@ -88,16 +89,6 @@ export default function CartPayment() {
       },
       validationSchema: debug ? undefined : basicSchema,
     });
-
-  const formCreditCard = useFormik({
-    initialValues: {
-      creditCardNumber: "",
-      expirationMonth: "",
-      expirationYear: "",
-      cvv: "",
-    },
-    validationSchema: debug ? undefined : creditCardSchema,
-  });
 
   async function initializeFormData() {
     if (globalUser) {
