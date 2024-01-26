@@ -8,30 +8,35 @@ import { basicSchema } from "../../schemas";
 import { sendPostRequest } from "../../services";
 import { resetCart } from "../../slices/cartSlice";
 import { inputs } from "./form";
+import { counterProductos } from "../../slices/cartSlice";
 
 initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY, {
   locale: "es-PE",
 });
 
-
 const initialCheckBox = true; //estado inicial del checkbox
 
 export default function CartPayment() {
+  const globalCart = useSelector(counterProductos);
+
   const initialization = {
-    amount: 1200
+    amount: 1200,
   };
 
   const debug = false;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const globalUser = useSelector((state) => state.user.data);
-
   const [personalData, setPersonalData] = useState([]);
-  //const [selectedCredit, setSelectedCredit] = useState(false);
   const [checkbox, setCheckbox] = useState(initialCheckBox);
 
-  const handleOnSubmit = async (formData) => {
+  useEffect(() => {
+    if (globalCart.length === 0) {
+      navigate("/"); 
+    }
+  }, [globalCart, navigate]);
 
+  const handleOnSubmit = async (formData) => {
     const body = {
       payment_date: new Date(),
       payer_email: formData.payer.email,
@@ -48,12 +53,17 @@ export default function CartPayment() {
 
     const response = await sendPostRequest(body, "payments/generate");
 
-    if(response){
+    if (response) {
+      const partialBody = {
+        payer_email: body.payer_email,
+        userId: body.userId,
+        payment_id: response.data,
+      };
+      localStorage.setItem("payment", JSON.stringify(partialBody));
       dispatch(resetCart());
       navigate("/cart-message");
       window.location.reload();
     }
-
   };
 
   const handleCheckBoxChange = () => {

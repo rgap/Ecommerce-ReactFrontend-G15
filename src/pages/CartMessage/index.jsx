@@ -1,4 +1,11 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function CartMessage() {
+
+  const [payment, setPayment] = useState(JSON.parse(localStorage.getItem("payment")));
+
+  // Si no hay error, muestra el contenido normal del componente
   return (
     <main className=" text-center md:h-screen flex flex-col justify-center items-center gap-10 bg-white mb-10 my-8">
       <img
@@ -11,16 +18,15 @@ export default function CartMessage() {
       </p>
       <p className="text-xl">
         {" "}
-        <span className="font-semibold"> GRACIAS </span> , su orden sera{" "}
-        <span className="font-semibold"> GENERADA </span> en los proximos
-        minutos.
+        <span className="font-semibold"> GRACIAS </span> , la orden #{payment.payment_id} ha sido
+        <span className="font-semibold"> GENERADA </span> .
       </p>
       <p className="text-xl">
-        El recibo de su transaccion ha sido enviado a su{" "}
-        <span className="font-semibold"> email </span> .
+        El recibo de su compra ha sido enviado a
+        <span className="font-semibold"> {payment.payer_email} </span> 
       </p>
 
-      <p className="text-lg text-[#404040]">
+      <p className="text-lg text-[#796969]">
         Contactenos en caso de alguna duda con respecto a su pedido.
       </p>
       <div className="flex gap-2 place-items-center md:mb-0 mb-5">
