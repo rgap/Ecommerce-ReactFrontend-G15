@@ -15,7 +15,7 @@ const initialCheckBox = true; //estado inicial del checkbox
 
 export default function CartPayment() {
   const initialization = {
-    amount: 1200,
+    amount: 1200
   };
 
   const debug = false;
