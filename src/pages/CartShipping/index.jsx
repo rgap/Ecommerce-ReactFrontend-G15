@@ -42,7 +42,7 @@ export default function CartShipping() {
   }, [globalCart]);
 
   useEffect(() => {
-    console.log("globalCart", globalCart);
+    // console.log("globalCart", globalCart);
     if (total === 0) {
       navigate(lastProductPath, { replace: true });
     }
@@ -110,16 +110,16 @@ export default function CartShipping() {
 
         <div className="flex justify-center mx-10 xl:mx-20 mt-20">
           <div className="w-full flex justify-between">
-            <div className="flex h-[40px] items-center">
+            <div
+              className="flex w-[190px] h-[40px] items-center gap-3 cursor-pointer"
+              onClick={redirect("/cart-info")}
+            >
               <img
-                className="w-6 h-6 hover:scale-50 cursor-pointer"
+                className="w-6 h-6"
                 src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/fcccf12acd7bdce6bdc28e60b4b662dfbffb70cd/icons/arrow_back.svg"
                 alt=""
               />
-              <span
-                onClick={redirect("/cart-info")}
-                className="text-sm leading-6 cursor-pointer hover:underline"
-              >
+              <span className="text-sm leading-6 hover:underline">
                 Regresar
               </span>
             </div>

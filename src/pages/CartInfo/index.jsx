@@ -34,13 +34,14 @@ export default function CartInfo() {
   }, [globalCart]);
 
   useEffect(() => {
-    console.log("globalCart", globalCart);
+    // console.log("globalCart", globalCart);
     if (total === 0) {
       navigate(lastProductPath, { replace: true });
     }
   }, [lastProductPath, navigate, total]);
 
   const onSubmit = async (values, actions) => {
+    console.log("values", values);
     await sendPutRequest(personalData.id, values, "users");
     navigate("/cart-shipping");
   };
@@ -141,63 +142,70 @@ export default function CartInfo() {
             </div>
           </section>
         ) : (
-          <div className="flex flex-col items-center">
+          <div className="mx-10 xl:mx-20 my-0">
             <Breadcrumb />
-            <p className="text-xl capitalize font-semibold leading-8 break-words mb-8">
+            <p className="text-xl text-center md:text-left font-bold capitalize leading-8 break-words mb-5 mt-8">
               Dirección de Entrega
             </p>
-            <form
-              onSubmit={handleSubmit}
-              autoComplete="off"
-              className="w-[300px] md:w-[350px] xl:w-[450px] mb-10 flex flex-col gap-2"
-            >
-              {inputs.map((input) => (
-                <React.Fragment key={input.name}>
-                  <div className="p-2 border border-gray-700">
-                    <input
-                      className="w-full outline-none"
-                      id={input.name}
-                      type={input.type}
-                      placeholder={input.placeholder}
-                      onChange={handleChange}
-                      value={values[input.name] || ""}
-                      onBlur={handleBlur}
-                    />
-                  </div>
-                  {errors[input.name] && touched[input.name] && (
-                    <p className="text-xs text-red-500">{errors[input.name]}</p>
-                  )}
-                </React.Fragment>
-              ))}
+            <hr className="h-5 w-full mb-5" />
+            <section className="flex flex-col items-center">
+              <form
+                onSubmit={handleSubmit}
+                autoComplete="off"
+                className="mb-10 flex flex-col gap-2 px-10 max-w-[520px] w-full m-auto"
+              >
+                {inputs.map((input) => (
+                  <React.Fragment key={input.name}>
+                    <div className="p-2 border border-gray-700 w-full">
+                      <input
+                        className="w-full outline-none"
+                        id={input.name}
+                        type={input.type}
+                        placeholder={input.placeholder}
+                        onChange={handleChange}
+                        value={values[input.name] || ""}
+                        onBlur={handleBlur}
+                      />
+                    </div>
+                    {errors[input.name] && touched[input.name] && (
+                      <p className="text-xs text-red-500">
+                        {errors[input.name]}
+                      </p>
+                    )}
+                  </React.Fragment>
+                ))}
 
-              <div className="w-full flex mt-10 justify-between">
-                <div className="flex w-[190px] h-[40px] items-center">
-                  <img
-                    className="w-6 h-6"
-                    src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/fcccf12acd7bdce6bdc28e60b4b662dfbffb70cd/icons/arrow_back.svg"
-                    alt=""
-                  />
-                  <span
+                <div className="w-full flex mt-10 justify-between">
+                  <div
+                    className="flex w-[190px] h-[40px] items-center gap-3 cursor-pointer"
                     onClick={redirect("/cart")}
-                    className="text-sm leading-6 cursor-pointer hover:underline"
                   >
-                    Regresar
-                  </span>
-                </div>
-                <div className="flex justify-end">
-                  <div className="w-[200px] h-[40px]">
-                    <Button
-                      ruta="/cart-shipping"
-                      text="Continuar con Envio"
-                      type="submit"
-                      variant={
-                        Object.keys(errors).length > 0 ? "disabled" : "primary"
-                      }
+                    <img
+                      className="w-6 h-6"
+                      src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/fcccf12acd7bdce6bdc28e60b4b662dfbffb70cd/icons/arrow_back.svg"
+                      alt=""
                     />
+                    <span className="text-sm leading-6 hover:underline">
+                      Regresar
+                    </span>
+                  </div>
+                  <div className="flex justify-end">
+                    <div className="w-[200px] h-[40px]">
+                      <Button
+                        text="Continuar con Envio"
+                        type="submit"
+                        clickFunction={false}
+                        variant={
+                          Object.keys(errors).length > 0
+                            ? "disabled"
+                            : "primary"
+                        }
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </form>
+              </form>
+            </section>
           </div>
         )}
       </section>

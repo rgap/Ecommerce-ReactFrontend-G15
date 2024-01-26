@@ -4,7 +4,7 @@ export { default as CartMessage } from "./CartMessage";
 export { default as CartMessageFail } from "./CartMessageFail";
 export { default as CartPayment } from "./CartPayment";
 export { default as CartShipping } from "./CartShipping";
-export { default as EmailConfirmation } from "./EmailConfirmation";
+export { default as EmailVerification } from "./EmailVerification";
 export { default as Home } from "./Home";
 export { default as Login } from "./Login";
 export { default as ProductDetails } from "./ProductDetails";

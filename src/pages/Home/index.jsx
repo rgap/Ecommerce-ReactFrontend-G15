@@ -35,7 +35,7 @@ export default function Home() {
     // Modal para usuarios registrados
     const urlParams = new URLSearchParams(window.location.search);
     const showModalParam = urlParams.get("showModal");
-    console.log(showModalParam);
+    // console.log(showModalParam);
     if (showModalParam === "true") {
       showModal();
     }
@@ -123,7 +123,7 @@ export default function Home() {
         <section className="flex justify-center">
           <div className="flex justify-center flex-col items-center max-w-[1200px]">
             <div className="font-semibold text-3xl w-full my-10 text-center sm:text-left">
-              <span>Nueva Coleccion</span>
+              <span>Nueva Colección</span>
             </div>
             <div className="grid grid-cols-1 gap-6 my-4 md:grid-cols-2 md:gap-10 md:mb-16 m-auto max-w-[1200px]">
               <div className="flex flex-col gap-y-8 md:gap-y-20 justify-between">

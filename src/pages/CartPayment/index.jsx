@@ -9,7 +9,10 @@ import { sendPostRequest } from "../../services";
 import { resetCart } from "../../slices/cartSlice";
 import { inputs } from "./form";
 
-initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY);
+initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY, {
+  locale: "es-PE",
+});
+
 
 const initialCheckBox = true; //estado inicial del checkbox
 
@@ -87,16 +90,6 @@ export default function CartPayment() {
       validationSchema: debug ? undefined : basicSchema,
     });
 
-  /*const formCreditCard = useFormik({
-    initialValues: {
-      creditCardNumber: "",
-      expirationMonth: "",
-      expirationYear: "",
-      cvv: "",
-    },
-    validationSchema: debug ? undefined : creditCardSchema,
-  });*/
-
   async function initializeFormData() {
     if (globalUser) {
       const response = await sendPostRequest(
@@ -141,13 +134,24 @@ export default function CartPayment() {
     });
   }, [personalData]);
 
+  function redirect(route) {
+    return (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
+
   return (
     <>
       <Logo />
       <div className="flex flex-col md:flex lg:flex-row">
         <section className="cart-info-left lg:w-[50%] flex flex-col items-center md:items-left px-12">
           <Breadcrumb />
-          <p className="mb-5 font-bold text-lg ">Direccion de Facturacion </p>
+
+          <p className="text-xl text-center md:text-left font-bold capitalize leading-8 break-words mb-5 mt-8">
+            Dirección de Facturación{" "}
+          </p>
+
           <form
             autoComplete="off"
             className="w-[300px] md:w-[400px] xl:w-[500px] mb-10 flex flex-col gap-2"
@@ -161,7 +165,7 @@ export default function CartPayment() {
                 name="checkboxAddress"
               />
               <label className="text-sm">
-                Usar la misma direccion de Envio
+                Usar la misma dirección de Envio
               </label>
             </div>
             {inputs.map((input) => (
@@ -200,191 +204,3 @@ export default function CartPayment() {
     </>
   );
 }
-
-/*
-
- <div className="flex flex-col gap-10 mt-0 mb-7">
-              <div className="flex flex-col text-center">
-                <p className="mb-5 font-bold text-lg text-center">Pago</p>
-                <p className="">Selecciona metodo de pago</p>
-              </div>
-              <div className="flex gap-5">
-                <div className="w-[70px] md:w-[100px] h-[40px]">
-                  <img
-                    id="american"
-                    className={`cursor-pointer ${
-                      selectedCredit === "american"
-                        ? "border-2 rounded-sm border-teal-800 "
-                        : ""
-                    }`}
-                    src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/amex.svg"
-                    alt=""
-                    onClick={() => handleCreditClick("american")}
-                  />
-                </div>
-                <div className="w-[70px] md:w-[100px] h-[40px] flex">
-                  <img
-                    id="paypal"
-                    className={`cursor-pointer ${
-                      selectedCredit === "paypal"
-                        ? "border-2 rounded-sm border-teal-800 "
-                        : ""
-                    }`}
-                    src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/Paypal.svg"
-                    alt=""
-                    onClick={() => handleCreditClick("paypal")}
-                  />
-                </div>
-                <div className="w-[70px] md:w-[100px] h-[40px] flex gap-1  ">
-                  <img
-                    className={`cursor-pointer ${
-                      selectedCredit === "visa"
-                        ? "border-2 rounded-sm border-teal-800 "
-                        : ""
-                    }`}
-                    id="visa"
-                    src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/Visa.svg"
-                    alt=""
-                    onClick={() => handleCreditClick("visa")}
-                  />
-                </div>
-                <div className="w-[70px] md:w-[100px] h-[40px] flex">
-                  <img
-                    className={`cursor-pointer ${
-                      selectedCredit === "mastercard"
-                        ? "border-2 rounded-sm border-teal-800 "
-                        : ""
-                    }`}
-                    id="mastercard"
-                    src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/Payment-creditcards/Masterrcard.svg"
-                    alt=""
-                    onClick={() => handleCreditClick("mastercard")}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <form
-              autoComplete="off"
-              className="w-full md:w-[500px]"
-              onSubmit={handlePayment}
-            >
-              <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-1"
-                  htmlFor="creditCardNumber"
-                >
-                  Número de Tarjeta
-                </label>
-                <input
-                  className="border w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="creditCardNumber"
-                  type="text"
-                  placeholder="Número de Tarjeta"
-                  onChange={formCreditCard.handleChange}
-                  onBlur={formCreditCard.handleBlur}
-                />
-                {formCreditCard.errors.creditCardNumber &&
-                  formCreditCard.touched.creditCardNumber && (
-                    <p className="text-xs text-red-500 mt-3">
-                      {formCreditCard.errors.creditCardNumber}
-                    </p>
-                  )}
-              </div>
-
-              <div className="flex flex-wrap -mx-3 mb-4">
-                <div className="w-1/2 px-3">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-1"
-                    htmlFor="expirationMonth"
-                  >
-                    Mes
-                  </label>
-                  <input
-                    className=" border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="expirationMonth"
-                    type="text"
-                    placeholder="Mes"
-                    onChange={formCreditCard.handleChange}
-                    onBlur={formCreditCard.handleBlur}
-                  />
-                  {formCreditCard.errors.expirationMonth &&
-                    formCreditCard.touched.expirationMonth && (
-                      <p className="text-xs text-red-500 mt-3">
-                        {formCreditCard.errors.expirationMonth}
-                      </p>
-                    )}
-                </div>
-                <div className="w-1/2 px-3">
-                  <label
-                    className="block text-gray-700 text-sm font-bold mb-1"
-                    htmlFor="expirationYear"
-                  >
-                    Año
-                  </label>
-                  <input
-                    className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="expirationYear"
-                    type="text"
-                    placeholder="Año"
-                    onChange={formCreditCard.handleChange}
-                    onBlur={formCreditCard.handleBlur}
-                  />
-                  {formCreditCard.errors.expirationYear &&
-                    formCreditCard.touched.expirationYear && (
-                      <p className="text-xs text-red-500 mt-3">
-                        {formCreditCard.errors.expirationYear}
-                      </p>
-                    )}
-                </div>
-              </div>
-
-              <div className="">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-1"
-                  htmlFor="cvv"
-                >
-                  CVV
-                </label>
-                <input
-                  className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="cvv"
-                  type="text"
-                  placeholder="CVV"
-                  onChange={formCreditCard.handleChange}
-                  onBlur={formCreditCard.handleBlur}
-                />
-                {formCreditCard.errors.cvv && formCreditCard.touched.cvv && (
-                  <p className="text-xs text-red-500 mt-3">
-                    {formCreditCard.errors.cvv}
-                  </p>
-                )}
-              </div>
-              <div className="justify-center flex">
-                <div className="w-[185px] h-[50px] m-10 flex">
-                  <Button
-                    text="Pagar"
-                    type="submit"
-                    variant={
-                      Object.keys(errors).length > 0 ||
-                      Object.keys(formCreditCard.errors).length > 0
-                        ? "disabled"
-                        : "primary"
-                    }
-                    clickFunction={false}
-                  />
-                </div>
-              </div>
-
-              <p className="mt-2 text-xs text-justify">
-                El precio total a pagar, incluidos los impuestos y gastos
-                adicionales (si los hubiera), se indican claramente en la página
-                de pago. Al hacer clic en "Pagar", usted autoriza el cargo
-                correspondiente en su método de pago seleccionado.
-              </p>
-            </form>
-          </section>
-
-
-
-*/

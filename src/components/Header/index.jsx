@@ -5,6 +5,7 @@ import { counterProductos } from "../../slices/cartSlice";
 
 export default function Header() {
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const globalUser = useSelector((state) => state.user.data);
   const globalCart = useSelector(counterProductos);
 
