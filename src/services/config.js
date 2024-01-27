@@ -1,6 +1,8 @@
-const apiUrl = "http://localhost:3000/api/v1/";
+const apiUrl = `${import.meta.env.VITE_HOSTNAME_BACKEND}/api/v1/`;
 
 export async function makeHttpRequest({ endpoint, id, body, method = "GET" }) {
+  console.log(apiUrl);
+
   let finalUrl = id ? `${apiUrl}${endpoint}/${id}` : `${apiUrl}${endpoint}`;
 
   // console.log("finalUrl", finalUrl);
