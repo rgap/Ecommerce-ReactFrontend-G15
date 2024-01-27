@@ -66,7 +66,7 @@ export default function CartPayment() {
     if (response.ok) {
       const purchaseBody = {
         payerEmail: bodyOrder.payerEmail,
-        userId: bodyOrder.userId,
+        userId: JSON.parse(localStorage.getItem("personalData")).id,
         orderId: response.data.orderId,
       };
       dispatch(resetCart());
@@ -127,7 +127,7 @@ export default function CartPayment() {
       region: JSON.parse(localStorage.getItem("personalData")).region,
       phoneNumber: JSON.parse(localStorage.getItem("personalData")).phoneNumber,
     });
-  }, [personalData]);
+  }, []);
 
   return (
     <>
