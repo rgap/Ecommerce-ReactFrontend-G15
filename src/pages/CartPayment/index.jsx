@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Breadcrumb, Logo } from "../../components";
 import { basicSchema } from "../../schemas";
 import { sendPostRequest } from "../../services";
-import { resetCart } from "../../slices/cartSlice";
+import { counterProductos, resetCart } from "../../slices/cartSlice";
 import { inputs } from "./form";
 
 initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY, {
@@ -14,14 +14,17 @@ initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY, {
 });
 
 export default function CartPayment() {
-  console.log("render CartPayment");
+  // console.log("render CartPayment");
   const debug = false;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [checkbox, setCheckbox] = useState(true);
   const globalUser = useSelector((state) => state.user.data);
+
   const initialization = {
-    amount: 10,
+    amount: useSelector(counterProductos).reduce((sum, product) => {
+      return sum + product.price * product.quantity;
+    }, 0),
     payer: {
       email: globalUser.email,
     },
@@ -71,7 +74,10 @@ export default function CartPayment() {
       };
       dispatch(resetCart());
       // to load it twice
-      // send email
+      // send emails
+      await sendPostRequest(bodyOrder, "orders/send-order-email-to-user");
+      await sendPostRequest(bodyOrder, "orders/send-order-email-to-admin");
+      // redirect to confirmation / error
       navigate("/cart-message", { state: { purchaseBody } });
       window.location.reload();
     }
