@@ -14,10 +14,11 @@ initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY, {
 });
 
 export default function CartPayment() {
+  console.log("render CartPayment");
   const debug = false;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [personalData, setPersonalData] = useState([]);
+  const [personalData, setPersonalData] = useState({});
   const [checkbox, setCheckbox] = useState(true);
   const globalUser = useSelector((state) => state.user.data);
   const initialization = {
@@ -55,6 +56,8 @@ export default function CartPayment() {
       cart: JSON.parse(localStorage.getItem("cart")),
     };
     // console.log(bodyOrder);
+
+    // console.log("bodyOrder", bodyOrder);
 
     const response = await sendPostRequest(
       bodyOrder,
@@ -109,29 +112,6 @@ export default function CartPayment() {
       validationSchema: debug ? undefined : basicSchema,
     });
 
-  async function initializeFormData() {
-    if (globalUser) {
-      const response = await sendPostRequest(
-        {
-          email: globalUser.email,
-        },
-        "users/get-by-email"
-      );
-
-      const foundUser = response.data;
-      if (foundUser) {
-        setPersonalData({
-          id: foundUser.id,
-          name: foundUser.name,
-          address: foundUser.address,
-          city: foundUser.city,
-          region: foundUser.region,
-          phoneNumber: foundUser.phoneNumber,
-        });
-      }
-    }
-  }
-
   // Redirigir a login si no hay usuario
   useEffect(() => {
     if (!globalUser) {
@@ -140,16 +120,12 @@ export default function CartPayment() {
   }, [globalUser, navigate]);
 
   useEffect(() => {
-    initializeFormData();
-  }, []);
-
-  useEffect(() => {
     setValues({
-      name: personalData.name,
-      address: personalData.address,
-      city: personalData.city,
-      region: personalData.region,
-      phoneNumber: personalData.phoneNumber,
+      name: JSON.parse(localStorage.getItem("personalData")).name,
+      address: JSON.parse(localStorage.getItem("personalData")).address,
+      city: JSON.parse(localStorage.getItem("personalData")).city,
+      region: JSON.parse(localStorage.getItem("personalData")).region,
+      phoneNumber: JSON.parse(localStorage.getItem("personalData")).phoneNumber,
     });
   }, [personalData]);
 
