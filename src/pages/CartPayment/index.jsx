@@ -56,7 +56,7 @@ export default function CartPayment() {
     };
     // console.log(bodyOrder);
 
-    // console.log("bodyOrder", bodyOrder);
+    console.log("bodyOrder", bodyOrder);
 
     const response = await sendPostRequest(
       bodyOrder,
