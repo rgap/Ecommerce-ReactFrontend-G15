@@ -1,4 +1,4 @@
-const apiUrl = `${import.meta.env.VITE_HOSTNAME_BACKEND}/api/v1/`;
+const apiUrl = "https://ecommerce-nodebackend-g15.onrender.com/api/v1/";
 
 export async function makeHttpRequest({ endpoint, id, body, method = "GET" }) {
   console.log(apiUrl);
