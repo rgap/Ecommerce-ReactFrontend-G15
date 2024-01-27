@@ -178,9 +178,8 @@ export default function Home() {
                 Verifica tu correo electrónico
               </div>
               <div className="text-center text-lg leading-loose mb-8">
-                Hemos enviado un correo electrónico a beautipol.ventas@gmail.com
-                para verificar tu dirección de correo electrónico y activar tu
-                cuenta.
+                Te hemos enviado un correo electrónico para verificarlo y
+                activar tu cuenta. Revisa tu correo electrónico.
               </div>
               <div className="text-center text-lg leading-loose mb-8">
                 El enlace del correo electrónico caducará en 24 horas.

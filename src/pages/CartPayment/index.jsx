@@ -206,7 +206,7 @@ export default function CartPayment() {
             onSubmit={handleOnSubmitMercadoPago}
             initialization={initialization}
             customization={customization}
-          ></CardPayment>
+          />
         </section>
       </div>
     </>
