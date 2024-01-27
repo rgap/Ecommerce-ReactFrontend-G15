@@ -1,13 +1,16 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function CartMessage() {
+  const location = useLocation();
+  const { purchaseBody } = location.state || {};
 
-  const [payment, setPayment] = useState(JSON.parse(localStorage.getItem("payment")));
+  // useEffect(() => {
 
-  // Si no hay error, muestra el contenido normal del componente
+  // }, []);
+
   return (
-    <main className=" text-center md:h-screen flex flex-col justify-center items-center gap-10 bg-white mb-10 my-8">
+    <main className="text-center md:h-screen flex flex-col justify-center items-center gap-10 bg-white mb-10 my-8">
       <img
         className="w-[65px] h-[65px] mt-5 md:mt-0"
         src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/payment-check-circle.svg"
@@ -17,13 +20,16 @@ export default function CartMessage() {
         Pago exitoso
       </p>
       <p className="text-xl">
-        {" "}
-        <span className="font-semibold"> GRACIAS </span> , la orden #{payment.payment_id} ha sido
-        <span className="font-semibold"> GENERADA </span> .
+        <span className="font-semibold"> GRACIAS </span>, la orden #
+        {purchaseBody.orderId || "---"} ha sido
+        <span className="font-semibold"> GENERADA </span>.
       </p>
       <p className="text-xl">
         El recibo de su compra ha sido enviado a
-        <span className="font-semibold"> {payment.payer_email} </span> 
+        <span className="font-semibold">
+          {" "}
+          {purchaseBody.payerEmail || "---"}{" "}
+        </span>
       </p>
 
       <p className="text-lg text-[#796969]">
@@ -35,7 +41,7 @@ export default function CartMessage() {
           src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/82306af9c3214a4e16f35b88166da045a8b7bc40/icons/whatsapp.svg"
           alt=""
         />
-        <p className="text-sm text-[#404040]"> + 51 958 458 458</p>
+        <p className="text-sm text-[#404040]"> + 51 123909090</p>
       </div>
     </main>
   );
