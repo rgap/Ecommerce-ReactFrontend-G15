@@ -7,6 +7,7 @@ import {
   Logo,
   ProductShoppingCart,
 } from "../../components";
+import { sendPostRequest } from "../../services";
 import { counterProductos } from "../../slices/cartSlice";
 
 export default function CartShipping() {
@@ -22,6 +23,7 @@ export default function CartShipping() {
     const subtotal = qty * price;
     return accumulator + subtotal;
   }, 0);
+
   const totalCart = total.toFixed(2);
   const totalenvio = total + envio;
 
@@ -53,7 +55,28 @@ export default function CartShipping() {
     setEnvio(Number(event.target.value));
   };
 
-  function redirect(route) {
+  async function setStorageData() {
+    const response = await sendPostRequest(
+      { email: globalUser.email },
+      "users/get-by-email"
+    );
+
+    const foundUser = response.data;
+    localStorage.setItem(
+      "personalData",
+      JSON.stringify({
+        id: foundUser.id,
+        name: foundUser.name,
+        address: foundUser.address,
+        city: foundUser.city,
+        region: foundUser.region,
+        phoneNumber: foundUser.phoneNumber,
+      })
+    );
+  }
+
+  async function redirect(route) {
+    setStorageData();
     return (event) => {
       event.preventDefault();
       navigate(route);
