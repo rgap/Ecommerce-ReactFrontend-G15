@@ -18,7 +18,6 @@ export default function CartPayment() {
   const debug = false;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [personalData, setPersonalData] = useState({});
   const [checkbox, setCheckbox] = useState(true);
   const globalUser = useSelector((state) => state.user.data);
   const initialization = {
@@ -52,7 +51,7 @@ export default function CartPayment() {
       token: formData.token,
       status: "created",
       transactionAmount: formData.transaction_amount,
-      userId: personalData.id,
+      userId: JSON.parse(localStorage.getItem("personalData")).id,
       cart: JSON.parse(localStorage.getItem("cart")),
     };
     // console.log(bodyOrder);
@@ -82,11 +81,12 @@ export default function CartPayment() {
     setCheckbox(!checkbox); // cambia valor de checkbox
     if (!checkbox) {
       setValues({
-        name: personalData.name,
-        address: personalData.address,
-        city: personalData.city,
-        region: personalData.region,
-        phoneNumber: personalData.phoneNumber,
+        name: JSON.parse(localStorage.getItem("personalData")).name,
+        address: JSON.parse(localStorage.getItem("personalData")).address,
+        city: JSON.parse(localStorage.getItem("personalData")).city,
+        region: JSON.parse(localStorage.getItem("personalData")).region,
+        phoneNumber: JSON.parse(localStorage.getItem("personalData"))
+          .phoneNumber,
       });
     } else {
       //checkbox desmarcado
