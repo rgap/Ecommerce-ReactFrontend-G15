@@ -8,60 +8,69 @@ import { basicSchema } from "../../schemas";
 import { sendPostRequest } from "../../services";
 import { resetCart } from "../../slices/cartSlice";
 import { inputs } from "./form";
-import { counterProductos } from "../../slices/cartSlice";
 
 initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY, {
   locale: "es-PE",
 });
 
-const initialCheckBox = true; //estado inicial del checkbox
-
 export default function CartPayment() {
-  const globalCart = useSelector(counterProductos);
-
-  const initialization = {
-    amount: 1200,
-  };
-
   const debug = false;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const globalUser = useSelector((state) => state.user.data);
   const [personalData, setPersonalData] = useState([]);
-  const [checkbox, setCheckbox] = useState(initialCheckBox);
+  const [checkbox, setCheckbox] = useState(true);
+  const globalUser = useSelector((state) => state.user.data);
+  const initialization = {
+    amount: 10,
+    payer: {
+      email: globalUser.email,
+    },
+  };
 
-  useEffect(() => {
-    if (globalCart.length === 0) {
-      navigate("/"); 
-    }
-  }, [globalCart, navigate]);
+  const customization = {
+    paymentMethods: {
+      minInstallments: 1,
+      maxInstallments: 1,
+    },
+    visual: {
+      style: {
+        theme: "default", // 'default' | 'dark' | 'bootstrap' | 'flat'
+      },
+    },
+  };
 
-  const handleOnSubmit = async (formData) => {
-    const body = {
-      payment_date: new Date(),
-      payer_email: formData.payer.email,
-      payer_document_type: formData.payer.identification.type,
-      payer_document_number: formData.payer.identification.number,
+  const handleOnSubmitMercadoPago = async (formData) => {
+    const bodyOrder = {
+      paymentDate: new Date(),
+      payerEmail: formData.payer.email,
+      payerDocumentType: formData.payer.identification.type,
+      payerDocumentNumber: formData.payer.identification.number,
       installments: formData.installments,
-      issuer_id: formData.issuer_id,
-      payment_method_id: formData.payment_method_id,
+      issuerId: formData.issuer_id,
+      paymentMethodId: formData.payment_method_id,
       token: formData.token,
       status: "created",
-      transaction_amount: formData.transaction_amount,
+      transactionAmount: formData.transaction_amount,
       userId: personalData.id,
+      cart: JSON.parse(localStorage.getItem("cart")),
     };
+    // console.log(bodyOrder);
 
-    const response = await sendPostRequest(body, "payments/generate");
+    const response = await sendPostRequest(
+      bodyOrder,
+      "orders/create-order-mercadopago"
+    );
 
-    if (response) {
-      const partialBody = {
-        payer_email: body.payer_email,
-        userId: body.userId,
-        payment_id: response.data,
+    if (response.ok) {
+      const purchaseBody = {
+        payerEmail: bodyOrder.payerEmail,
+        userId: bodyOrder.userId,
+        orderId: response.data.orderId,
       };
-      localStorage.setItem("payment", JSON.stringify(partialBody));
       dispatch(resetCart());
-      navigate("/cart-message");
+      // to load it twice
+      // send email
+      navigate("/cart-message", { state: { purchaseBody } });
       window.location.reload();
     }
   };
@@ -123,10 +132,10 @@ export default function CartPayment() {
     }
   }
 
-  // Redirect if globalUser is not defined
+  // Redirigir a login si no hay usuario
   useEffect(() => {
     if (!globalUser) {
-      navigate("/login"); // Redirect to the login page or any other appropriate page
+      navigate("/login");
     }
   }, [globalUser, navigate]);
 
@@ -143,13 +152,6 @@ export default function CartPayment() {
       phoneNumber: personalData.phoneNumber,
     });
   }, [personalData]);
-
-  function redirect(route) {
-    return (event) => {
-      event.preventDefault();
-      navigate(route);
-    };
-  }
 
   return (
     <>
@@ -201,14 +203,10 @@ export default function CartPayment() {
 
         <section className="lg:w-[50%] flex flex-col justify-start items-start px-5 pt-5 mb-12 md:px-10 m-auto">
           <CardPayment
+            onSubmit={handleOnSubmitMercadoPago}
             initialization={initialization}
-            onSubmit={handleOnSubmit}
-            customization={{
-              paymentMethods: {
-                maxInstallments: 1,
-              },
-            }}
-          />
+            customization={customization}
+          ></CardPayment>
         </section>
       </div>
     </>
