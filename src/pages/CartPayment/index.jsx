@@ -26,6 +26,9 @@ export default function CartPayment() {
     return sum + product.price * product.quantity;
   }, 0);
 
+  // const onError = async (error) => console.log(error);
+  // const onReady = async () => console.log("ready");
+
   const shippingCosts = {
     regular: "12.00",
     rapido: "20.00",
@@ -52,6 +55,18 @@ export default function CartPayment() {
       },
     },
   };
+
+  const { values, errors, touched, handleBlur, handleChange, setValues } =
+    useFormik({
+      initialValues: {
+        name: "",
+        address: "",
+        city: "",
+        region: "",
+        phoneNumber: "",
+      },
+      validationSchema: debug ? undefined : basicSchema,
+    });
 
   useEffect(() => {
     const fetchUserParams = async () => {
@@ -149,18 +164,6 @@ export default function CartPayment() {
     }
   };
 
-  const { values, errors, touched, handleBlur, handleChange, setValues } =
-    useFormik({
-      initialValues: {
-        name: "",
-        address: "",
-        city: "",
-        region: "",
-        phoneNumber: "",
-      },
-      validationSchema: debug ? undefined : basicSchema,
-    });
-
   // Redirigir a login si no hay usuario
   useEffect(() => {
     if (!globalUser) {
@@ -169,8 +172,6 @@ export default function CartPayment() {
   }, [globalUser, navigate]);
 
   function redirect(route) {
-    // handleOnSubmitMercadoPago();
-    // console.log(values);
     return async (event) => {
       event.preventDefault();
       navigate(route);
@@ -265,11 +266,16 @@ export default function CartPayment() {
 
         <section className="lg:w-[50%] flex flex-col justify-start items-start px-5 pt-5 mb-12 md:px-10 ">
           <button onClick={redirect("/cart-payment")} className="mb-5"></button>
-          <CardPayment
-            onSubmit={handleOnSubmitMercadoPago}
-            initialization={initialization}
-            customization={customization}
-          />
+          {/* Conditional rendering of CardPayment */}
+          {Object.keys(userDetails).length > 0 && (
+            <CardPayment
+              onSubmit={handleOnSubmitMercadoPago}
+              initialization={initialization}
+              customization={customization}
+              // onReady={onReady}
+              // onError={onError}
+            />
+          )}
         </section>
       </div>
     </main>
