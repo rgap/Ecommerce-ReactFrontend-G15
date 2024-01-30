@@ -28,7 +28,6 @@ export default function Cart() {
   }, [globalCart]);
 
   useEffect(() => {
-    // console.log("globalCart", globalCart);
     if (total === 0) {
       navigate(lastProductPath, { replace: true });
     }
@@ -83,7 +82,7 @@ export default function Cart() {
                   <ProductShoppingCart
                     productId={product.id}
                     productImage={product.url}
-                    productTitle={product.name}
+                    productTitle={product.title}
                     productSize={product.size}
                     productColor={product.color}
                     productPrice={product.price}

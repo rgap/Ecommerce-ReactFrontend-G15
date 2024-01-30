@@ -34,14 +34,13 @@ export default function CartInfo() {
   }, [globalCart]);
 
   useEffect(() => {
-    // console.log("globalCart", globalCart);
     if (total === 0) {
       navigate(lastProductPath, { replace: true });
     }
   }, [lastProductPath, navigate, total]);
 
   const onSubmit = async (values, actions) => {
-    console.log("values", values);
+    // console.log("values", values);
     await sendPutRequest(personalData.id, values, "users");
     navigate("/cart-shipping");
   };
@@ -112,7 +111,7 @@ export default function CartInfo() {
 
   return (
     <main className="lg:flex">
-      <section className="cart-info-left lg:w-[55%]">
+      <section className="cart-info-left lg:w-[55%]  min-w-[590px]">
         <Logo />
 
         {!globalUser ? (
@@ -145,7 +144,7 @@ export default function CartInfo() {
           <div className="mx-10 xl:mx-20 my-0">
             <Breadcrumb />
             <p className="text-xl text-center md:text-left font-bold capitalize leading-8 break-words mb-5 mt-8">
-              Dirección de Entrega
+              Dirección de Envio
             </p>
             <hr className="h-5 w-full mb-5" />
             <section className="flex flex-col items-center">
@@ -210,7 +209,7 @@ export default function CartInfo() {
         )}
       </section>
 
-      <section className="max-lg:hidden cart-info-right min-h-screen lg:w-[45%] bg-[--color-bg] flex flex-col justify-start items-center">
+      <section className="max-lg:hidden cart-info-right min-h-screen lg:w-[45%] bg-[--color-bg] flex flex-col justify-start items-center min-w-[460px]">
         <div className="w-full flex justify-center">
           <span className="text-xl font-bold mt-10 mb-10">
             Carrito de Compra
@@ -223,7 +222,7 @@ export default function CartInfo() {
               <ProductShoppingCart
                 productId={product.id}
                 productImage={product.url}
-                productTitle={product.name}
+                productTitle={product.title}
                 productSize={product.size}
                 productColor={product.color}
                 productPrice={product.price}
@@ -233,13 +232,13 @@ export default function CartInfo() {
               />
             </div>
           ))}
-          <div className="flex flex-col items-end mr-1 mt-5 mb-5 ">
-            <p className="text-lg ">
+          <div className="mt-5 flex flex-col gap-1.5 mb-7">
+            <p className="text-lg text-center">
               Subtotal: <span> S/ {totalCart} </span>
             </p>
-            <p className="text-xs text-end">
-              (*) El importe total que pagará sera calculado en la sección
-              ENVIOS.
+            <p className="text-md text-center">
+              (*) El importe total que pagará sera calculado en la sección de
+              Envío.
             </p>
           </div>
         </div>

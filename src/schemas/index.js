@@ -26,7 +26,7 @@ export const basicSchema = yup.object().shape({
       /^[A-Za-z\s]+$/,
       "Region no puede contener números ni caracteres especiales"
     )
-    .required("Campo ciudad es obligatorio"),
+    .required("Campo region es obligatorio"),
   city: yup
     .string()
     .matches(

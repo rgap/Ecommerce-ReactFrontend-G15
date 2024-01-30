@@ -95,7 +95,7 @@ export default function Home() {
             </div>
             <button
               onClick={redirect("/products")}
-              className="flex items-center justify-center w-[184px] px-4 py-5 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-[16px] font-normal capitalize leading-normal transition-transform duration-100 hover:scale-110"
+              className="flex items-center justify-center w-[184px] px-4 py-5 text-white text-[16px] font-normal capitalize leading-normal transition-transform duration-100 hover:scale-110 shadow-lg hover:shadow-xl bg-[#3EA381]"
             >
               Ver Productos
             </button>
@@ -103,11 +103,11 @@ export default function Home() {
         </div>
       </section>
 
-      <main className="px-10 bg-[--color-bg] pb-8">
+      <main className="px-5 bg-[--color-bg] pb-8">
         <section className="flex justify-center">
           <div className="max-w-[1200px]">
             <div className="my-10 font-semibold text-3xl text-center sm:text-left">
-              <span>Polos de diseño variado</span>
+              <span>Polos de Diseño Variado</span>
             </div>
             {productsArray.length > 0 ? (
               <div className="my-4 grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -127,14 +127,14 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 gap-6 my-4 md:grid-cols-2 md:gap-10 md:mb-16 m-auto max-w-[1200px]">
               <div className="flex flex-col gap-y-8 md:gap-y-20 justify-between">
-                <div className="overflow-hidden">
+                <div className="rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-xl">
                   <img
                     className="w-full h-auto aspect-square object-cover object-top transform scale-100 hover:scale-[1.05] transition-transform duration-[0.25s]"
                     src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-blanco-modelo-home.jpg"
                     alt="Polo Blanco Modelo"
                   />
                 </div>
-                <div className="overflow-hidden">
+                <div className="rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-xl">
                   <img
                     className="object-contain w-full h-auto transform scale-100 hover:scale-[1.05] transition-transform duration-[0.25s]"
                     src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-colgador-home.jpg"
@@ -144,14 +144,14 @@ export default function Home() {
               </div>
 
               <div className="flex flex-col md:gap-10 justify-between">
-                <div className="overflow-hidden">
+                <div className="rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-xl">
                   <img
                     className="object-contain w-full h-auto transform scale-100 hover:scale-[1.05] transition-transform duration-[0.25s]"
                     src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-negro-modelo-home.jpg"
                     alt="Polo Negro Modelo"
                   />
                 </div>
-                <div className="overflow-hidden">
+                <div className="rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-xl">
                   <img
                     className="w-full h-auto aspect-square object-cover object-top transform scale-100 hover:scale-[1.05] transition-transform duration-[0.25s]"
                     src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/polo-negro-mano-colgando-home.jpg"
@@ -177,9 +177,12 @@ export default function Home() {
               <div className="text-center text-3xl font-semibold capitalize mb-8">
                 Verifica tu correo electrónico
               </div>
-              <div className="text-center text-lg leading-loose mb-8">
+              <div className="text-center text-lg leading-loose">
                 Te hemos enviado un correo electrónico para verificarlo y
-                activar tu cuenta. Revisa tu correo electrónico.
+                activar tu cuenta.
+              </div>
+              <div className="text-center text-lg leading-loose mb-8">
+                Revisa tu correo electrónico.
               </div>
               <div className="text-center text-lg leading-loose mb-8">
                 El enlace del correo electrónico caducará en 24 horas.
@@ -191,7 +194,7 @@ export default function Home() {
 
         <section className="w-fit m-auto relative max-w-[1200px]">
           <div className="flex justify-center">
-            <div className="overflow-hidden">
+            <div className="rounded-lg overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-xl">
               <img
                 className="transform scale-100 hover:scale-[1.05] transition-transform duration-[0.25s]"
                 src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/algodon.jpg"

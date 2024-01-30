@@ -5,10 +5,6 @@ export default function CartMessage() {
   const location = useLocation();
   const { purchaseBody } = location.state || {};
 
-  // useEffect(() => {
-
-  // }, []);
-
   return (
     <main className="text-center md:h-screen flex flex-col justify-center items-center gap-10 bg-white mb-10 my-8">
       <img
@@ -32,7 +28,7 @@ export default function CartMessage() {
         </span>
       </p>
 
-      <p className="text-lg text-[#796969]">
+      <p className="text-lg">
         Contactenos en caso de alguna duda con respecto a su pedido.
       </p>
       <div className="flex gap-2 place-items-center md:mb-0 mb-5">

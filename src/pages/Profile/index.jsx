@@ -45,19 +45,58 @@ export default function Profile() {
   const personalDataIsDisabled = hasErrors(personalErrors);
 
   const validateField = (form, field, value) => {
-    if (field === "email" && field === "name" && !value.trim()) {
-      return `Este campo no puede estar vacio`;
-    }
+    const trimmedValue = value.trim();
 
-    if (field === "name" && value.trim().length < 3) {
-      return "Debe tener al menos 3 caracteres";
-    }
-
-    if (field === "email") {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value.trim())) {
-        return "Ingresa un correo valido";
-      }
+    switch (field) {
+      case "name":
+        if (!trimmedValue) {
+          return "Campo nombre es obligatorio";
+        }
+        if (trimmedValue.length < 6) {
+          return "Nombre es muy corto";
+        }
+        if (!/^[A-Za-z\s]+$/.test(trimmedValue)) {
+          return "Nombre no puede contener números ni caracteres especiales";
+        }
+        break;
+      case "email":
+        if (!trimmedValue) {
+          return "Campo email es obligatorio";
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(trimmedValue)) {
+          return "Ingresa un correo valido";
+        }
+        break;
+      case "address":
+        if (!trimmedValue) {
+          return "Campo direccion es obligatorio";
+        }
+        if (trimmedValue.length < 10) {
+          return "Direccion es muy corta";
+        }
+        break;
+      case "phoneNumber":
+        if (!trimmedValue) {
+          return "Campo telefono es obligatorio";
+        }
+        if (!/^\+\d{1,3} \d{7,}$/.test(trimmedValue)) {
+          return "Telefono debe estar en el formato +[codigo de pais] [numero]";
+        }
+        break;
+      case "region":
+      case "city":
+        if (!trimmedValue) {
+          return `Campo ${field} es obligatorio`;
+        }
+        if (!/^[A-Za-z\s]+$/.test(trimmedValue)) {
+          return `${
+            field.charAt(0).toUpperCase() + field.slice(1)
+          } no puede contener números ni caracteres especiales`;
+        }
+        break;
+      default:
+        break;
     }
     return "";
   };
@@ -91,7 +130,7 @@ export default function Profile() {
             onChange={handleInputChange(formName, field.name)}
             inputClassName="border border-[--color-form-border] placeholder:text-sm w-full text-center md:text-start max-w-[400px] m-auto"
             labelClassName="block input-value text-center my-px"
-            disabled={field.name == "country"}
+            disabled={field.name == "country" || field.name == "email"}
             error={formErrors[field.name]}
           />
         </div>
@@ -232,7 +271,7 @@ export default function Profile() {
               </div>
             ) : (
               <button
-                className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                className="mb-6 mt-2 items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100 "
                 type="submit"
               >
                 Cambiar
@@ -256,7 +295,7 @@ export default function Profile() {
 
         <div className="flex justify-center">
           <button
-            className="mb-6 mt-8 items-center px-7 py-4 bg-[brown] text-white text-sm capitalize leading-normal transition-transform duration-100"
+            className="mb-6 mt-8 items-center px-7 py-4 bg-[brown] text-white text-sm capitalize leading-normal transition-transform duration-100 "
             onClick={logOut}
           >
             Cerrar Sesión

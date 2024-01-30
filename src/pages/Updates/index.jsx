@@ -197,7 +197,7 @@ const EmailSignupForm = () => {
 
               <button
                 type="submit"
-                className="bg-[#3EA381] text-white font-bold transition-transform transform hover:scale-105 mb-6 mt-2 px-7 py-4 cursor-pointer"
+                className="bg-[#3EA381] text-white font-bold transition-transform transform hover:scale-105 mb-6 mt-2 px-7 py-4 cursor-pointer "
                 disabled={Object.keys(errors).length > 0}
               >
                 Aprovechar Oferta

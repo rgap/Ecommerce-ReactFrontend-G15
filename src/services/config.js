@@ -1,11 +1,7 @@
-const apiUrl = "https://ecommerce-nodebackend-g15.onrender.com/api/v1/";
-// const apiUrl = "http://localhost:3000/api/v1/";
-
 export async function makeHttpRequest({ endpoint, id, body, method = "GET" }) {
-  console.log(apiUrl);
+  const apiUrl = `${import.meta.env.VITE_HOSTNAME_BACKEND}/api/v1/`;
 
   let finalUrl = id ? `${apiUrl}${endpoint}/${id}` : `${apiUrl}${endpoint}`;
-
   // console.log("finalUrl", finalUrl);
 
   const response = await fetch(`${finalUrl}`, {

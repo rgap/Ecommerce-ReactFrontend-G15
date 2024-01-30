@@ -46,7 +46,7 @@ export default function Footer() {
             {subscriptionEmailSubmitted && (
               <div className=" text-sm flex">
                 <img
-                  className="w-5 mr-2 bg-white"
+                  className="w-5 mr-2"
                   src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/check.svg"
                   alt="Submit"
                 />
