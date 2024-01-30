@@ -7,6 +7,7 @@ import { Breadcrumb, Logo } from "../../components";
 import { basicSchema } from "../../schemas";
 import { sendPostRequest } from "../../services";
 import { counterProductos, resetCart } from "../../slices/cartSlice";
+import { capitalize } from "../../utils/utils";
 import { inputs } from "./form";
 
 initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY, {
@@ -14,17 +15,27 @@ initMercadoPago(import.meta.env.VITE_MERCADOPAGO_PUBLICK_KEY, {
 });
 
 export default function CartPayment() {
-  // console.log("render CartPayment");
   const debug = false;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [checkbox, setCheckbox] = useState(true);
+  const [userDetails, setUserDetails] = useState({});
   const globalUser = useSelector((state) => state.user.data);
+  // Calcular el total de nuevo
+  const totalAmount = useSelector(counterProductos).reduce((sum, product) => {
+    return sum + product.price * product.quantity;
+  }, 0);
+
+  const shippingCosts = {
+    regular: "12.00",
+    rapido: "20.00",
+  };
+  const getShippingCost = (option) => shippingCosts[option] || "0.00";
+  const savedShippingOption = localStorage.getItem("shippingOption");
+  const totalShipping = getShippingCost(savedShippingOption);
 
   const initialization = {
-    amount: useSelector(counterProductos).reduce((sum, product) => {
-      return sum + product.price * product.quantity;
-    }, 0),
+    amount: totalAmount,
     payer: {
       email: globalUser.email,
     },
@@ -42,7 +53,34 @@ export default function CartPayment() {
     },
   };
 
-  const handleOnSubmitMercadoPago = async (formData) => {
+  useEffect(() => {
+    const fetchUserParams = async () => {
+      try {
+        const response = await sendPostRequest(
+          { email: globalUser.email },
+          "users/get-by-email"
+        );
+        const userDetails = {
+          id: response.data.id,
+          name: response.data.name,
+          address: response.data.address,
+          city: response.data.city,
+          region: response.data.region,
+          phoneNumber: response.data.phoneNumber,
+        };
+        setUserDetails(userDetails);
+        setValues(userDetails);
+      } catch (error) {
+        console.error("Error fetching user params:", error);
+      }
+    };
+
+    if (globalUser && globalUser.email) {
+      fetchUserParams();
+    }
+  }, [globalUser]);
+
+  async function handleOnSubmitMercadoPago(formData) {
     const bodyOrder = {
       paymentDate: new Date(),
       payerEmail: formData.payer.email,
@@ -54,26 +92,38 @@ export default function CartPayment() {
       token: formData.token,
       status: "created",
       transactionAmount: formData.transaction_amount,
-      userId: JSON.parse(localStorage.getItem("personalData")).id,
+      shippingMethod: savedShippingOption,
+
+      shippingName: userDetails.name,
+      shippingAddress: userDetails.address,
+      shippingCity: userDetails.city,
+      shippingRegion: userDetails.region,
+      shippingPhoneNumber: userDetails.phoneNumber,
+
+      billingName: values.name,
+      billingAddress: values.address,
+      billingCity: values.city,
+      billingRegion: values.region,
+      billingPhoneNumber: values.phoneNumber,
+
+      userId: userDetails.id,
       cart: JSON.parse(localStorage.getItem("cart")),
     };
-    // console.log(bodyOrder);
-
-    console.log("bodyOrder", bodyOrder);
+    // console.log("bodyOrder", bodyOrder);
+    console.log(JSON.stringify(bodyOrder, null, 2));
 
     const response = await sendPostRequest(
       bodyOrder,
-      "orders/create-order-mercadopago"
+      "orders/create-mercadopago-order"
     );
 
     if (response.ok) {
       const purchaseBody = {
         payerEmail: bodyOrder.payerEmail,
-        userId: JSON.parse(localStorage.getItem("personalData")).id,
-        orderId: response.data.orderId,
+        userId: userDetails.id,
+        orderId: response.data.order.id,
       };
       dispatch(resetCart());
-      // to load it twice
       // send emails
       await sendPostRequest(bodyOrder, "orders/send-order-email-to-user");
       await sendPostRequest(bodyOrder, "orders/send-order-email-to-admin");
@@ -81,19 +131,12 @@ export default function CartPayment() {
       navigate("/cart-message", { state: { purchaseBody } });
       window.location.reload();
     }
-  };
+  }
 
   const handleCheckBoxChange = () => {
     setCheckbox(!checkbox); // cambia valor de checkbox
     if (!checkbox) {
-      setValues({
-        name: JSON.parse(localStorage.getItem("personalData")).name,
-        address: JSON.parse(localStorage.getItem("personalData")).address,
-        city: JSON.parse(localStorage.getItem("personalData")).city,
-        region: JSON.parse(localStorage.getItem("personalData")).region,
-        phoneNumber: JSON.parse(localStorage.getItem("personalData"))
-          .phoneNumber,
-      });
+      setValues(userDetails);
     } else {
       //checkbox desmarcado
       setValues({
@@ -125,25 +168,48 @@ export default function CartPayment() {
     }
   }, [globalUser, navigate]);
 
-  useEffect(() => {
-    setValues({
-      name: JSON.parse(localStorage.getItem("personalData")).name,
-      address: JSON.parse(localStorage.getItem("personalData")).address,
-      city: JSON.parse(localStorage.getItem("personalData")).city,
-      region: JSON.parse(localStorage.getItem("personalData")).region,
-      phoneNumber: JSON.parse(localStorage.getItem("personalData")).phoneNumber,
-    });
-  }, []);
+  function redirect(route) {
+    // handleOnSubmitMercadoPago();
+    // console.log(values);
+    return async (event) => {
+      event.preventDefault();
+      navigate(route);
+    };
+  }
 
   return (
-    <>
+    <main>
       <Logo />
       <div className="flex flex-col md:flex lg:flex-row">
         <section className="cart-info-left lg:w-[50%] flex flex-col items-center md:items-left px-12">
           <Breadcrumb />
 
           <p className="text-xl text-center md:text-left font-bold capitalize leading-8 break-words mb-5 mt-8">
-            Dirección de Facturación{" "}
+            Resumen del Carrito
+          </p>
+
+          <section className="text-center mb-5">
+            <ul className="mb-4">
+              {useSelector(counterProductos).map((product, index) => (
+                <li key={index} className="mb-2">
+                  {product.title} - {product.quantity} x S/{" "}
+                  {parseFloat(product.price).toFixed(2)}
+                </li>
+              ))}
+            </ul>
+            <p className="font-bold">
+              Tipo de Envio: {capitalize(savedShippingOption)}
+            </p>
+            <p className="font-bold">
+              Envio: S/ {parseFloat(totalShipping).toFixed(2)}
+            </p>
+            <p className="font-bold">
+              Total: S/ {parseFloat(totalAmount).toFixed(2)}
+            </p>
+          </section>
+
+          <p className="text-xl text-center md:text-left font-bold capitalize leading-8 break-words mb-5 mt-8">
+            Dirección de Facturación
           </p>
 
           <form
@@ -180,10 +246,25 @@ export default function CartPayment() {
                 )}
               </React.Fragment>
             ))}
+
+            <div
+              className="flex h-[40px] items-center gap-3 cursor-pointer my-8 justify-center md:justify-normal"
+              onClick={redirect("/cart-shipping")}
+            >
+              <img
+                className="w-6 h-6"
+                src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/fcccf12acd7bdce6bdc28e60b4b662dfbffb70cd/icons/arrow_back.svg"
+                alt=""
+              />
+              <span className="text-sm leading-6 hover:underline">
+                Regresar
+              </span>
+            </div>
           </form>
         </section>
 
-        <section className="lg:w-[50%] flex flex-col justify-start items-start px-5 pt-5 mb-12 md:px-10 m-auto">
+        <section className="lg:w-[50%] flex flex-col justify-start items-start px-5 pt-5 mb-12 md:px-10 ">
+          <button onClick={redirect("/cart-payment")} className="mb-5"></button>
           <CardPayment
             onSubmit={handleOnSubmitMercadoPago}
             initialization={initialization}
@@ -191,6 +272,6 @@ export default function CartPayment() {
           />
         </section>
       </div>
-    </>
+    </main>
   );
 }

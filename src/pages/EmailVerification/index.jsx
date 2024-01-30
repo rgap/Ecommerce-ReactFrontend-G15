@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { sendGetRequest } from "../../services"; // Adjust the import path as necessary
+import { sendGetRequest } from "../../services";
 
 export default function EmailVerification() {
   const navigate = useNavigate();
 
   const [message, setMessage] = useState("Verificando correo electrónico...");
-  const [countdown, setCountdown] = useState(7); // Countdown starts at 7 seconds
-  const [progress, setProgress] = useState(100); // Progress bar starts at 100%
+  const [countdown, setCountdown] = useState(5); // Inicio del conteo de 7 segundos
+  const [progress, setProgress] = useState(100); // Progress bar
 
   useEffect(() => {
     const verifyEmail = async () => {
@@ -35,7 +35,6 @@ export default function EmailVerification() {
           "Error de conexión al servidor. Por favor, verifica tu conexión a internet."
         );
       } finally {
-        // Start countdown regardless of the outcome
         startCountdown();
       }
     };
@@ -52,7 +51,7 @@ export default function EmailVerification() {
         }
         return currentCountdown - 1;
       });
-      setProgress((prevProgress) => prevProgress - 100 / 7);
+      setProgress((prevProgress) => prevProgress - 100 / 5);
     }, 1000);
   };
 

@@ -33,8 +33,7 @@ function Products() {
 
   async function initializeProductsArray() {
     const response = await sendGetRequest("products/get-products-plp/all");
-    console.log("response", response);
-    // console.log(response.data);
+    // console.log("response", response);
     setProductsArray(response.data);
   }
 
@@ -106,7 +105,7 @@ function Products() {
           <div className="my-0 m-auto text-center">
             {productsToShow < filteredProducts.length && (
               <button
-                className="mb-0 mt-8 items-center px-20 py-6 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                className="mb-0 mt-8 items-center px-20 py-6 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100  shadow-lg hover:shadow-xl"
                 onClick={loadMoreProducts}
               >
                 Cargar Más
@@ -115,7 +114,7 @@ function Products() {
 
             {productsToShow > 15 && (
               <button
-                className="mb-0 mt-8 items-center px-20 py-6 bg-[--color-cart-text-button-comp] text-white text-sm capitalize leading-normal transition-transform duration-100"
+                className="mb-0 mt-8 items-center px-20 py-6 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100  shadow-lg hover:shadow-xl"
                 onClick={loadLessProducts}
               >
                 Cargar Menos

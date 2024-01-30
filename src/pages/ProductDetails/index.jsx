@@ -92,7 +92,7 @@ function ProductDetails() {
       addToCart({
         color: selectedColor,
         id: `${productId}.${selectedSize}.${selectedColor}`,
-        name: product.title,
+        title: product.title,
         price: currentPrice,
         quantity: 1,
         size: selectedSize,
@@ -122,7 +122,7 @@ function ProductDetails() {
     product.availableSizes.map((size) => (
       <button
         key={size}
-        className={`p-2 border rounded-md mr-2 ${
+        className={`p-2 border mr-2 rounded-lg shadow-lg hover:shadow-xl ${
           selectedSize === size
             ? "bg-[--color-cart-text-button-comp] text-white"
             : "bg-white hover:bg-gray-300 border-gray-300"
@@ -138,7 +138,7 @@ function ProductDetails() {
       <button
         key={color.name}
         style={{ backgroundColor: color.hexCode }}
-        className={`w-8 h-8 rounded-full mr-2 border-2 ${
+        className={`w-8 h-8 mr-2 border-2  rounded-lg shadow-lg hover:shadow-xl${
           selectedColor === color.name
             ? "border-black"
             : "hover:border-gray-300"
@@ -245,7 +245,7 @@ function ProductDetails() {
                 <div className="mt-4 sm:mt-0">{renderSizes()}</div>
                 <button
                   onClick={handleAddToCart}
-                  className="items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm leading-normal transition-transform duration-300 ease-in-out"
+                  className="items-center px-7 py-4 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm leading-normal transition-transform duration-300 ease-in-out "
                 >
                   Agregar al carrito
                 </button>
