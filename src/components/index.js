@@ -8,6 +8,7 @@ export { default as GoogleLoginButton } from "./GoogleLoginButton";
 export { default as Header } from "./Header";
 export { default as HeaderWhite } from "./HeaderWhite";
 export { default as Logo } from "./Logo";
+export { default as MockGoogleLoginButton } from "./MockGoogleLoginButton";
 export { default as ProductCard } from "./ProductCard";
 export { default as ProductShoppingCart } from "./ProductShoppingCart";
 export { default as QuantityButton } from "./QuantityButton";

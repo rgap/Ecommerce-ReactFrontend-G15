@@ -1,23 +1,32 @@
 /* eslint-disable react/prop-types */
-export default function MockGoogleLoginButton(props) {
-  const handleMockLogin = () => {
-    const mockUserData = {
-      id: "mockGoogleId12345",
-      name: "Beautipol Alpha",
-      email: "beautipol.alpha.1@gmail.com",
-      temporaryPassword: "mockGooglePassword12345",
-      imageUrl:
-        "https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/images/logo/beautipol-logo.png",
-    };
-    props.onUserLogin(mockUserData);
-  };
+import { useEffect } from "react";
 
-  return (
-    <img
-      src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/google.svg"
-      className="cursor-pointer"
-      alt="Google login"
-      onClick={handleMockLogin}
-    />
-  );
+export default function GoogleLoginButton({ onUserLogin }) {
+  useEffect(() => {
+    // Dynamically load the Google Identity Services library script
+    const script = document.createElement("script");
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+
+    script.onload = () => {
+      window.google.accounts.id.initialize({
+        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID, // Replace with your client ID
+        callback: (response) => onUserLogin(response.credential),
+      });
+
+      window.google.accounts.id.renderButton(
+        document.getElementById("googleSignInButton"),
+        { theme: "outline", size: "large" } // Customize the button appearance
+      );
+    };
+
+    // Cleanup function to remove the script when the component unmounts
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, [onUserLogin]); // Depend on props to ensure re-initialization if props change
+
+  return <div id="googleSignInButton"></div>; // This div will be replaced by the Google sign-in button
 }

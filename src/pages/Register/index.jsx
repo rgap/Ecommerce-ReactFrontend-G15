@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GoogleLoginButton, TextField } from "../../components";
@@ -109,57 +109,33 @@ export default function Register() {
     }
   };
 
-  // Login de Google simulado
-  const handleGoogleLoginOrRegister = async (userGoogleData) => {
-    const response = await sendPostRequest(
-      {
-        email: userGoogleData.email,
-      },
-      "users/check-if-email-exists"
-    );
-
-    if (response.ok) {
-      dispatch(saveUser({ email: userGoogleData.email }));
-      navigate("/");
-    } else {
-      await sendPostRequest(
-        {
-          name: userGoogleData.name,
-          email: userGoogleData.email,
-          password: userGoogleData.temporaryPassword,
-          isVerified: true,
-        },
-        "users/register"
-      );
-      dispatch(saveUser({ email: userGoogleData.email }));
-      navigate("/?showModal=true");
-    }
-  };
+  const handleGoogleLoginOrRegister = useCallback(
+    async (idToken) => {
+      try {
+        const response = await sendPostRequest({ token: idToken }, "users/auth/google");
+        if (!response.ok) {
+          throw new Error("Failed to verify Google ID token");
+        }
+        const userData = await response.data;
+        dispatch(saveUser({ email: userData.email }));
+        // User validated
+        navigate("/");
+      } catch (error) {
+        console.error("Error during Google login or registration:", error);
+      }
+    },
+    [dispatch, navigate]
+  );
 
   return (
     <main className="bg-white h-full flex justify-center items-center p-5">
       <div className="bg-white p-6 w-full max-w-[420px] md:min-w-[380px]">
-        <a
-          className="mb-14 flex items-center cursor-pointer"
-          onClick={redirect("/")}
-        >
-          <img
-            className="w-5"
-            src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/arrow_back.svg"
-            alt=""
-          />
-          <span className="ml-5 text-[--color-main-text]">
-            Volver a la página de inicio
-          </span>
+        <a className="mb-14 flex items-center cursor-pointer" onClick={redirect("/")}>
+          <img className="w-5" src="https://raw.githubusercontent.com/rgap/Ecommerce-G15-ImageRepository/main/icons/arrow_back.svg" alt="" />
+          <span className="ml-5 text-[--color-main-text]">Volver a la página de inicio</span>
         </a>
-        <h1 className="font-semibold mb-5 text-center capitalize text-3xl">
-          Crear Cuenta
-        </h1>
-        <form
-          className="mb-5 flex flex-col gap-3"
-          onSubmit={handleFormSubmit}
-          autoComplete="off"
-        >
+        <h1 className="font-semibold mb-5 text-center capitalize text-3xl">Crear Cuenta</h1>
+        <form className="mb-5 flex flex-col gap-3" onSubmit={handleFormSubmit} autoComplete="off">
           {inputs.map((input) => (
             <div key={input.name}>
               <TextField
@@ -169,9 +145,7 @@ export default function Register() {
                 value={values[input.name]}
                 onChange={handleInputChange}
               />
-              <span className="text-red-500 mt-1 text-xs">
-                {errors[input.name]}
-              </span>
+              <span className="text-red-500 mt-1 text-xs">{errors[input.name]}</span>
             </div>
           ))}
 
@@ -181,33 +155,28 @@ export default function Register() {
 
           <div className="h-10 flex justify-center items-center mb-2">
             <p className="text-sm capitalize">ya tienes una cuenta?</p>
-            <a
-              onClick={redirect("/login")}
-              className="pl-4 text-center text-sm capitalize cursor-pointer"
-            >
+            <a onClick={redirect("/login")} className="pl-4 text-center text-sm capitalize cursor-pointer">
               Ingresar
             </a>
           </div>
-          <div className="flex flex-col items-center justify-center text-xs mb-6 text-center gap-6">
-            <p>o entra con tu cuenta gmail</p>
-            <GoogleLoginButton onUserLogin={handleGoogleLoginOrRegister} />
-          </div>
-
-          <div className="text-center">
-            <span className="text-neutral-950 text-xs">
-              Al hacer clic en &quot;Registrarse&quot;, aceptas los
-            </span>
-            &nbsp;
-            <a href="#" className="text-xs underline">
-              terminos y condiciones
-            </a>
-            <span className="text-xs"> y la </span>
-            <a href="#" className="text-xs underline">
-              política de privacidad
-            </a>
-            <span className="text-xs">.</span>
-          </div>
         </form>
+        <div className="flex flex-col items-center justify-center text-xs mb-6 text-center gap-6">
+          <p>o entra con tu cuenta gmail</p>
+          <GoogleLoginButton onUserLogin={handleGoogleLoginOrRegister} />
+        </div>
+
+        <div className="text-center">
+          <span className="text-neutral-950 text-xs">Al hacer clic en &quot;Registrarse&quot;, aceptas los</span>
+          &nbsp;
+          <a href="#" className="text-xs underline">
+            terminos y condiciones
+          </a>
+          <span className="text-xs"> y la </span>
+          <a href="#" className="text-xs underline">
+            política de privacidad
+          </a>
+          <span className="text-xs">.</span>
+        </div>
       </div>
     </main>
   );

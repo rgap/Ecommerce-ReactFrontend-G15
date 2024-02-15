@@ -109,7 +109,7 @@ export default function Home() {
             <div className="my-10 font-semibold text-3xl text-center sm:text-left">
               <span>Polos de Diseño Variado</span>
             </div>
-            {productsArray.length > 0 ? (
+            {productsArray && productsArray.length > 0 ? (
               <div className="my-4 grid grid-cols-2 md:grid-cols-4 gap-4">
                 {productsArray.slice(0, 4).map((product) => (
                   <ProductCard key={product.id} product={product} />
