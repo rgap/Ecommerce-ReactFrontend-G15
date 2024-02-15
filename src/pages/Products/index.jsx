@@ -86,7 +86,8 @@ function Products() {
         {/* Grilla */}
 
         <div className="my-4 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-[1100px]">
-          {filteredProducts.slice(0, productsToShow).length > 0 ? (
+          {filteredProducts &&
+          filteredProducts.slice(0, productsToShow).length > 0 ? (
             filteredProducts
               .slice(0, productsToShow)
               .map((product) => (
@@ -101,7 +102,7 @@ function Products() {
 
         {/* Boton de cargar mas */}
 
-        {productsArray.length > 0 ? (
+        {productsArray && productsArray.length > 0 ? (
           <div className="my-0 m-auto text-center">
             {productsToShow < filteredProducts.length && (
               <button
