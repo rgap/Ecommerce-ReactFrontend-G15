@@ -49,8 +49,7 @@ export default function Header() {
     <header className="bg-[--color-bg]">
       <div className="header-bar py-2 flex items-center justify-center">
         <marquee className="text-xs md:text-sm tracking-wide">
-          Delivery <span className="font-semibold">gratis</span> por compras a
-          partir de <span className="font-semibold">S/199.00</span> soles
+          Delivery <span className="font-semibold">gratis</span> por compras a partir de <span className="font-semibold">S/199.00</span> soles
         </marquee>
       </div>
 
@@ -66,20 +65,12 @@ export default function Header() {
         <div className="nav-center">
           <ul className="flex gap-6 text-left text-xs md:text-lg md:gap-x-12">
             <li className="cursor-pointer flex items-center">
-              <a
-                className="nav-center-link"
-                onClick={redirect("/products")}
-                data-link-alt="Productos"
-              >
-                <span> Productos </span>
+              <a className="nav-center-link" onClick={redirect("/products")} data-link-alt="Productos">
+                <span>Productos</span>
               </a>
             </li>
             <li className="cursor-pointer hidden md:block">
-              <a
-                className="nav-center-link"
-                onClick={redirect("/updates")}
-                data-link-alt="Novedades"
-              >
+              <a className="nav-center-link" onClick={redirect("/news")} data-link-alt="Novedades">
                 <span>Novedades</span>
               </a>
             </li>
@@ -96,11 +87,7 @@ export default function Header() {
               />
             </a>
           ) : (
-            <a
-              className="nav-center-link cursor-pointer"
-              data-link-alt="Iniciar Sesión"
-              onClick={redirect("login")}
-            >
+            <a className="nav-center-link cursor-pointer" data-link-alt="Iniciar Sesión" onClick={redirect("login")}>
               <span>Iniciar Sesión</span>
             </a>
           )}
@@ -122,12 +109,8 @@ export default function Header() {
               <section className="absolute right-[-20px] mt-2 py-2 w-[280px] shadow-xl z-50 bg-[#9dbf97] text-sm text-center">
                 <div className="flex items-center px-10 pt-4">
                   <div className="flex flex-col align-center gap-1">
-                    <div className="capitalize m-auto font-bold">
-                      Tu carrito de compra esta vacio
-                    </div>
-                    <div className="capitalize m-auto">
-                      Aun no sabes que elegir?
-                    </div>
+                    <div className="capitalize m-auto font-bold">Tu carrito de compra esta vacio</div>
+                    <div className="capitalize m-auto">Aun no sabes que elegir?</div>
                     <button
                       className="m-auto mb-6 mt-2 items-center px-2 py-3 bg-[--color-cart-text-button-comp] hover:bg-[--color-cart-text-button-comp-hover] text-white text-sm capitalize leading-normal transition-transform duration-100"
                       onClick={redirect("/products")}
